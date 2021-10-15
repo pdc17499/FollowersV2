@@ -148,7 +148,7 @@ export function CommunitiesDetail({ navigation }: any) {
         return (
             <View>
                 <View style={styles.image} >
-                    <Image source={{ uri: DATA.community.uri }} blurRadius={2} style={{ flex: 1, borderRadius: 25, }}></Image>
+                    <Image source={{ uri: DATA.community.uri }} blurRadius={2} style={{ flex: 1, borderRadius: 10, }}></Image>
                     <View style={styles.inImage}>
                         <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24, color: 'white', alignSelf: 'center' }}>
                             {DATA.community.name}</Text>
@@ -165,7 +165,7 @@ export function CommunitiesDetail({ navigation }: any) {
                         <Chat />
                         <View style={{ marginLeft: 20, width: 200 }}>
                             <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 18, color: '#191B1D' }}>Real-time Forum</Text>
-                            <Text numberOfLines={2} style={{ fontFamily: 'NotoSans', fontSize: 16, color: '#5A636D', marginTop: 5 }}>
+                            <Text style={{ fontFamily: 'NotoSans', fontSize: 16, color: '#5A636D', marginTop: 5 }}>
                                 Join now to give real-time PR about your self</Text>
                         </View>
                     </View>

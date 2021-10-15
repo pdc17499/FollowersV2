@@ -37,5 +37,17 @@ export * from './Facebook';
 export * from './Line';
 export * from './Rectangle';
 export * from './Check';
+export * from './Copy';
+export * from './SignOut';
+export * from './Prohibit';
+export * from './UserCircle';
+export * from './Warning';
+export * from './PencilLine';
+export * from './BigCoin';
+export * from './Users';
+export * from './Crown';
+export * from './CaretLeft';
+
+export * from './LockKeyOpen';
 
 export * from './RectangleChecked';

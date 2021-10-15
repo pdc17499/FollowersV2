@@ -11,3 +11,4 @@ export * from './Communities';
 export * from './Account';
 export * from './PurchaseCoin';
 export * from './CommunitiesDetail';
+export * from './Profile';

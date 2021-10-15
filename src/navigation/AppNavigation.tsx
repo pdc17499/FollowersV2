@@ -10,6 +10,7 @@ import {
     Login,
     PersonalIntroduction,
     PersonalIntroduction2,
+    Profile,
     PurchaseCoin,
     Register,
     ResetPassword,
@@ -28,7 +29,7 @@ function MyHome() {
         <Tab.Navigator tabBar={props => <TabBar {...props} />}>
             <Tab.Screen name="Home" component={Home} options={{
                 headerShown: false,
-               
+
             }} />
 
             <Tab.Screen name="Communities" component={Communities} options={{
@@ -120,6 +121,13 @@ export function AppNavigation() {
                 <Stack.Screen
                     name="CommunitiesDetail"
                     component={CommunitiesDetail}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="Profile"
+                    component={Profile}
                     options={{
                         headerShown: false,
                     }}
