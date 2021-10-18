@@ -14,7 +14,7 @@ export const communitiesDetail: any = {
         friend: '2050',
         description: 'Typical creator. Bacon guru. Gamer',
         avatar:
-          'https://follower-matching-api.adamo.tech/storage/avatars/34.jpg',
+          'https://i.pinimg.com/564x/9c/a1/6c/9ca16c759e0213382b850d9ec3dd1756.jpg',
       },
       {
         id: 2,
@@ -25,7 +25,7 @@ export const communitiesDetail: any = {
         friend: '2451',
         description: 'I want to empower entrepreneur in my community',
         avatar:
-          'https://i.pinimg.com/564x/07/9f/a2/079fa2e053951bb3f05e2125244298cb.jpg',
+          'https://i.pinimg.com/236x/2a/98/e5/2a98e52025eca195717746b21619ea26.jpg',
       },
       {
         id: 3,
@@ -36,7 +36,7 @@ export const communitiesDetail: any = {
         friend: '780',
         description: 'Social media ninja.TV evangelist',
         avatar:
-          'https://follower-matching-api.adamo.tech/storage/avatars/34.jpg',
+          'https://i.pinimg.com/564x/af/f3/ac/aff3ac1c81456341e12bcd262b932ab6.jpg',
       },
       {
         id: 4,
@@ -47,7 +47,7 @@ export const communitiesDetail: any = {
         friend: '953',
         description: 'Proud music nerd. Hard core gamer',
         avatar:
-          'https://i.pinimg.com/564x/07/9f/a2/079fa2e053951bb3f05e2125244298cb.jpg',
+          'https://i.pinimg.com/236x/56/ec/bf/56ecbfc3f009c6cebeed22634c27e1ea.jpg',
       },
       {
         id: 5,
@@ -59,7 +59,7 @@ export const communitiesDetail: any = {
         description:
           'Unapogetic travel nerd. Professional entrepreneur. Explorer',
         avatar:
-          'https://follower-matching-api.adamo.tech/storage/avatars/34.jpg',
+          'https://i.pinimg.com/236x/1d/74/af/1d74af154b32a6e308287212264321fa.jpg',
       },
       {
         id: 6,
@@ -83,7 +83,7 @@ export const communitiesDetail: any = {
         description:
           'Unapogetic travel nerd. Professional entrepreneur. Explorer',
         avatar:
-          'https://follower-matching-api.adamo.tech/storage/avatars/34.jpg',
+          'https://i.pinimg.com/236x/56/ec/bf/56ecbfc3f009c6cebeed22634c27e1ea.jpg',
       },
       {
         id: 8,
@@ -94,7 +94,7 @@ export const communitiesDetail: any = {
         friend: '995',
         description: 'Freelancer. Explorer',
         avatar:
-          'https://follower-matching-api.adamo.tech/storage/avatars/34.jpg',
+          'https://i.pinimg.com/236x/2a/98/e5/2a98e52025eca195717746b21619ea26.jpg',
       },
       {
         id: 9,
@@ -117,7 +117,7 @@ export const communitiesDetail: any = {
         friend: '953',
         description: 'Proud music nerd. Hard core gamer',
         avatar:
-          'https://i.pinimg.com/564x/07/9f/a2/079fa2e053951bb3f05e2125244298cb.jpg',
+          'https://i.pinimg.com/236x/2a/98/e5/2a98e52025eca195717746b21619ea26.jpg',
       },
       {
         id: 11,
@@ -128,7 +128,7 @@ export const communitiesDetail: any = {
         friend: '9153',
         description: 'Proud music nerd. Hard core gamer',
         avatar:
-          'https://i.pinimg.com/564x/07/9f/a2/079fa2e053951bb3f05e2125244298cb.jpg',
+          'https://i.pinimg.com/236x/ee/4f/fc/ee4ffcb92668da27b314ee99e4241bb6.jpg',
       },
       {
         id: 12,
@@ -139,7 +139,7 @@ export const communitiesDetail: any = {
         friend: '953',
         description: 'Writer. Singer. Hard core gamer',
         avatar:
-          'https://i.pinimg.com/564x/07/9f/a2/079fa2e053951bb3f05e2125244298cb.jpg',
+          'https://i.pinimg.com/236x/1d/74/af/1d74af154b32a6e308287212264321fa.jpg',
       },
       {
         id: 13,
@@ -161,7 +161,7 @@ export const communitiesDetail: any = {
         friend: '3953',
         description: 'Writer. Singer. Hard core gamer',
         avatar:
-          'https://i.pinimg.com/564x/07/9f/a2/079fa2e053951bb3f05e2125244298cb.jpg',
+          'https://i.pinimg.com/236x/1d/74/af/1d74af154b32a6e308287212264321fa.jpg',
       },
     ],
   },

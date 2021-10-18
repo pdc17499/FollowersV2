@@ -117,12 +117,12 @@ export function PersonalIntroduction({ navigation }: any) {
                                     return (
                                         <View style={styles.dropdown3BtnChildStyle}>
                                             {selectedItem ? (
-                                                <Image
-                                                    source={selectedItem.image}
+                                                <View>
+                                                    {selectedItem.image}
+                                                </View>
 
-                                                />
                                             ) : (
-                                                <Image source={INSTAGRAM} />
+                                                <Instagram />
                                             )}
                                             <View style={{ width: 20 }}></View>
                                             <CaretDown />
@@ -134,8 +134,12 @@ export function PersonalIntroduction({ navigation }: any) {
                                 renderCustomizedRowChild={(item, index) => {
                                     return (
                                         <View style={styles.dropdown3RowChildStyle}>
-                                            <Image source={item.image} />
-                                            <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
+
+                                            <View>
+                                                {item.image}
+                                            </View>
+                                            {/* <Image source={item.image} />
+                                            <Text style={styles.dropdown3RowTxt}>{item.title}</Text> */}
                                         </View>
                                     );
                                 }}
@@ -166,11 +170,13 @@ export function PersonalIntroduction({ navigation }: any) {
                                     return (
                                         <View style={styles.dropdown3BtnChildStyle}>
                                             {selectedItem ? (
-                                                <Image source={selectedItem.image} />
-                                            ) : (
-                                                <Image source={INSTAGRAM} />
-                                            )}
+                                                <View>
+                                                    {selectedItem.image}
+                                                </View>
 
+                                            ) : (
+                                                <Instagram />
+                                            )}
                                             <View style={{ width: 20 }}></View>
                                             <CaretDown />
                                         </View>
@@ -181,8 +187,12 @@ export function PersonalIntroduction({ navigation }: any) {
                                 renderCustomizedRowChild={(item, index) => {
                                     return (
                                         <View style={styles.dropdown3RowChildStyle}>
-                                            <Image source={item.image} />
-                                            <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
+
+                                            <View>
+                                                {item.image}
+                                            </View>
+                                            {/* <Image source={item.image} />
+                                           <Text style={styles.dropdown3RowTxt}>{item.title}</Text> */}
                                         </View>
                                     );
                                 }}
@@ -213,14 +223,13 @@ export function PersonalIntroduction({ navigation }: any) {
                                     return (
                                         <View style={styles.dropdown3BtnChildStyle}>
                                             {selectedItem ? (
-                                                <Image
-                                                    source={selectedItem.image}
+                                                <View>
+                                                    {selectedItem.image}
+                                                </View>
 
-                                                />
                                             ) : (
-                                                <Image source={INSTAGRAM} />
+                                                <Instagram />
                                             )}
-
                                             <View style={{ width: 20 }}></View>
                                             <CaretDown />
                                         </View>
@@ -231,8 +240,12 @@ export function PersonalIntroduction({ navigation }: any) {
                                 renderCustomizedRowChild={(item, index) => {
                                     return (
                                         <View style={styles.dropdown3RowChildStyle}>
-                                            <Image source={item.image} />
-                                            <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
+
+                                            <View>
+                                                {item.image}
+                                            </View>
+                                            {/* <Image source={item.image} />
+                                           <Text style={styles.dropdown3RowTxt}>{item.title}</Text> */}
                                         </View>
                                     );
                                 }}
@@ -264,14 +277,13 @@ export function PersonalIntroduction({ navigation }: any) {
                                     return (
                                         <View style={styles.dropdown3BtnChildStyle}>
                                             {selectedItem ? (
-                                                <Image
-                                                    source={selectedItem.image}
+                                                <View>
+                                                    {selectedItem.image}
+                                                </View>
 
-                                                />
                                             ) : (
-                                                <Image source={INSTAGRAM} />
+                                                <Instagram />
                                             )}
-
                                             <View style={{ width: 20 }}></View>
                                             <CaretDown />
                                         </View>
@@ -282,12 +294,15 @@ export function PersonalIntroduction({ navigation }: any) {
                                 renderCustomizedRowChild={(item, index) => {
                                     return (
                                         <View style={styles.dropdown3RowChildStyle}>
-                                            <Image source={item.image} />
-                                            <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
+
+                                            <View>
+                                                {item.image}
+                                            </View>
+                                            {/* <Image source={item.image} />
+                                            <Text style={styles.dropdown3RowTxt}>{item.title}</Text> */}
                                         </View>
                                     );
-                                }}
-                            />
+                                }} />
 
                             <View>
                                 <TextInput style={styles.input} ></TextInput>
@@ -322,7 +337,6 @@ export function PersonalIntroduction({ navigation }: any) {
             </View>
         </SafeAreaView>
     )
-
 }
 
 const styles = StyleSheet.create({

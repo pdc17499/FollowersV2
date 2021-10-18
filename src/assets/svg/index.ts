@@ -47,6 +47,7 @@ export * from './BigCoin';
 export * from './Users';
 export * from './Crown';
 export * from './CaretLeft';
+export * from './Bell';
 
 export * from './LockKeyOpen';
 

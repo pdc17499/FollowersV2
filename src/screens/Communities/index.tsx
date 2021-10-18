@@ -13,13 +13,14 @@ export function Communities({ navigation }: any) {
     const [filteredDataSource, setFilteredDataSource] = useState(DATA);
 
     const searchFilterFunction = (text: any) => {
+        const text1 = text.trim()
         // Check if searched text is not blank
-        if (text) {
+        if (text1) {
             const newData = DATA.filter(function (item: any) {
                 const itemData = item.name
                     ? item.name.toUpperCase()
                     : ''.toUpperCase();
-                const textData = text.toUpperCase();
+                const textData = text1.toUpperCase();
                 return itemData.indexOf(textData) > -1;
             });
             setFilteredDataSource(newData);

@@ -5,3 +5,5 @@ export * from './TabBar';
 export * from './RenderModal';
 export * from './ButtonLeft';
 export * from './ButtonRight';
+export * from './JoinedCommunitiesBlock';
+export * from './ActivitiesLog';

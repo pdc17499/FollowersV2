@@ -2,6 +2,7 @@ export const joinedCommunities: any = {
   data: [
     {
       id: '1',
+
       title: 'Food',
       uri: 'https://i.pinimg.com/564x/d3/6d/46/d36d462db827833805497d9ea78a1343.jpg',
     },
@@ -12,7 +13,7 @@ export const joinedCommunities: any = {
     },
     {
       id: '3',
-      title: 'Car',
+      title: 'Western Movies ',
       uri: 'https://i.pinimg.com/236x/e2/9f/57/e29f57f32f8ce692940202c0b3ef5289.jpg',
     },
     // {

@@ -15,18 +15,22 @@ import {
     Register,
     ResetPassword,
     ResetPasswordSuccessfully,
+    UpdateProfile,
     Verification,
 } from '@screens';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabBar } from '@components';
 import { AccountTab, CommunitiesTab, HomeTab } from '@svg';
+import { ReduxState } from '@interfaces';
+import { useSelector } from '@redux';
+
 
 const Tab = createBottomTabNavigator();
 
 function MyHome() {
 
     return (
-        <Tab.Navigator tabBar={props => <TabBar {...props} />}>
+        <Tab.Navigator initialRouteName={'Home'} tabBar={props => <TabBar {...props} />}>
             <Tab.Screen name="Home" component={Home} options={{
                 headerShown: false,
 
@@ -45,10 +49,11 @@ function MyHome() {
 const Stack = createNativeStackNavigator();
 
 export function AppNavigation() {
+    const TOKEN = useSelector((state: ReduxState) => state.user.token);
 
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName={`${TOKEN === '' ? 'Login' : 'MyHome'}`}>
                 <Stack.Screen
                     name="Login"
                     component={Login}
@@ -128,6 +133,13 @@ export function AppNavigation() {
                 <Stack.Screen
                     name="Profile"
                     component={Profile}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="UpdateProfile"
+                    component={UpdateProfile}
                     options={{
                         headerShown: false,
                     }}

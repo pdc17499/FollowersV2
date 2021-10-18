@@ -1,11 +1,12 @@
 import { ButtonLeft, ButtonRight } from '@components';
 import { ReduxState } from '@interfaces';
 import { dataUser, joinedCommunities } from '@mocks';
-import { useSelector } from '@redux';
 import { Copy, LockKeyOpen, Prohibit, SignOut, UserCircle, Warning } from '@svg';
 import { WIDTH } from '@utils'
 import React, { useState } from 'react'
 import { View, Text, SafeAreaView, ScrollView, StyleSheet, Image, FlatList, Alert, Modal, TouchableOpacity } from 'react-native'
+import { Cong, loginThunk, setUserInfo, setToken, logout } from '@redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const FLATLIST = [
     {
@@ -29,6 +30,7 @@ const FLATLIST = [
 const JOINED = joinedCommunities.data
 
 export function Account({ navigation }: any) {
+    const dispatch = useDispatch()
 
     const [modalVisible, setModalVisible] = useState(false);
     const DATA = useSelector((state: ReduxState) => state.user.userInfo);
@@ -44,6 +46,12 @@ export function Account({ navigation }: any) {
                 break;
         }
 
+
+    }
+    const logOut = () => {
+        dispatch(logout())
+        setModalVisible(false)
+        navigation.navigate('Login')
     }
 
     const renderItem = ({ item }: any) => (
@@ -63,7 +71,7 @@ export function Account({ navigation }: any) {
                         </Text>
 
                         <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 40 }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                            <TouchableOpacity onPress={() => logOut()}>
                                 <ButtonLeft name={'Log out'} />
                             </TouchableOpacity>
 
