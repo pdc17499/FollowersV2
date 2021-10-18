@@ -34,7 +34,7 @@ export function Register({ navigation }: any) {
             // .max(32)
             .required('Please enter your password')
             .matches(
-                /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*]{6,32}$/,
+                /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
                 "Password must have 6-32 characters including numbers and letters"
             ),
 

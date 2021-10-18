@@ -6,3 +6,4 @@ export * from './communitiesHome';
 export * from './communitiesDetail';
 export * from './activitiesLog';
 export * from './joinedCommunities';
+export * from './approval';

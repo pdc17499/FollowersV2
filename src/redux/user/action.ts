@@ -6,6 +6,7 @@ import {
   SET_ROLE,
   SET_TOKEN,
   SET_USER_INFO,
+  SET_AVATAR,
 } from './types';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
@@ -16,6 +17,15 @@ export const setUserInfo = (userInfo: any): AuthActionTypes => {
     type: SET_USER_INFO,
     payload: {
       userInfo,
+    },
+  };
+};
+
+export const setAvatar = (avatar: string): AuthActionTypes => {
+  return {
+    type: SET_TOKEN,
+    payload: {
+      avatar,
     },
   };
 };

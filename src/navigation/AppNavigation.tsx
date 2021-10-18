@@ -17,13 +17,13 @@ import {
     ResetPasswordSuccessfully,
     UpdateProfile,
     Verification,
+    WaitingForApprovalScreen,
 } from '@screens';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabBar } from '@components';
 import { AccountTab, CommunitiesTab, HomeTab } from '@svg';
 import { ReduxState } from '@interfaces';
-import { useSelector } from '@redux';
-
+import { useSelector } from 'react-redux'
 
 const Tab = createBottomTabNavigator();
 
@@ -140,6 +140,13 @@ export function AppNavigation() {
                 <Stack.Screen
                     name="UpdateProfile"
                     component={UpdateProfile}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="WaitingForApproval"
+                    component={WaitingForApprovalScreen}
                     options={{
                         headerShown: false,
                     }}

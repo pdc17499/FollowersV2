@@ -1,22 +1,45 @@
 import { PROFILE } from '@assets';
-import { Back, CaretLeft, PencilLine } from '@svg'
+import { Back, CaretLeft, Check, Facebook, Instagram, PencilLine, Twitter, UpdateCheck, Youtube } from '@svg'
 import { HEIGHT, WIDTH } from '@utils'
 import React, { useState } from 'react'
 import { Alert, Image, ImageProps, PermissionsAndroid, Picker, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import ImagePicker, { ImageOrVideo } from 'react-native-image-crop-picker';
 import { ReduxState } from '@interfaces';
-import { useSelector } from '@redux';
-
-
+import { setAvatar } from '@redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { SNSAccounts } from '@components';
+import { dataUser } from '@mocks';
+// const USER = dataUser.data.user;
 
 export function UpdateProfile({ navigation }: any) {
-    const [text1, setText1] = useState('Matssura Yuki')
+    const USER = useSelector((state: ReduxState) => state.user.userInfo);
+    console.log('user', USER);
+
+    const [text1, setText1] = useState(USER.username)
     const [text2, setText2] = useState('')
     const [selectedGender, setSelectedGender] = useState("Male");
     const [selectedYear, setSelectedYear] = useState("2000");
+    const [filePath, setFilePath] = useState(USER.avatar);
 
-    const USER = useSelector((state: ReduxState) => state.user.userInfo);
+    const dispatch = useDispatch()
+
+    const openGallery = (callback: (arg0: ImageOrVideo) => void) => {
+        // console.tron.warn('open gallery')
+        ImagePicker.openPicker({
+            width: 1024,
+            height: 1024,
+            cropping: true
+        }).then((image) => {
+            if (typeof callback === 'function') {
+                callback(image)
+                console.log(image);
+            }
+            setFilePath(image.path)
+            console.log(image);
+        })
+    }
+
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -25,17 +48,19 @@ export function UpdateProfile({ navigation }: any) {
                     <TouchableOpacity onPress={() => navigation.navigate('Account')}>
                         <Back />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: '23%', marginRight: '20%' }}>
+                    <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: '21%', marginRight: '20%' }}>
                         Update profile</Text>
                 </View>
 
                 <View>
                     <Text style={styles.title}>Profile Picture</Text>
                 </View>
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <Image source={{ uri: USER.avatar }} style={styles.avatar}></Image>
-                    <Text style={{ color: '#3FAEC7', marginTop: 15, fontSize: 16, fontFamily: 'NotoSans-Bold' }}>Choose picture</Text>
-                </View>
+                <TouchableOpacity onPress={() => openGallery()}>
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <Image source={{ uri: filePath }} style={styles.avatar}></Image>
+                        <Text style={{ color: '#3FAEC7', marginTop: 15, fontSize: 16, fontFamily: 'NotoSans-Bold' }}>Choose picture</Text>
+                    </View>
+                </TouchableOpacity>
 
                 <View><Text style={styles.title}>Profile info</Text></View>
 
@@ -45,7 +70,7 @@ export function UpdateProfile({ navigation }: any) {
                 </View>
                 <View>
                     <Text style={styles.minitext}>Username</Text>
-                    <TextInput style={styles.input} value={text1} onChangeText={(text) => setText1(text)}></TextInput>
+                    <TextInput style={styles.input} value={text1} onChangeText={(text1) => setText1(text1)}></TextInput>
                 </View>
 
                 <View style={{ flexDirection: 'row' }}>
@@ -84,8 +109,17 @@ export function UpdateProfile({ navigation }: any) {
                 </View>
 
                 <View>
-                    <Text style={styles.minitext}>Username</Text>
-                    <TextInput style={styles.input2} numberOfLines={4} value={text2} onChangeText={(text) => setText2(text)}></TextInput>
+                    <Text style={styles.minitext}>Introduction</Text>
+
+                    <TextInput style={styles.input2} multiline={true} numberOfLines={4} maxLength={120} value={text2} onChangeText={(text) => setText2(text)}></TextInput>
+                </View>
+
+                <View><Text style={styles.title}>SNS accounts</Text></View>
+                <SNSAccounts />
+                <View style={{ height: 160 }}></View>
+                <View style={styles.update}>
+                    <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: 'white', marginRight: 10 }}>Update</Text>
+                    <UpdateCheck />
                 </View>
 
 
@@ -174,7 +208,7 @@ const styles = StyleSheet.create({
         borderRadius: 8
     },
     input2: {
-        paddingLeft: 15,
+        padding: 15,
         width: '100%',
         height: 120,
         backgroundColor: '#F6F5E8',
@@ -182,7 +216,22 @@ const styles = StyleSheet.create({
         borderColor: '#F6F5E8',
         fontFamily: 'NotoSans',
         fontSize: 16,
-        lineHeight: 22,
-        borderRadius: 8
+        borderRadius: 8,
+        textAlignVertical: "top"
+
     },
+    update: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#3FAEC7',
+        borderRadius: 18,
+        // marginTop: 30,
+        width: '100%',
+        height: 58,
+        position: 'absolute',
+        bottom: 70,
+
+
+    }
 })

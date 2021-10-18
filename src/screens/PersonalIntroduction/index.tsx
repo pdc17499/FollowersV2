@@ -21,7 +21,6 @@ export function PersonalIntroduction({ navigation }: any) {
         setNumb(numb - 1)
     }
 
-
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={{ flex: 1 }}>
@@ -84,12 +83,7 @@ export function PersonalIntroduction({ navigation }: any) {
                             renderCustomizedRowChild={(item, index) => {
                                 return (
                                     <View style={styles.dropdown3RowChildStyle}>
-
-                                        <View>
-                                            {item.image}
-                                        </View>
-                                        {/* <Image source={item.image} />
-                                        <Text style={styles.dropdown3RowTxt}>{item.title}</Text> */}
+                                        <View>{item.image}</View>
                                     </View>
                                 );
                             }}
@@ -134,12 +128,9 @@ export function PersonalIntroduction({ navigation }: any) {
                                 renderCustomizedRowChild={(item, index) => {
                                     return (
                                         <View style={styles.dropdown3RowChildStyle}>
-
                                             <View>
                                                 {item.image}
                                             </View>
-                                            {/* <Image source={item.image} />
-                                            <Text style={styles.dropdown3RowTxt}>{item.title}</Text> */}
                                         </View>
                                     );
                                 }}
@@ -153,7 +144,6 @@ export function PersonalIntroduction({ navigation }: any) {
                             </View>
                         </View>
                         : null
-
                     }
 
                     {(numb >= 3) == true
@@ -187,12 +177,9 @@ export function PersonalIntroduction({ navigation }: any) {
                                 renderCustomizedRowChild={(item, index) => {
                                     return (
                                         <View style={styles.dropdown3RowChildStyle}>
-
                                             <View>
                                                 {item.image}
                                             </View>
-                                            {/* <Image source={item.image} />
-                                           <Text style={styles.dropdown3RowTxt}>{item.title}</Text> */}
                                         </View>
                                     );
                                 }}
@@ -240,12 +227,9 @@ export function PersonalIntroduction({ navigation }: any) {
                                 renderCustomizedRowChild={(item, index) => {
                                     return (
                                         <View style={styles.dropdown3RowChildStyle}>
-
                                             <View>
                                                 {item.image}
                                             </View>
-                                            {/* <Image source={item.image} />
-                                           <Text style={styles.dropdown3RowTxt}>{item.title}</Text> */}
                                         </View>
                                     );
                                 }}
@@ -280,7 +264,6 @@ export function PersonalIntroduction({ navigation }: any) {
                                                 <View>
                                                     {selectedItem.image}
                                                 </View>
-
                                             ) : (
                                                 <Instagram />
                                             )}
@@ -294,18 +277,15 @@ export function PersonalIntroduction({ navigation }: any) {
                                 renderCustomizedRowChild={(item, index) => {
                                     return (
                                         <View style={styles.dropdown3RowChildStyle}>
-
                                             <View>
                                                 {item.image}
                                             </View>
-                                            {/* <Image source={item.image} />
-                                            <Text style={styles.dropdown3RowTxt}>{item.title}</Text> */}
                                         </View>
                                     );
                                 }} />
 
                             <View>
-                                <TextInput style={styles.input} ></TextInput>
+                                <TextInput style={styles.input}></TextInput>
                                 <TouchableOpacity onPress={deleteAccount} style={{ position: 'absolute', top: 12, right: 10 }}>
                                     <Feather name={'x-circle'} size={25} color={'#3FAEC7'} ></Feather>
                                 </TouchableOpacity>

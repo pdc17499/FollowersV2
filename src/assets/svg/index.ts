@@ -52,3 +52,4 @@ export * from './Bell';
 export * from './LockKeyOpen';
 
 export * from './RectangleChecked';
+export * from './UpdateCheck';

@@ -12,6 +12,7 @@ import { Cong, loginThunk, setUserInfo, setToken } from '@redux';
 export function Login({ navigation }: any) {
     // const bienA = useSelector((state: ReduxState) => state.user.a);
 
+
     const [showPassword, setShowPassword] = useState(false)
     const formInitialValues = {
         email: '',
@@ -38,6 +39,8 @@ export function Login({ navigation }: any) {
     return (
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
             <ScrollView>
+
+
                 <View style={styles.logo}>
                     <LoginLogo></LoginLogo>
                 </View>
@@ -238,5 +241,11 @@ const styles = StyleSheet.create({
         marginRight: 20,
         color: 'red',
         fontSize: 14,
+    },
+    button: {
+        backgroundColor: '#61e3a5',
+        padding: 10,
+        borderRadius: 10,
+        margin: 10,
     },
 });

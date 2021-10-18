@@ -10,7 +10,7 @@ export const dataUser: any = {
     user: {
       id: 1752648,
       nick_name: 'Matsuura Yuki',
-      username: 'huyquocle',
+      username: 'Matsuura Yuki',
       email: '1@gmail.com',
       password: '12345a',
       status: 1,

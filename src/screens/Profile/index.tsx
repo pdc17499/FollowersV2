@@ -6,7 +6,7 @@ import { PROFILE_BACKGROUND } from '@assets'
 import { ReduxState } from '@interfaces'
 import { useSelector } from '@redux'
 import { ActivitiesLog, JoinedCommunitiesBlock } from '@components'
-import { joinedCommunities } from '@mocks'
+import { dataUser, joinedCommunities } from '@mocks'
 import StyledText from 'react-native-styled-text'
 
 const ACCOUNTS = [
@@ -35,7 +35,7 @@ const ACCOUNTS = [
 const JOINED = joinedCommunities.data
 
 export function Profile({ navigation }: any) {
-    const USER = useSelector((state: ReduxState) => state.user.userInfo);
+    const USER = dataUser.data.user
 
     const Notification = () => (
         <View style={{ marginTop: 60 }}>
@@ -53,13 +53,13 @@ export function Profile({ navigation }: any) {
 
     const BottomRequest = () => (
         <View style={{ marginTop: 50 }}>
-            <View style={styles.bottomRequest}>
+            <TouchableOpacity style={styles.bottomRequest} onPress={() => navigation.navigate('WaitingForApproval')}>
 
                 <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 18, color: '#191B1D', flex: 9 }}>Waiting for  approval</Text>
                 <View style={styles.circle}>
                     <Text style={{ fontSize: 14, fontFamily: 'NotoSans-Bold', color: 'white', alignSelf: 'center', marginTop: 3 }}>5</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
             <View style={styles.bottomRequest}>
                 <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 18, color: '#191B1D', flex: 9 }}>Friend request send</Text>
                 <View style={styles.circle}>

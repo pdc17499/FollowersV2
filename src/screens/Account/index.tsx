@@ -33,7 +33,7 @@ export function Account({ navigation }: any) {
     const dispatch = useDispatch()
 
     const [modalVisible, setModalVisible] = useState(false);
-    const DATA = useSelector((state: ReduxState) => state.user.userInfo);
+    const DATA = dataUser.data.user
 
     const actionMove = (title: any) => {
         switch (title) {
@@ -84,7 +84,6 @@ export function Account({ navigation }: any) {
                 </TouchableOpacity>
 
             </Modal >
-
 
         )
 

@@ -6,83 +6,42 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import SelectDropdown from "react-native-select-dropdown";
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import ImagePicker, { ImageOrVideo } from 'react-native-image-crop-picker';
 import { HEIGHT, WIDTH } from '@utils'
 import { ArrowRight, Logo, Three, Two } from '@svg'
+import { dataUser } from '@mocks';
+import { setUserInfo, setToken, useDispatch } from '@redux';
 
 export function PersonalIntroduction2({ navigation }: any) {
-    const [filePath, setFilePath] = useState({ "assets": [{ "uri": '' }] });
-
-    const requestCameraPermission = async () => {
-        if (Platform.OS === 'android') {
-            try {
-                const granted = await PermissionsAndroid.request(
-                    PermissionsAndroid.PERMISSIONS.CAMERA,
-                    {
-                        title: 'Camera Permission',
-                        message: 'App needs camera permission',
-                    },
-                );
-                // If CAMERA Permission is granted
-                return granted === PermissionsAndroid.RESULTS.GRANTED;
-            } catch (err) {
-                console.warn(err);
-                return false;
-            }
-        } else return true;
-    };
-
-    const requestExternalWritePermission = async () => {
-        if (Platform.OS === 'android') {
-            try {
-                const granted = await PermissionsAndroid.request(
-                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-                    {
-                        title: 'External Storage Write Permission',
-                        message: 'App needs write permission',
-                    },
-                );
-                // If WRITE_EXTERNAL_STORAGE Permission is granted
-                return granted === PermissionsAndroid.RESULTS.GRANTED;
-            } catch (err) {
-                console.warn(err);
-                Alert.alert('Write permission err', err);
-            }
-            return false;
-        } else return true;
-    };
-
-    const chooseFile = (type: any) => {
-        let options = {
-            mediaType: type,
-            maxWidth: 300,
-            maxHeight: 550,
-            quality: 1,
-        };
-        launchImageLibrary(options, (response) => {
-            console.log('Response = ', response);
-
-            if (response.didCancel) {
-                // alert('User cancelled camera picker');
-                return;
-            } else if (response.errorCode == 'camera_unavailable') {
-                Alert.alert('Camera not available on device');
-                return;
-            } else if (response.errorCode == 'permission') {
-                Alert.alert('Permission not satisfied');
-                return;
-            } else if (response.errorCode == 'others') {
-                Alert.alert(response.errorMessage);
-                return;
-            }
-            setFilePath(response);
-        });
-    }
-
+    const [filePath, setFilePath] = useState('');
     const [selectedJob, setSelectedJob] = useState("Singer");
     const [selectedGender, setSelectedGender] = useState("Male");
     const [selectedYear, setSelectedYear] = useState("2000");
     const jobs = ["Singer", "Developer", "Actor", "Other"];
+
+    const openGallery = (callback: (arg0: ImageOrVideo) => void) => {
+        // console.tron.warn('open gallery')
+        ImagePicker.openPicker({
+            width: 1024,
+            height: 1024,
+            cropping: true
+        }).then((image) => {
+            if (typeof callback === 'function') {
+                callback(image)
+                console.log(image);
+            }
+            setFilePath(image.path)
+            console.log(image);
+        })
+    }
+    const dispatch = useDispatch()
+
+    const onStart = () => {
+
+        dispatch(setUserInfo(dataUser.data.user)),
+            dispatch(setToken(dataUser.data.token)),
+            navigation.navigate('MyHome')
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -104,10 +63,9 @@ export function PersonalIntroduction2({ navigation }: any) {
                 <View style={{ marginLeft: WIDTH * 24 / 414, marginTop: HEIGHT * 40 / 896 }}>
                     <Two />
                 </View>
-
-                <TouchableOpacity onPress={() => chooseFile('photo')}>
-                    {(filePath.assets[0].uri === '') == false
-                        ? <Image source={{ uri: filePath.assets[0].uri }}
+                <TouchableOpacity onPress={() => openGallery()}>
+                    {(filePath === '') == false
+                        ? <Image source={{ uri: filePath }}
                             style={{
                                 width: 120, height: 120, borderRadius: 60, alignSelf: 'center',
                                 marginTop: HEIGHT * 52 / 896
@@ -190,7 +148,7 @@ export function PersonalIntroduction2({ navigation }: any) {
 
                 <Text style={styles.minitext}>Introduction </Text>
                 <TextInput multiline={true} numberOfLines={4} maxLength={120} style={styles.introduction} />
-                <TouchableOpacity onPress={() => { navigation.navigate('MyHome') }}>
+                <TouchableOpacity onPress={() => onStart()}>
 
                     <View style={styles.next} >
                         <Text style={{ fontSize: 16, fontFamily: 'NotoSans', fontWeight: '600', color: "white", lineHeight: 22, marginRight: 5 }}>
@@ -370,4 +328,3 @@ const styles = StyleSheet.create({
         width: 250,
     },
 })
-

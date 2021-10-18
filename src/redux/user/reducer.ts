@@ -5,6 +5,7 @@ import {
   SET_ROLE,
   SET_TOKEN,
   SET_USER_INFO,
+  SET_AVATAR,
 } from './types';
 import { UserState } from '@interfaces';
 import _ from 'lodash';
@@ -35,6 +36,10 @@ export const userReducer: Reducer<UserState, AuthActionTypes> = (
   switch (type) {
     case SET_TOKEN:
       return { ...state, token: payload.token };
+    case SET_AVATAR:
+      return _.assign({}, state, {
+        userInfo: _.assign({}, state.userInfo.avatar, payload.avatar),
+      });
     case SET_ROLE:
       return Object.assign({}, state, payload);
     case SET_USER_INFO:

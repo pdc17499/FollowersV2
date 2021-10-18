@@ -7,6 +7,9 @@ import { AppNavigation } from '@navigation';
 import { Provider } from 'react-redux';
 import { store, persistor } from './src/redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { I18n } from '@utils';
+
+import { useTranslation } from 'react-i18next';
 
 const Stack = createNativeStackNavigator();
 
