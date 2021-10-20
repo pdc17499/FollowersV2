@@ -2,23 +2,34 @@ import React from 'react';
 
 import SplashScreen from 'react-native-splash-screen';
 import { useEffect } from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Platform, NativeModules } from 'react-native';
 import { AppNavigation } from '@navigation';
 import { Provider } from 'react-redux';
 import { store, persistor } from './src/redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { I18n } from '@utils';
-
-import { useTranslation } from 'react-i18next';
-
-const Stack = createNativeStackNavigator();
+import i18next from 'i18next';
 
 const App = () => {
   useEffect(() => {
     setTimeout(function () {
+      getLanguage();
       SplashScreen.hide();
     }, 2000);
   }, []);
+
+  const getLanguage = () => {
+    const deviceLanguage =
+      Platform.OS === 'ios'
+        ? NativeModules.SettingsManager.settings.AppleLocale ||
+          NativeModules.SettingsManager.settings.AppleLanguages[0]
+        : NativeModules.I18nManager.localeIdentifier;
+    if (deviceLanguage.includes('ja')) {
+      i18next.changeLanguage('jp');
+    } else {
+      i18next.changeLanguage('en');
+    }
+    console.log('deviceLanguage', deviceLanguage);
+  };
 
   return (
     // <AppNavigation />

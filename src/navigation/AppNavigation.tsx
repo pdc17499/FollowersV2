@@ -3,9 +3,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
     Account,
+    BlockList,
+    ChangePassword,
     Communities,
     CommunitiesDetail,
     ForgotPassword,
+    FriendRequestSent,
     Home,
     Login,
     PersonalIntroduction,
@@ -15,6 +18,7 @@ import {
     Register,
     ResetPassword,
     ResetPasswordSuccessfully,
+    RuiTomoList,
     UpdateProfile,
     Verification,
     WaitingForApprovalScreen,
@@ -147,6 +151,34 @@ export function AppNavigation() {
                 <Stack.Screen
                     name="WaitingForApproval"
                     component={WaitingForApprovalScreen}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="FriendRequestSent"
+                    component={FriendRequestSent}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="RuiTomoList"
+                    component={RuiTomoList}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="BlockList"
+                    component={BlockList}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="ChangePassword"
+                    component={ChangePassword}
                     options={{
                         headerShown: false,
                     }}

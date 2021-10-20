@@ -42,6 +42,13 @@ export function Account({ navigation }: any) {
                 break;
             case 'Your Profile':
                 navigation.navigate('Profile')
+                break;
+            case 'Block List':
+                navigation.navigate('BlockList')
+                break;
+            case 'Change Password':
+                navigation.navigate('ChangePassword')
+                break;
             default:
                 break;
         }

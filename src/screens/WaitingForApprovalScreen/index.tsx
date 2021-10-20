@@ -8,29 +8,47 @@ import {
   Image,
   View,
 } from 'react-native';
-import { ReduxState } from '@interfaces';
-import { useDispatch, useSelector } from 'react-redux';
 import { HEIGHT, WIDTH } from '@utils';
-import React from 'react';
-import { Back, User } from '@svg';
+import React, { useState } from 'react';
+import { Back, CheckCircle, MinusCircle, User } from '@svg';
 import { approval } from '@mocks';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
+import StyledText from 'react-native-styled-text';
 
 
 export function WaitingForApprovalScreen({ navigation }: any) {
 
   const DATA = approval.data
 
-  const renderAccept = () => (
+  const [status, setStatus] = useState(true)
+
+  const MessageComponent = () => (
+    <View style={styles.flashMessage}>
+      {status === true
+        ? <><CheckCircle /><Text style={styles.message}>You have accepted request</Text></>
+        : <><MinusCircle /><Text style={styles.message}>You have rejected request</Text></>
+      }
+    </View >
+  )
+  const renderAccept = ({ value }: any) => (
+
     <View style={{ flexDirection: 'row', marginTop: 15 }}>
-      <View style={styles.accept}>
+      <TouchableOpacity style={styles.accept} onPress={() => {
+        setStatus(true)
+        showMessage({ message: "Simple message", type: "info" })
+
+      }}>
         <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: 'white' }}>Accept</Text>
-      </View>
-      <View style={styles.reject}>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.reject} onPress={() => {
+        setStatus(false)
+        showMessage({ message: "Simple message", type: "info" })
+
+      }}>
         <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: '#A8ACAE' }}>Reject</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   )
-
 
   const renderItem = ({ item }: any) => (
 
@@ -69,9 +87,10 @@ export function WaitingForApprovalScreen({ navigation }: any) {
         </View>
 
         {item.status !== 1
-          ? renderAccept()
+          ? renderAccept(item.name)
           : null}
       </View>
+
     </View>
 
   )
@@ -93,6 +112,8 @@ export function WaitingForApprovalScreen({ navigation }: any) {
           keyExtractor={item => item.title}
           showsVerticalScrollIndicator={false}
         />
+        <FlashMessage position='top' MessageComponent={MessageComponent} />
+
       </View>
 
     </SafeAreaView >
@@ -127,9 +148,9 @@ const styles = StyleSheet.create({
   borderAvatar: {
     borderWidth: 2,
     borderColor: '#FEA827',
-    height: 54,
-    width: 54,
-    borderRadius: 27,
+    height: 56,
+    width: 56,
+    borderRadius: 28,
     backgroundColor: '#FEA827',
     alignItems: 'center',
     justifyContent: 'center'
@@ -163,7 +184,21 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     alignItems: 'center',
     justifyContent: 'center'
-
-
+  },
+  flashMessage: {
+    height: 84,
+    borderRadius: 8,
+    backgroundColor: '#F6F5E8',
+    borderWidth: 1,
+    borderColor: '#F6F5E8',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 15,
+    marginTop: 35
+  },
+  message: {
+    fontSize: 15,
+    color: '#5A636D',
+    marginLeft: 10
   }
 });

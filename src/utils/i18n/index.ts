@@ -4,6 +4,7 @@ import { en } from './langs/en';
 import { jp } from './langs/jp';
 
 i18next.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
   lng: 'en',
   resources: {
     en,

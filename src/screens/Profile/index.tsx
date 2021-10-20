@@ -4,7 +4,6 @@ import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image
 import { Back, Bell, BigCoin, CaretLeft, Copy, Crown, Facebook, Instagram, PencilLine, Right, Twitter, Users, Youtube } from '@svg'
 import { PROFILE_BACKGROUND } from '@assets'
 import { ReduxState } from '@interfaces'
-import { useSelector } from '@redux'
 import { ActivitiesLog, JoinedCommunitiesBlock } from '@components'
 import { dataUser, joinedCommunities } from '@mocks'
 import StyledText from 'react-native-styled-text'
@@ -37,6 +36,10 @@ const JOINED = joinedCommunities.data
 export function Profile({ navigation }: any) {
     const USER = dataUser.data.user
 
+    const moveToListFriend = () => {
+        navigation.navigate('RuiTomoList')
+    }
+
     const Notification = () => (
         <View style={{ marginTop: 60 }}>
             <View style={styles.notificationUp}>
@@ -45,7 +48,7 @@ export function Profile({ navigation }: any) {
             </View>
             <View style={styles.notificationDown}>
                 <StyledText style={{ fontSize: 16, color: 'white', fontFamily: 'NotoSans', lineHeight: 25 }}>
-                    {"<b> Photo Kid</b> joined thanks to you! You get 300tm! "}
+                    {"<b>Photo Kid</b> joined thanks to you! You get 300tm! "}
                 </StyledText>
             </View>
         </View>
@@ -60,12 +63,12 @@ export function Profile({ navigation }: any) {
                     <Text style={{ fontSize: 14, fontFamily: 'NotoSans-Bold', color: 'white', alignSelf: 'center', marginTop: 3 }}>5</Text>
                 </View>
             </TouchableOpacity>
-            <View style={styles.bottomRequest}>
+            <TouchableOpacity style={styles.bottomRequest} onPress={() => navigation.navigate('FriendRequestSent')}>
                 <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 18, color: '#191B1D', flex: 9 }}>Friend request send</Text>
                 <View style={styles.circle}>
                     <Text style={{ fontSize: 14, fontFamily: 'NotoSans-Bold', color: 'white', alignSelf: 'center', marginTop: 3 }}>33</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
 
         </View>
     )
@@ -95,10 +98,10 @@ export function Profile({ navigation }: any) {
                 </View>
 
                 <View style={{ flexDirection: 'row', marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
-                    <View style={styles.miniblock}>
+                    <TouchableOpacity style={styles.miniblock} onPress={() => moveToListFriend()}>
                         <Users />
                         <Text style={{ color: '#7CAE12', fontSize: 15, fontFamily: 'NotoSan-Bold', marginLeft: 5 }}>2050</Text>
-                    </View>
+                    </TouchableOpacity>
                     <View style={styles.miniblock}>
                         <Crown />
                         <Text style={{ color: '#406FF1', fontSize: 15, fontFamily: 'NotoSan-Bold', marginLeft: 5 }}>1024</Text>
@@ -196,7 +199,7 @@ const styles = StyleSheet.create({
         width: 120,
         borderRadius: 60,
         alignSelf: 'center',
-        marginTop: 30
+        marginTop: 25
     },
     nickname: {
         marginLeft: 0

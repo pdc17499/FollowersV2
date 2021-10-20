@@ -7,3 +7,5 @@ export * from './communitiesDetail';
 export * from './activitiesLog';
 export * from './joinedCommunities';
 export * from './approval';
+export * from './friendList';
+export * from './blockList';

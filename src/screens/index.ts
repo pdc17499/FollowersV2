@@ -14,3 +14,7 @@ export * from './CommunitiesDetail';
 export * from './Profile';
 export * from './UpdateProfile';
 export * from './WaitingForApprovalScreen';
+export * from './FriendRequestSent';
+export * from './RuiTomoList';
+export * from './BlockList';
+export * from './ChangePassword';

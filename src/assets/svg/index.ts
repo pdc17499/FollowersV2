@@ -53,3 +53,5 @@ export * from './LockKeyOpen';
 
 export * from './RectangleChecked';
 export * from './UpdateCheck';
+export * from './CheckCircle';
+export * from './MinusCircle';

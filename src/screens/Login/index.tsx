@@ -6,12 +6,11 @@ import * as yup from 'yup';
 import { AppText } from '@components'
 import { ArrowRight, Eye, EyeSlash, LoginLogo } from '@svg';
 import { HEIGHT, WIDTH } from '@utils'
-import { ReduxState } from '@interfaces';
 import { useDispatch, useSelector } from 'react-redux';
-import { Cong, loginThunk, setUserInfo, setToken } from '@redux';
-export function Login({ navigation }: any) {
-    // const bienA = useSelector((state: ReduxState) => state.user.a);
+import { setUserInfo, setToken } from '@redux';
+import { I18n } from '@utils';
 
+export function Login({ navigation }: any) {
 
     const [showPassword, setShowPassword] = useState(false)
     const formInitialValues = {
@@ -24,27 +23,27 @@ export function Login({ navigation }: any) {
     const validationSchema = yup.object().shape({
         email: yup
             .string()
-            .required('Please enter your email')
-            .max(100, 'Email is not over 100 characters')
-            .email('Invalid email'),
+            .required(`${I18n.trans('login.requiredEmail')}`)
+            .max(100, `${I18n.trans('login.maxEmail')}`)
+            .email(`${I18n.trans('login.invalidEmail')}`),
         password: yup
             .string()
-            .required('Please enter your password')
+            .required(`${I18n.trans('login.requiredPassword')}`)
             .matches(
                 // /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
                 /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
-                "Password must have 6-32 characters including numbers and letters"
+                `${I18n.trans('login.invalidPassword')}`
             ),
     });
     return (
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
             <ScrollView>
-
-
                 <View style={styles.logo}>
                     <LoginLogo></LoginLogo>
                 </View>
-                <Text style={styles.text}>Login</Text>
+                <Text style={styles.text}>{I18n.trans('login.loginBtn')}</Text>
+
+                {/* {I18n.t('loginBtn')} */}
                 <Formik
                     initialValues={formInitialValues}
                     validationSchema={validationSchema}
@@ -56,17 +55,15 @@ export function Login({ navigation }: any) {
                                 navigation.navigate('MyHome')
                         }
                         else {
-                            Alert.alert('User not found')
+                            Alert.alert(`${I18n.trans('login.userNotFound')}`)
                         }
                     }}
-
-
                 >
                     {props => (
                         <View>
-                            <Text style={styles.minitext}>Email</Text>
+                            <Text style={styles.minitext}>{I18n.trans('login.email')}</Text>
                             <TextInput
-                                style={styles.input} placeholder={'Your email'}
+                                style={styles.input} placeholder={`${I18n.trans('login.emailPlaceholder')}`}
                                 onChangeText={props.handleChange('email')}
                                 value={props.values.email}
                             />
@@ -76,10 +73,10 @@ export function Login({ navigation }: any) {
                                 </AppText>
                             )}
 
-                            <Text style={styles.minitext}>Password</Text>
+                            <Text style={styles.minitext}>{I18n.trans('login.password')}</Text>
 
                             <View >
-                                <TextInput style={styles.inputPass} placeholder={'Your password'}
+                                <TextInput style={styles.inputPass} placeholder={`${I18n.trans('login.passwordPlaceholder')}`}
                                     onChangeText={props.handleChange('password')}
                                     value={props.values.password} secureTextEntry={!showPassword} ></TextInput>
 
@@ -88,12 +85,11 @@ export function Login({ navigation }: any) {
                                         {props.errors.password}
                                     </AppText>
                                 )}
-                                {(showPassword == true) ?
+                                {(showPassword == true)
+                                    ?
                                     <TouchableOpacity onPress={() => setShowPassword(false)} style={styles.eye}>
                                         <Eye />
-
                                     </TouchableOpacity>
-
                                     :
                                     <TouchableOpacity onPress={() => setShowPassword(true)} style={styles.eye}>
                                         <EyeSlash />
@@ -101,13 +97,13 @@ export function Login({ navigation }: any) {
                                 }
                                 <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
 
-                                    <Text style={styles.minitext2}>Forgot password?</Text>
+                                    <Text style={styles.minitext2}>{I18n.trans('login.forgotPasswordTxt')}</Text>
                                 </TouchableOpacity>
                             </View>
 
                             <TouchableOpacity onPress={props.handleSubmit}>
                                 <View style={styles.login} >
-                                    <Text style={{ fontSize: 16, fontFamily: 'NotoSans-Bold', fontWeight: '600', color: "white", lineHeight: 22, marginRight: 5 }}>Login</Text>
+                                    <Text style={{ fontSize: 16, fontFamily: 'NotoSans-Bold', fontWeight: '600', color: "white", lineHeight: 22, marginRight: 5 }}>{I18n.trans('login.loginBtn')}</Text>
                                     <ArrowRight />
                                 </View>
                             </TouchableOpacity>
@@ -119,7 +115,7 @@ export function Login({ navigation }: any) {
                                     color: '#2B3641',
                                     marginRight: 3
 
-                                }}>Don't have an account?</Text>
+                                }}>{I18n.trans('login.dontHaveAccount')}</Text>
 
                                 <TouchableOpacity onPress={() => navigation.navigate('Register')}>
 
@@ -127,7 +123,7 @@ export function Login({ navigation }: any) {
                                         color: '#3FAEC7',
                                         fontSize: 16,
                                         fontFamily: 'NotoSans',
-                                    }}>Register</Text>
+                                    }}>{I18n.trans('login.register')}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

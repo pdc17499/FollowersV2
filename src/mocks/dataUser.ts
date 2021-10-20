@@ -17,7 +17,7 @@ export const dataUser: any = {
       code: '$2y$10$EkHmMZ0bgVcaeOg80CshRei6XRIh/o3VR9A.HBsgAOTBiILtf8zLG',
       phone: '0398887456',
       avatar:
-        'https://i.pinimg.com/564x/ff/0f/67/ff0f678ff8be48c61a4ba6fa65f407ba.jpg',
+        'https://i.pinimg.com/236x/ea/4f/3a/ea4f3ab433b45bc154241a7efddf60f2.jpg',
 
       summary: 'Developer',
       gender: 'Male',
