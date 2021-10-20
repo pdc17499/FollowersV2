@@ -21,39 +21,20 @@ export function WaitingForApprovalScreen({ navigation }: any) {
   const DATA = approval.data
 
   const [status, setStatus] = useState(true)
+  const [name, setName] = useState('')
 
   const MessageComponent = () => (
     <View style={styles.flashMessage}>
       {status === true
-        ? <><CheckCircle /><Text style={styles.message}>You have accepted request</Text></>
-        : <><MinusCircle /><Text style={styles.message}>You have rejected request</Text></>
+        ? <><CheckCircle /><StyledText style={styles.message} textStyles={textStyles}>{`You and <name>${name}</name> have become friends`}</StyledText></>
+        : <><MinusCircle /><StyledText style={styles.message} textStyles={textStyles}>{`You have rejected <name>${name}'s friend request</name>`}</StyledText></>
       }
     </View >
   )
-  const renderAccept = ({ value }: any) => (
-
-    <View style={{ flexDirection: 'row', marginTop: 15 }}>
-      <TouchableOpacity style={styles.accept} onPress={() => {
-        setStatus(true)
-        showMessage({ message: "Simple message", type: "info" })
-
-      }}>
-        <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: 'white' }}>Accept</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.reject} onPress={() => {
-        setStatus(false)
-        showMessage({ message: "Simple message", type: "info" })
-
-      }}>
-        <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: '#A8ACAE' }}>Reject</Text>
-      </TouchableOpacity>
-    </View>
-  )
 
   const renderItem = ({ item }: any) => (
-
     <View style={styles.item}>
-      <View style={{ flexDirection: 'row' }}>
+      <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate('InvitaitionSenderProfile')}>
         <View style={styles.borderAvatar}>
           <Image source={{ uri: item.avatar }} style={styles.avatar}></Image>
         </View >
@@ -70,7 +51,7 @@ export function WaitingForApprovalScreen({ navigation }: any) {
         <View style={{ alignSelf: 'stretch', marginLeft: 15 }}>
           <Text style={{ color: '#A8ACAE', lineHeight: 23, fontFamily: 'NotoSans', fontSize: 14 }}>{item.time}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
 
       <View style={{ marginLeft: 73 }}>
         <View style={{ flexDirection: 'row', marginBottom: 5 }} >
@@ -87,12 +68,28 @@ export function WaitingForApprovalScreen({ navigation }: any) {
         </View>
 
         {item.status !== 1
-          ? renderAccept(item.name)
+          ? <View style={{ flexDirection: 'row', marginTop: 15 }}>
+            <TouchableOpacity style={styles.accept} onPress={() => {
+              setStatus(true)
+              setName(item.name)
+              showMessage({ message: "Simple message", type: "info" })
+
+            }}>
+              <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: 'white' }}>Accept</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.reject} onPress={() => {
+              setStatus(false)
+              setName(item.name)
+              showMessage({ message: "Simple message", type: "info" })
+
+            }}>
+              <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: '#A8ACAE' }}>Reject</Text>
+            </TouchableOpacity>
+          </View>
           : null}
       </View>
 
     </View>
-
   )
 
   return (
@@ -194,11 +191,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: 15,
+    paddingRight: 50,
     marginTop: 35
   },
   message: {
     fontSize: 15,
     color: '#5A636D',
+    fontFamily: 'NotoSans',
     marginLeft: 10
   }
+});
+
+const textStyles = StyleSheet.create({
+  name: {
+    fontSize: 15,
+    color: '#2B8093',
+    fontFamily: 'NotoSans-Bold',
+
+  },
 });

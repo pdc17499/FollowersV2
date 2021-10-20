@@ -18,3 +18,5 @@ export * from './FriendRequestSent';
 export * from './RuiTomoList';
 export * from './BlockList';
 export * from './ChangePassword';
+export * from './StrangerProfile';
+export * from './InvitationSenderProfile';

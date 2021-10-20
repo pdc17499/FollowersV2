@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
         width: 120,
         borderRadius: 60,
         alignSelf: 'center',
-        marginTop: 25
+        marginTop: 28
     },
     nickname: {
         marginLeft: 0

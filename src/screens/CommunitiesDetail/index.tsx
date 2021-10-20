@@ -116,7 +116,7 @@ export function CommunitiesDetail({ navigation }: any) {
         }
         return (
 
-            <View style={styles.Item} >
+            <TouchableOpacity style={styles.Item} onPress={() => navigation.navigate('StrangerProfile')} >
                 <View style={{
                     borderWidth: 2,
                     borderColor: `${check()}`,
@@ -140,7 +140,7 @@ export function CommunitiesDetail({ navigation }: any) {
                     <Text style={{ color: '#5A636D', fontFamily: 'NotoSans', fontSize: 14 }}>{item.description}</Text>
                 </View>
 
-            </View >
+            </TouchableOpacity >
         )
     };
 

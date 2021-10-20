@@ -48,6 +48,7 @@ export * from './Users';
 export * from './Crown';
 export * from './CaretLeft';
 export * from './Bell';
+export * from './BigWarning';
 
 export * from './LockKeyOpen';
 

@@ -10,6 +10,7 @@ import {
     ForgotPassword,
     FriendRequestSent,
     Home,
+    InvitaitionSenderProfile,
     Login,
     PersonalIntroduction,
     PersonalIntroduction2,
@@ -19,6 +20,7 @@ import {
     ResetPassword,
     ResetPasswordSuccessfully,
     RuiTomoList,
+    StrangerProfile,
     UpdateProfile,
     Verification,
     WaitingForApprovalScreen,
@@ -179,6 +181,20 @@ export function AppNavigation() {
                 <Stack.Screen
                     name="ChangePassword"
                     component={ChangePassword}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="StrangerProfile"
+                    component={StrangerProfile}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="InvitaitionSenderProfile"
+                    component={InvitaitionSenderProfile}
                     options={{
                         headerShown: false,
                     }}

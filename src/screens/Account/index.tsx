@@ -53,7 +53,6 @@ export function Account({ navigation }: any) {
                 break;
         }
 
-
     }
     const logOut = () => {
         dispatch(logout())
@@ -89,9 +88,7 @@ export function Account({ navigation }: any) {
 
                     </View>
                 </TouchableOpacity>
-
             </Modal >
-
         )
 
     }
@@ -209,6 +206,5 @@ const styles = StyleSheet.create({
         marginTop: '55%',
         backgroundColor: 'white',
         borderRadius: 10
-
     }
 })
