@@ -1,11 +1,11 @@
 import { HEIGHT, WIDTH } from '@utils'
 import React, { useState } from 'react'
-import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image, ScrollView, Modal } from 'react-native'
-import { Back, Bell, BigCoin, BigWarning, CaretLeft, Copy, Crown, Facebook, Instagram, PencilLine, Right, Twitter, Users, Warning, Youtube } from '@svg'
+import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image, ScrollView } from 'react-native'
+import { BigWarning, CaretLeft, Facebook, Instagram, Twitter, Users, Warning, Youtube } from '@svg'
 import { PROFILE_BACKGROUND } from '@assets'
-import { ReduxState } from '@interfaces'
-import { ActivitiesLog, ButtonLeft, ButtonRight, JoinedCommunitiesBlock } from '@components'
+import { ButtonRight, JoinedCommunitiesBlock } from '@components'
 import { invitationSender, joinedCommunities } from '@mocks'
+import Modal from "react-native-modal";
 
 const JOINED = joinedCommunities.data
 
@@ -39,13 +39,13 @@ export function InvitaitionSenderProfile({ navigation }: any) {
 
     const block = () => {
         setModalVisible(false)
-        navigation.navigate('WaitingForApproval')
+        navigation.navigate('BlockList')
     }
 
     const RenderModal = () => {
         return (
-            <Modal animationType="slide" transparent={false} visible={modalVisible}   >
-                <TouchableOpacity onPressOut={() => setModalVisible(false)} style={{ flex: 1, backgroundColor: '#F6F5E8' }}>
+            <Modal isVisible={modalVisible}   >
+                <TouchableOpacity onPressOut={() => setModalVisible(false)} style={{ flex: 1 }}>
                     <View style={styles.modal}>
                         <BigWarning />
                         <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans', marginTop: 15 }}>Are you sure you want to block</Text>
@@ -110,7 +110,7 @@ export function InvitaitionSenderProfile({ navigation }: any) {
             </View>
 
             <View style={{ marginTop: 48 }}>
-                <Text style={styles.bigtext}>Your joined communities</Text>
+                <Text style={styles.bigtext}>Joined communities</Text>
 
                 <View style={{ flexDirection: 'row', }}>
                     <JoinedCommunitiesBlock name={'Anime'} uri={'https://i.pinimg.com/564x/e9/2c/87/e92c87c22428d3ac7ec2e5b828fee714.jpg'}></JoinedCommunitiesBlock>
@@ -144,7 +144,6 @@ export function InvitaitionSenderProfile({ navigation }: any) {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-
             {isFriend === true
                 ? <FlatList
                     showsVerticalScrollIndicator={false}
@@ -158,10 +157,6 @@ export function InvitaitionSenderProfile({ navigation }: any) {
                     {ListHeaderComponent()}
                     {ListFooterComponent()}
                 </ScrollView>}
-
-
-
-
         </SafeAreaView >
     )
 }
@@ -228,17 +223,6 @@ const styles = StyleSheet.create({
         lineHeight: 25,
         marginTop: 15
     },
-    send: {
-        height: 58,
-        borderWidth: 1,
-        borderRadius: 8,
-        borderColor: '#3FAEC7',
-        backgroundColor: '#3FAEC7',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        marginTop: 60
-    },
     block: {
         height: 58,
         borderWidth: 1,
@@ -252,7 +236,7 @@ const styles = StyleSheet.create({
         marginBottom: 60,
     },
     modal: {
-        width: '80%',
+        width: '95%',
         borderWidth: 1,
         borderColor: '#F6F5E8',
         justifyContent: 'center',
@@ -299,6 +283,7 @@ const styles = StyleSheet.create({
         fontFamily: 'NotoSans-Bold',
         fontSize: 16,
         color: '#A8ACAE',
-    }
+    },
+
 
 })

@@ -1,11 +1,10 @@
 import { AppText } from '@components'
 import { dataUser } from '@mocks'
-import { ArrowRight, Back, Eye, EyeSlash } from '@svg'
+import { Back, Eye, EyeSlash } from '@svg'
 import { HEIGHT, I18n, WIDTH } from '@utils'
 import { Formik } from 'formik'
 import React, { useState } from 'react'
-import { Alert, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { Alert, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import * as yup from 'yup';
 
 export function ChangePassword({ navigation }: any) {

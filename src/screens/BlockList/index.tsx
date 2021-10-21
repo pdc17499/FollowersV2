@@ -12,9 +12,19 @@ import { HEIGHT, WIDTH } from '@utils';
 import React, { useState } from 'react';
 import { Back, Search, User } from '@svg';
 import { bloclList } from '@mocks';
+import { useDispatch, useSelector } from 'react-redux';
+import { ReduxState } from '@interfaces';
+import { removeBlockUser } from '@redux';
 
 export function BlockList({ navigation }: any) {
-    const DATA = bloclList.data
+    const INFO = useSelector((state: ReduxState) => state.blockUser.listUserBlocked);
+    const dispatch = useDispatch()
+
+    console.log('info', INFO);
+
+    const removeBlock = (name: string) => {
+        dispatch(removeBlockUser(name))
+    }
 
     const renderItem = ({ item }: any) => (
         <View style={styles.item}>
@@ -22,12 +32,11 @@ export function BlockList({ navigation }: any) {
                 <Image source={{ uri: item.avatar }} style={styles.avatar}></Image>
                 <Text style={styles.userName}>{item.name}</Text>
             </View>
-            <View style={styles.block}>
+            <TouchableOpacity style={styles.block} onPress={() => removeBlock(item.name)}>
                 <Text style={styles.text}>Remove block</Text>
-            </View>
+            </TouchableOpacity>
         </View>
     )
-
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={styles.container}>
@@ -39,7 +48,7 @@ export function BlockList({ navigation }: any) {
 
                 <FlatList
                     style={{ marginTop: 30 }}
-                    data={DATA}
+                    data={INFO}
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
                     showsVerticalScrollIndicator={false}

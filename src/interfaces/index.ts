@@ -1,5 +1,3 @@
-import { Moment } from 'moment';
-
 export interface IAppText {
   children?: HTMLElement;
   style?: any;
@@ -13,7 +11,12 @@ export interface UserState {
   // a: number;
 }
 
+export interface BlockUserState {
+  listUserBlocked: any;
+}
+
 export interface ReduxState {
   user: UserState;
   app: any;
+  blockUser: BlockUserState;
 }

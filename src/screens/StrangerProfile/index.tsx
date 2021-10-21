@@ -1,33 +1,38 @@
 import { HEIGHT, WIDTH } from '@utils'
 import React, { useState } from 'react'
-import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image, ScrollView, Modal } from 'react-native'
-import { Back, Bell, BigCoin, BigWarning, CaretLeft, Copy, Crown, Facebook, Instagram, PencilLine, Right, Twitter, Users, Warning, Youtube } from '@svg'
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image, ScrollView } from 'react-native'
+import { BigWarning, CaretLeft, Users, Warning } from '@svg'
 import { PROFILE_BACKGROUND } from '@assets'
-import { ReduxState } from '@interfaces'
-import { ActivitiesLog, ButtonLeft, ButtonRight, JoinedCommunitiesBlock } from '@components'
-import { dataUser, joinedCommunities, strangerData } from '@mocks'
-import StyledText from 'react-native-styled-text'
+import { ButtonRight, JoinedCommunitiesBlock } from '@components'
+import { joinedCommunities, strangerData } from '@mocks'
+import Modal from "react-native-modal";
+import { useDispatch } from 'react-redux'
+import { setBlockUserInfo } from '@redux';
 
 const JOINED = joinedCommunities.data
 
-export function StrangerProfile({ navigation }: any) {
+export function StrangerProfile({ route, navigation }: any) {
+
+    const { name, avatar, friend, id } = route.params
     const USER = strangerData.data.user
     const [send, setSend] = useState(false)
     const [modalVisible, setModalVisible] = useState(false);
+    const dispatch = useDispatch()
 
     const block = () => {
         setModalVisible(false)
-        navigation.navigate('CommunitiesDetail')
+        navigation.navigate('BlockList')
+        dispatch(setBlockUserInfo(id, name, avatar))
     }
 
     const RenderModal = () => {
         return (
-            <Modal animationType="slide" transparent={false} visible={modalVisible}   >
-                <TouchableOpacity onPressOut={() => setModalVisible(false)} style={{ flex: 1, backgroundColor: '#F6F5E8' }}>
+            <Modal isVisible={modalVisible}   >
+                <TouchableOpacity onPressOut={() => setModalVisible(false)} style={{ flex: 1, backgroundColor: 'transparent' }}>
                     <View style={styles.modal}>
                         <BigWarning />
                         <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans', marginTop: 15 }}>Are you sure you want to block</Text>
-                        <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans-Bold' }}>{USER.username}</Text>
+                        <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans-Bold' }}>{name}</Text>
 
                         <View style={{ marginTop: 20, borderBottomColor: '#C6CBCC', borderWidth: 0.5, height: 1, width: '100%' }}></View>
 
@@ -60,16 +65,16 @@ export function StrangerProfile({ navigation }: any) {
                                 <CaretLeft />
                             </TouchableOpacity>
                         </View>
-                        <Image source={{ uri: USER.avatar }} style={styles.avatar}></Image>
+                        <Image source={{ uri: avatar }} style={styles.avatar}></Image>
 
                         <View style={styles.name}>
-                            <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24, color: '#2B8093' }}>{USER.nick_name}</Text>
+                            <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24, color: '#2B8093' }}>{name}</Text>
                         </View>
 
                         <View style={{ marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
                             <View style={styles.miniblock} >
                                 <Users />
-                                <Text style={{ color: '#7CAE12', fontSize: 15, fontFamily: 'NotoSan-Bold', marginLeft: 5 }}>3333</Text>
+                                <Text style={{ color: '#7CAE12', fontSize: 15, fontFamily: 'NotoSan-Bold', marginLeft: 5 }}>{friend}</Text>
                             </View>
                         </View>
 
@@ -79,14 +84,14 @@ export function StrangerProfile({ navigation }: any) {
                         </View>
 
                         <View style={{ marginTop: 48 }}>
-                            <Text style={styles.bigtext}>Your joined communities</Text>
+                            <Text style={styles.bigtext}>Joined communities</Text>
 
                             <View style={{ flexDirection: 'row', }}>
                                 <JoinedCommunitiesBlock name={'Anime'} uri={'https://i.pinimg.com/564x/e9/2c/87/e92c87c22428d3ac7ec2e5b828fee714.jpg'}></JoinedCommunitiesBlock>
                                 <JoinedCommunitiesBlock name={'Motocycle'} uri={'https://i.pinimg.com/564x/6c/fd/ae/6cfdae7868b95cbdaa5e8977305f9b25.jpg'}></JoinedCommunitiesBlock>
                             </View>
                             <View style={{ width: '70%' }}>
-                                <JoinedCommunitiesBlock name={'Western Movies'} uri={'https://i.pinimg.com/236x/e2/9f/57/e29f57f32f8ce692940202c0b3ef5289.jpg'}></JoinedCommunitiesBlock>
+                                <JoinedCommunitiesBlock name={'Western Movies'} uri={'https://i.pinimg.com/236x/7c/c8/cf/7cc8cff40d8107e941d4009fcb24f4c0.jpg'}></JoinedCommunitiesBlock>
                             </View>
                         </View>
 
@@ -197,7 +202,7 @@ const styles = StyleSheet.create({
         marginBottom: 40,
     },
     modal: {
-        width: '80%',
+        width: '95%',
         borderWidth: 1,
         borderColor: '#F6F5E8',
         justifyContent: 'center',

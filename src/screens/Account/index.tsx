@@ -1,12 +1,12 @@
 import { ButtonLeft, ButtonRight } from '@components';
-import { ReduxState } from '@interfaces';
 import { dataUser, joinedCommunities } from '@mocks';
-import { Copy, LockKeyOpen, Prohibit, SignOut, UserCircle, Warning } from '@svg';
+import { BigWarning, Copy, LockKeyOpen, Prohibit, SignOut, UserCircle, Warning } from '@svg';
 import { WIDTH } from '@utils'
 import React, { useState } from 'react'
-import { View, Text, SafeAreaView, ScrollView, StyleSheet, Image, FlatList, Alert, Modal, TouchableOpacity } from 'react-native'
-import { Cong, loginThunk, setUserInfo, setToken, logout } from '@redux';
-import { useDispatch, useSelector } from 'react-redux';
+import { View, Text, SafeAreaView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native'
+import { logout } from '@redux';
+import { useDispatch } from 'react-redux';
+import Modal from "react-native-modal";
 
 const FLATLIST = [
     {
@@ -33,6 +33,7 @@ export function Account({ navigation }: any) {
     const dispatch = useDispatch()
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible2, setModalVisible2] = useState(false);
     const DATA = dataUser.data.user
 
     const actionMove = (title: any) => {
@@ -52,10 +53,13 @@ export function Account({ navigation }: any) {
             default:
                 break;
         }
-
     }
     const logOut = () => {
         dispatch(logout())
+        setModalVisible(false)
+        navigation.navigate('Login')
+    }
+    const deleteAccount = () => {
         setModalVisible(false)
         navigation.navigate('Login')
     }
@@ -69,7 +73,7 @@ export function Account({ navigation }: any) {
 
     const RenderModal = () => {
         return (
-            <Modal animationType="slide" transparent={true} visible={modalVisible}  >
+            <Modal isVisible={modalVisible}  >
                 <TouchableOpacity onPressOut={() => setModalVisible(false)} style={{ flex: 1 }}>
                     <View style={styles.modal}>
                         <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans-Bold' }}>
@@ -85,12 +89,37 @@ export function Account({ navigation }: any) {
                                 <ButtonRight name={'Cancel'} />
                             </TouchableOpacity>
                         </View>
-
                     </View>
                 </TouchableOpacity>
             </Modal >
         )
+    }
 
+    const RenderModal2 = () => {
+        return (
+            <Modal isVisible={modalVisible2}  >
+                <TouchableOpacity onPressOut={() => setModalVisible2(false)} style={{ flex: 1 }} >
+                    <View style={styles.modal2}>
+                        <BigWarning />
+                        <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans-Bold', marginTop: 15, marginHorizontal: 15, textAlign: 'center' }}>Are you sure you want to delete this account</Text>
+
+                        <View style={{ marginTop: 20, borderBottomColor: '#C6CBCC', borderWidth: 0.5, height: 1, width: '100%' }}></View>
+
+                        <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 40 }}>
+                            <TouchableOpacity onPress={() => deleteAccount()}>
+                                <View style={styles.button} >
+                                    <View><Text style={{ color: 'white', fontSize: 16, fontFamily: 'NotoSans-Bold', alignSelf: 'center' }}>OK</Text></View>
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => setModalVisible2(false)}>
+                                <ButtonRight name={'Cancel'} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </Modal >
+        )
     }
 
     const ListHeaderComponent = () => (
@@ -103,7 +132,7 @@ export function Account({ navigation }: any) {
                 <View style={styles.nickname}>
                     <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16 }}>{DATA.nick_name}</Text>
                     <View style={{ flexDirection: 'row', marginTop: 5, alignItems: 'center' }}>
-                        <Text style={{ fontFamily: 'NotoSans', fontSize: 16, color: '#5A636D', marginRight: 10 }} >ID: {DATA.id}</Text>
+                        <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: '#5A636D', marginRight: 10 }} >ID: {DATA.id}</Text>
                         <Copy />
                     </View>
                 </View>
@@ -112,10 +141,10 @@ export function Account({ navigation }: any) {
     )
 
     const ListFooterComponent = () => (
-        <View style={styles.footer}>
+        <TouchableOpacity style={styles.footer} onPress={() => setModalVisible2(true)}>
             <Text style={styles.warningtext}>Cancel Account</Text>
             <Warning />
-        </View>
+        </TouchableOpacity>
     )
 
     return (
@@ -129,10 +158,9 @@ export function Account({ navigation }: any) {
                     ListFooterComponent={ListFooterComponent}
                 />
                 {RenderModal()}
-
+                {RenderModal2()}
             </View>
         </SafeAreaView >
-
     )
 }
 
@@ -168,7 +196,6 @@ const styles = StyleSheet.create({
         borderBottomColor: '#C6CBCC',
         flexDirection: 'row',
         alignItems: 'center'
-
     },
     itemTitle: {
         fontFamily: 'NotoSans-Bold',
@@ -196,7 +223,7 @@ const styles = StyleSheet.create({
 
     },
     modal: {
-        width: '80%',
+        width: '90%',
         height: 200,
         borderWidth: 1,
         borderColor: 'black',
@@ -206,5 +233,26 @@ const styles = StyleSheet.create({
         marginTop: '55%',
         backgroundColor: 'white',
         borderRadius: 10
-    }
+    },
+    button: {
+        backgroundColor: '#FF4C41',
+        height: 60,
+        width: 130,
+        marginLeft: 10,
+        borderRadius: 10,
+        justifyContent: 'center'
+    },
+    modal2: {
+        width: '95%',
+        height: 300,
+        borderWidth: 1,
+        borderColor: '#F6F5E8',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        marginTop: '45%',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        paddingVertical: 30,
+    },
 })

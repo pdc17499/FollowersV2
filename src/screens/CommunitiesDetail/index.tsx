@@ -27,6 +27,7 @@ export function CommunitiesDetail({ navigation }: any) {
             </View>
         )
     }
+
     const filterApply = (textModal1: string, textModal2: string, check1: boolean, check2: boolean, check3: boolean) => {
         if (textModal1 && textModal2) {
             const newData = DATA_LIST.filter((item: any) => {
@@ -116,7 +117,7 @@ export function CommunitiesDetail({ navigation }: any) {
         }
         return (
 
-            <TouchableOpacity style={styles.Item} onPress={() => navigation.navigate('StrangerProfile')} >
+            <TouchableOpacity style={styles.Item} onPress={() => navigation.navigate('StrangerProfile', { name: item.name, avatar: item.avatar, friend: item.friend, id: item.id })} >
                 <View style={{
                     borderWidth: 2,
                     borderColor: `${check()}`,
