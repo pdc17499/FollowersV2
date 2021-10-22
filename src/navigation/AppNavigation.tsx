@@ -8,6 +8,7 @@ import {
     Communities,
     CommunitiesDetail,
     ForgotPassword,
+    Forum,
     FriendRequestSent,
     Home,
     InvitaitionSenderProfile,
@@ -28,7 +29,7 @@ import {
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabBar } from '@components';
 import { AccountTab, CommunitiesTab, HomeTab } from '@svg';
-import { ReduxState } from '@interfaces';
+import { ReduxState } from 'src/mocks/interfaces';
 import { useSelector } from 'react-redux'
 
 const Tab = createBottomTabNavigator();
@@ -193,8 +194,8 @@ export function AppNavigation() {
                     }}
                 />
                 <Stack.Screen
-                    name="InvitaitionSenderProfile"
-                    component={InvitaitionSenderProfile}
+                    name="Forum"
+                    component={Forum}
                     options={{
                         headerShown: false,
                     }}

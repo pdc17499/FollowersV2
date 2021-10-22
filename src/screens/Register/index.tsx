@@ -54,7 +54,7 @@ export function Register({ navigation }: any) {
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <View style={{ marginLeft: WIDTH * 32 / 414, marginTop: 7 }} >
+                    <View style={{ marginLeft: 25, marginTop: 7 }} >
                         <Back></Back>
                     </View>
                 </TouchableOpacity>
@@ -65,7 +65,7 @@ export function Register({ navigation }: any) {
                     fontFamily: 'NotoSans-Bold',
                     color: '#191B1D',
 
-                    marginLeft: WIDTH * 110 / 414,
+                    marginLeft: 75,
                     marginTop: HEIGHT * 10 / 896
                 }}>
                     Register</Text>
@@ -103,7 +103,6 @@ export function Register({ navigation }: any) {
 
                     }}
                 >
-
                     {props => (
                         <View>
                             <Text style={styles.title}>Follower account</Text>
@@ -163,8 +162,8 @@ export function Register({ navigation }: any) {
                                 <Text style={styles.minitext}>Gender</Text>
                                 <View style={{ marginLeft: WIDTH * 134 / 414 }}></View>
                                 <Text style={styles.minitext2}>Birth year</Text>
-
                             </View>
+
                             <View style={{ flexDirection: 'row' }}>
                                 <View style={styles.picker}>
                                     <Picker
@@ -218,7 +217,6 @@ export function Register({ navigation }: any) {
                         </View>
                     )}
                 </Formik>
-
             </ScrollView>
         </SafeAreaView>
     )
@@ -262,11 +260,9 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     eye: {
-
         position: 'absolute',
         top: HEIGHT * 10 / 896,
         left: WIDTH * 339.5 / 414,
-
     },
     minitext2: {
         fontSize: 16,
@@ -291,7 +287,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row'
     },
-
     error: {
         marginLeft: 27,
         marginRight: 25,
@@ -307,9 +302,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         marginLeft: WIDTH * 24 / 414,
         marginTop: HEIGHT * 38 / 896
-
     },
-
     picker: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -329,6 +322,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: HEIGHT * 30 / 896
     }
-
-
 })

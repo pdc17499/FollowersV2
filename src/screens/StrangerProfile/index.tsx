@@ -61,7 +61,7 @@ export function StrangerProfile({ route, navigation }: any) {
                     <Image source={PROFILE_BACKGROUND} style={styles.background}></Image>
                     <View style={{ paddingHorizontal: WIDTH * 24 / 414 }}>
                         <View style={styles.header}>
-                            <TouchableOpacity onPress={() => navigation.navigate('CommunitiesDetail')}>
+                            <TouchableOpacity onPress={() => navigation.goBack()}>
                                 <CaretLeft />
                             </TouchableOpacity>
                         </View>
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         width: 120,
         borderRadius: 60,
         alignSelf: 'center',
-        marginTop: 28
+        marginTop: 32
     },
 
     name: {

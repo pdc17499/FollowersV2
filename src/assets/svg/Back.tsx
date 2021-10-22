@@ -4,8 +4,10 @@ import Svg, { Path } from "react-native-svg"
 
 export function Back(props: any) {
     return (
-        <View>
-            <Svg
+        <View style={{
+            height: 30, width: 45, justifyContent: 'center', paddingLeft: 10
+        }}>
+            < Svg
                 width={12}
                 height={20}
                 fill="none"
@@ -20,7 +22,7 @@ export function Back(props: any) {
                     strokeLinejoin="round"
                 />
             </Svg>
-        </View>
+        </View >
     )
 }
 

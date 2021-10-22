@@ -32,7 +32,6 @@ const App = () => {
   };
 
   return (
-    // <AppNavigation />
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <AppNavigation />

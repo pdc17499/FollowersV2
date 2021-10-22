@@ -44,7 +44,7 @@
       "@assets": ["src/assets"],
       "@mocks": ["src/mocks"],
       "@components": ["src/components"],
-      "@interfaces": ["src/interfaces"],
+      "@interfaces": ["src/mocks/interfaces"],
       "@screens": ["src/screens"],
       "@fonts": ["src/assets/fonts"],
       "@svg": ["src/assets/svg"],

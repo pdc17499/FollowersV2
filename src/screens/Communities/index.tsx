@@ -1,14 +1,14 @@
 import { Community } from '@components'
 import { communities } from '@mocks'
-import { Back, Search } from '@svg'
+import { Search } from '@svg'
 import { HEIGHT, WIDTH } from '@utils'
 import React, { useState } from 'react'
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, StyleSheet, TextInput, FlatList } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, TextInput, FlatList } from 'react-native'
 
 const DATA = communities.data
 
 export function Communities({ navigation }: any) {
-    const moveToDetail = () => { navigation.navigate('CommunitiesDetail') }
+    const moveToDetail = (name: any, members: any, uri: any) => { navigation.navigate('CommunitiesDetail', { name, members, uri }) }
     const [text, onChangeText] = useState("");
     const [filteredDataSource, setFilteredDataSource] = useState(DATA);
 
@@ -33,15 +33,15 @@ export function Communities({ navigation }: any) {
     }
 
     const renderItem = ({ item }: any) => (
-        <TouchableOpacity onPress={moveToDetail}>
+        <TouchableOpacity onPress={() => moveToDetail(item.name, item.member, item.uri)}>
             <Community name={item.name} members={item.member} uri={item.uri}></Community>
         </TouchableOpacity>
     );
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-
             <View style={styles.header}>
+
                 <Text style={styles.headerTitle}>Communities</Text>
                 <View style={styles.search}>
                     <TouchableOpacity onPress={() => searchFilterFunction(text)}>

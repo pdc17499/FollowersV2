@@ -7,7 +7,7 @@ import {
   SET_USER_INFO,
   SET_AVATAR,
 } from './types';
-import { UserState } from '@interfaces';
+import { UserState } from 'src/mocks/interfaces';
 import _ from 'lodash';
 
 const INITIAL: UserState = {

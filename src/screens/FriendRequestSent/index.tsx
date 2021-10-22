@@ -3,18 +3,14 @@ import {
     SafeAreaView,
     StyleSheet,
     Text,
-    TextInput,
     TouchableOpacity,
     Image,
     View,
 } from 'react-native';
 import { HEIGHT, WIDTH } from '@utils';
-import React, { useState } from 'react';
-import { Back, CheckCircle, MinusCircle, User } from '@svg';
+import React from 'react';
+import { Back, User } from '@svg';
 import { approval } from '@mocks';
-import FlashMessage, { showMessage } from 'react-native-flash-message';
-import StyledText from 'react-native-styled-text';
-
 
 export function FriendRequestSent({ navigation }: any) {
 
@@ -70,7 +66,7 @@ export function FriendRequestSent({ navigation }: any) {
                     <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                         <Back />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: 45, }}>
+                    <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: 32, }}>
                         Friend request sent</Text>
                 </View>
 
@@ -81,7 +77,6 @@ export function FriendRequestSent({ navigation }: any) {
                     showsVerticalScrollIndicator={false}
                 />
             </View>
-
         </SafeAreaView >
     );
 }
@@ -101,7 +96,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: HEIGHT * 60 / 896,
-        marginLeft: 10,
         marginBottom: 30
     },
     item: {

@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
         width: 120,
         borderRadius: 60,
         alignSelf: 'center',
-        marginTop: 28
+        marginTop: 30
     },
 
     name: {

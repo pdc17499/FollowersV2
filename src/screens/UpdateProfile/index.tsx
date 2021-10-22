@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { Alert, Image, ImageProps, PermissionsAndroid, Picker, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import ImagePicker, { ImageOrVideo } from 'react-native-image-crop-picker';
-import { ReduxState } from '@interfaces';
+import { ReduxState } from 'src/mocks/interfaces';
 import { setAvatar } from '@redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { SNSAccounts } from '@components';
@@ -48,7 +48,7 @@ export function UpdateProfile({ navigation }: any) {
                     <TouchableOpacity onPress={() => navigation.navigate('Account')}>
                         <Back />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: '21%', marginRight: '20%' }}>
+                    <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: 50 }}>
                         Update profile</Text>
                 </View>
 
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: HEIGHT * 90 / 896,
-        marginLeft: 10
+
     },
     choose: {
         alignSelf: 'center',

@@ -81,7 +81,7 @@ export function RuiTomoList({ navigation }: any) {
             <View style={styles.container}>
                 <View style={styles.header}>
                     <TouchableOpacity onPress={() => navigation.navigate('Profile')}><Back /></TouchableOpacity>
-                    <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: 75, }}>
+                    <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: 62, }}>
                         RuiTomo List</Text>
                 </View>
                 <View style={styles.search}>
@@ -121,8 +121,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: HEIGHT * 60 / 896,
-        marginLeft: 10,
-
     },
     item: {
         backgroundColor: '#F6F7F9',

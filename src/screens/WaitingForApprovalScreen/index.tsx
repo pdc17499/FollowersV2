@@ -99,7 +99,7 @@ export function WaitingForApprovalScreen({ navigation }: any) {
           <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
             <Back />
           </TouchableOpacity>
-          <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: 35, }}>
+          <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: 25, }}>
             Waiting for approval</Text>
         </View>
 
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: HEIGHT * 60 / 896,
-    marginLeft: 10,
+
     marginBottom: 20
   },
   item: {

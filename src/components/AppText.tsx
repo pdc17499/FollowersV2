@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { IAppText } from '@interfaces';
+import { IAppText } from 'src/mocks/interfaces';
 
 export const AppText = React.memo((props: IAppText) => {
 

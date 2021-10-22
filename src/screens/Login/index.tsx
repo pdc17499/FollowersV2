@@ -43,7 +43,6 @@ export function Login({ navigation }: any) {
                 </View>
                 <Text style={styles.text}>{I18n.trans('login.loginBtn')}</Text>
 
-                {/* {I18n.t('loginBtn')} */}
                 <Formik
                     initialValues={formInitialValues}
                     validationSchema={validationSchema}
@@ -114,11 +113,9 @@ export function Login({ navigation }: any) {
                                     fontFamily: 'NotoSans',
                                     color: '#2B3641',
                                     marginRight: 3
-
                                 }}>{I18n.trans('login.dontHaveAccount')}</Text>
 
                                 <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-
                                     <Text style={{
                                         color: '#3FAEC7',
                                         fontSize: 16,
@@ -238,10 +235,5 @@ const styles = StyleSheet.create({
         color: 'red',
         fontSize: 14,
     },
-    button: {
-        backgroundColor: '#61e3a5',
-        padding: 10,
-        borderRadius: 10,
-        margin: 10,
-    },
+
 });

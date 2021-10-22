@@ -49,10 +49,13 @@ export * from './Crown';
 export * from './CaretLeft';
 export * from './Bell';
 export * from './BigWarning';
-
 export * from './LockKeyOpen';
-
 export * from './RectangleChecked';
 export * from './UpdateCheck';
 export * from './CheckCircle';
 export * from './MinusCircle';
+export * from './EditForum';
+export * from './WhiteHeart';
+export * from './Reply';
+
+export * from './RedHeart';

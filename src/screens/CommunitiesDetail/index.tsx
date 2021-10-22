@@ -7,7 +7,9 @@ import { Back, CaretRight, Chat, Check, Filter, Line, Out, Ping, Rectangle, Rect
 const DATA = communitiesDetail
 const DATA_LIST = DATA.community.member;
 
-export function CommunitiesDetail({ navigation }: any) {
+export function CommunitiesDetail({ route, navigation }: any) {
+
+    const { name, members, uri } = route.params
 
     const [modalVisible, setModalVisible] = useState(false);
     const [text, onChangeText] = useState("");
@@ -105,6 +107,8 @@ export function CommunitiesDetail({ navigation }: any) {
         )
     }
 
+    const goForum = () => { navigation.navigate('Forum') }
+
     const renderItem = ({ item }: any) => {
         const check = () => {
             if (item.status == 1) {
@@ -149,11 +153,11 @@ export function CommunitiesDetail({ navigation }: any) {
         return (
             <View>
                 <View style={styles.image} >
-                    <Image source={{ uri: DATA.community.uri }} blurRadius={2} style={{ flex: 1, borderRadius: 10, }}></Image>
+                    <Image source={{ uri: uri }} blurRadius={2} style={{ flex: 1, borderRadius: 10, }}></Image>
                     <View style={styles.inImage}>
                         <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24, color: 'white', alignSelf: 'center' }}>
-                            {DATA.community.name}</Text>
-                        <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 14, color: 'white', alignSelf: 'center' }}>{DATA.community.numberMember} members</Text>
+                            {name}</Text>
+                        <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 14, color: 'white', alignSelf: 'center' }}>{members} members</Text>
                         {(inGroup) == true
                             ? <Leaving />
                             : <Participate />
@@ -172,15 +176,18 @@ export function CommunitiesDetail({ navigation }: any) {
                     </View>
 
                     {(inGroup) == true
-                        ? <View style={{ flexDirection: 'row', marginTop: 30, alignItems: 'center' }}>
+                        ? <TouchableOpacity style={{ flexDirection: 'row', marginTop: 30, alignItems: 'center' }} onPress={() => goForum()}>
                             <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: '#2B8093', marginLeft: 69, marginRight: 13 }}>Go to forum</Text>
                             <CaretRight />
-                        </View>
-                        : <View style={{ flexDirection: 'row', marginTop: 30, alignItems: 'center' }}>
+                        </TouchableOpacity>
+                        : <View style={{ flexDirection: 'row', marginTop: 30, alignItems: 'center', marginBottom: 15 }}>
                             <Ping />
-                            <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 15, color: '#3FAEC7', marginLeft: 10 }}>Join community to enter this forum</Text>
+                            <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 15, color: '#3FAEC7', marginLeft: 10, }}>Join community to enter this forum</Text>
                         </View>
                     }
+                </View>
+                <View style={{ marginTop: 35, marginBottom: 5 }}>
+                    <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24 }}>Members</Text>
                 </View>
                 <View style={styles.search}>
                     <TouchableOpacity onPress={() => searchFilterFunction(text)}>
@@ -320,7 +327,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         paddingHorizontal: 20,
         paddingVertical: 25,
-        height: 180,
+        // height: 200,
         borderColor: '#F6F5E8',
         borderWidth: 1,
         borderRadius: 10
@@ -329,7 +336,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 35,
         alignSelf: 'center',
-        width: 160,
+        width: '100%',
     },
     header: {
         marginTop: HEIGHT * 60 / 896,

@@ -4,7 +4,7 @@ import Svg, { Path } from "react-native-svg"
 
 export function CaretLeft(props: any) {
     return (
-        <View>
+        <View style={{ marginBottom: 4 }}>
             <Svg
                 width={28}
                 height={28}
@@ -20,7 +20,7 @@ export function CaretLeft(props: any) {
                     strokeLinejoin="round"
                 />
             </Svg>
-        </View>
+        </View >
     )
 }
 

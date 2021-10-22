@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
         fontFamily: 'NotoSans-Bold',
         color: '#191B1D',
         textAlign: 'center',
-        marginLeft: WIDTH * 45 / 414,
-        marginTop: HEIGHT * 10 / 896
+        marginTop: HEIGHT * 10 / 896,
+        marginLeft: 20,
     },
     title: {
         fontSize: 24,

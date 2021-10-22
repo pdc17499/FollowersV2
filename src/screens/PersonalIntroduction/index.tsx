@@ -1,11 +1,10 @@
-import { ARROW_BLUE, BLACK_CIRLE, DOWN, LOGO_BLUE, ONE, PLUS } from '@assets'
+import { PLUS } from '@assets'
 import React, { useState } from 'react'
-import { ScrollView, Dimensions, StyleSheet, Text, View, Image, Picker, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { SNS, INSTAGRAM, FACEBOOK, YOUTUBE, TWITTER } from '@assets'
 import SelectDropdown from "react-native-select-dropdown";
 import { HEIGHT, WIDTH } from '@utils'
-import { ArrowBlue, CaretDown, Down, Facebook, Instagram, Logo, One, Twitter, Youtube } from '@svg'
+import { ArrowBlue, CaretDown, Facebook, Instagram, Logo, One, Twitter, Youtube } from '@svg'
 import Feather from 'react-native-vector-icons/Feather';
 
 export function PersonalIntroduction({ navigation }: any) {
@@ -20,7 +19,6 @@ export function PersonalIntroduction({ navigation }: any) {
     const deleteAccount = () => {
         setNumb(numb - 1)
     }
-
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={{ flex: 1 }}>
@@ -51,7 +49,6 @@ export function PersonalIntroduction({ navigation }: any) {
                         }}>(Up to 5 accounts)</Text>
 
                     </View>
-
 
                     <View style={{ flexDirection: 'row', marginTop: HEIGHT * 30 / 896 }}>
                         <View style={{ width: WIDTH * 24 / 414 }}></View>

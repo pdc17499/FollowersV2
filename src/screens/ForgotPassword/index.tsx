@@ -1,14 +1,12 @@
 import React from 'react';
-import { StyleSheet, Alert, Text, View, Dimensions, TextInput, Button, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, Alert, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Formik } from 'formik';
-import { ARROW_VECTOR } from '@assets';
 import * as yup from 'yup';
 import { dataUser } from '@mocks';
 import { AppText } from '@components'
-import { HEIGHT, WIDTH } from '@utils'
+import { HEIGHT, I18n, WIDTH } from '@utils'
 import { ArrowRight } from '@svg';
-
 
 export function ForgotPassword({ navigation }: any) {
 
@@ -20,19 +18,20 @@ export function ForgotPassword({ navigation }: any) {
     const validationSchema = yup.object().shape({
         email: yup
             .string()
-            .required('Please enter your email')
-            .max(100, 'Email is not over 100 characters')
-            .email('Invalid email'),
+            .required(`${I18n.trans('forgot.requiredEmail')}`)
+            .max(100, `${I18n.trans('forgot.maxEmail')}`)
+            .email(`${I18n.trans('forgot.invalidEmail')}`),
     });
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <ScrollView>
-                <View >
-                    <Text style={styles.text}>Forgot Password</Text>
-                    <Text style={styles.textUnder}>Enter your email and we'll send the instruction to you</Text>
+                <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+                    <Text style={styles.text}>{I18n.trans('forgot.forgotPasswordTxt')}</Text>
+                    <Text style={styles.textUnder}>{I18n.trans('forgot.title')}</Text>
                 </View>
                 <View style={{ marginTop: 20 }}>
-                    <Text style={styles.minitext}>Email</Text>
+                    <Text style={styles.minitext}>{I18n.trans('forgot.email')}</Text>
                 </View>
 
                 <Formik
@@ -41,16 +40,14 @@ export function ForgotPassword({ navigation }: any) {
                     validateOnChange={false}
                     onSubmit={values => {
                         if (values.email === dataUser.data.user.email) navigation.navigate('Verification')
-                        else Alert.alert('Not found this email')
+                        else Alert.alert(`${I18n.trans('forgot.emailNotFound')}`)
                     }}
                 >
-
                     {props => (
                         <View>
                             <TextInput
                                 style={styles.input} placeholder={'Your email'}
                                 onChangeText={props.handleChange('email')}
-
                                 value={props.values.email}
                             />
 
@@ -63,7 +60,7 @@ export function ForgotPassword({ navigation }: any) {
                             <TouchableOpacity onPress={props.handleSubmit}>
                                 <View style={styles.login} >
                                     <Text style={{ fontSize: 16, fontFamily: 'NotoSans-Bold', fontWeight: '600', color: "white", lineHeight: 22, marginRight: 5 }}>
-                                        Submit</Text>
+                                        {I18n.trans('forgot.submit')}</Text>
                                     <ArrowRight />
 
                                 </View>
@@ -78,7 +75,7 @@ export function ForgotPassword({ navigation }: any) {
                                         lineHeight: 22,
                                         color: '#2B3641',
                                         marginRight: 5
-                                    }}>Back to login</Text>
+                                    }}>{I18n.trans('forgot.back')}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -99,15 +96,16 @@ const styles = StyleSheet.create({
         color: '#191B1D',
         lineHeight: 38.14
     },
-
+    // 1@gmail.com
     textUnder: {
         fontFamily: 'NotoSans',
         fontWeight: '400',
         fontSize: 14,
         lineHeight: 22.4,
         color: '#5A636D',
-        alignSelf: 'center',
-        marginTop: 5
+        textAlign: 'center',
+        marginTop: 5,
+        marginHorizontal: 25
     },
     input: {
         paddingLeft: 15,
@@ -145,7 +143,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row'
     },
-
     login2: {
         width: WIDTH * 367 / 414,
         height: HEIGHT * 60 / 896,

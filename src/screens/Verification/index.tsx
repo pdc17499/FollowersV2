@@ -7,7 +7,7 @@ import {
     useBlurOnFulfill,
     useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
-import { HEIGHT, WIDTH } from '@utils'
+import { HEIGHT, I18n, WIDTH } from '@utils'
 import { verificationCode } from '@mocks';
 import { Back } from '@svg';
 
@@ -24,7 +24,7 @@ export function Verification({ navigation }: any) {
 
     const onVerify = () => {
         (value === verificationCode.data) ? navigation.navigate('ResetPassword')
-            : Alert.alert('Your code is not correct !')
+            : Alert.alert(`${I18n.trans('verification.wrongCode')}`)
     }
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -41,7 +41,7 @@ export function Verification({ navigation }: any) {
                     marginTop: HEIGHT * 130 / 896,
 
                 }}>
-                    <Text style={styles.text} >Verification Code</Text>
+                    <Text style={styles.text} >{I18n.trans('verification.verification')}</Text>
                     <Text style={{
                         marginTop: 5,
                         textAlign: 'center',
@@ -53,7 +53,7 @@ export function Verification({ navigation }: any) {
                         color: '#C6CBCC',
                         lineHeight: 22.5,
                     }}>
-                        Enter the OTP code from the phone we just send you</Text>
+                        {I18n.trans('verification.title')}</Text>
                 </View>
 
                 <View>
@@ -82,7 +82,7 @@ export function Verification({ navigation }: any) {
 
                 <TouchableOpacity onPress={onVerify}>
                     <View style={styles.login} >
-                        <Text style={{ fontSize: 16, fontFamily: 'NotoSans-Bold', fontWeight: '600', color: "white", lineHeight: 22, marginRight: 5 }}>Verify</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'NotoSans-Bold', fontWeight: '600', color: "white", lineHeight: 22, marginRight: 5 }}>{I18n.trans('verification.verify')}</Text>
                         <Image source={VERIFY}></Image>
 
                     </View>
@@ -94,13 +94,13 @@ export function Verification({ navigation }: any) {
                         fontFamily: 'NotoSans',
                         color: '#2B3641',
                         marginRight: 3
-                    }}>Didn't receive OTP code?</Text>
+                    }}>{I18n.trans('verification.didntOTP')}</Text>
                     <TouchableOpacity onPress={() => setValue('')}>
                         <Text style={{
                             color: '#3FAEC7',
                             fontSize: 16,
                             fontFamily: 'NotoSans'
-                        }}>Resend</Text>
+                        }}>{I18n.trans('verification.resend')}</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>

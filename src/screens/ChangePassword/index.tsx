@@ -43,7 +43,7 @@ export function ChangePassword({ navigation }: any) {
             <View style={styles.container}>
                 <View style={styles.header}>
                     <TouchableOpacity onPress={() => navigation.navigate('Account')}><Back /></TouchableOpacity>
-                    <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: 55, }}>
+                    <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: 35, }}>
                         Change Password</Text>
                 </View>
 
@@ -171,7 +171,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: HEIGHT * 60 / 896,
-        marginLeft: 10,
     },
     text: {
         textAlign: 'center',

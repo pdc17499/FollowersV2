@@ -1,7 +1,7 @@
 import { blockUser } from './../app/action';
 import { Reducer } from 'redux';
 import { BlockActionTypes, ADD_BLOCK_USER, REMOVE_BLOCK_USER } from './types';
-import { BlockUserState } from '@interfaces';
+import { BlockUserState } from 'src/mocks/interfaces';
 import _ from 'lodash';
 
 const INITIAL: BlockUserState = {

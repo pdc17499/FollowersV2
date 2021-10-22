@@ -5,11 +5,6 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 export function TabBar({ state, descriptors, navigation }: any) {
 
-    // const [focusHome, setFocusHome] = useState(true)
-    // const [focusCommunities, setFocusCommunities] = useState(false)
-    // const [focusAccount, setFocusAccount] = useState(false)
-
-
     return (
 
         <View style={styles.container} >

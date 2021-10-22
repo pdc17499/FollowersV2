@@ -1,37 +1,33 @@
 import { Community } from '@components'
-import { communities, communitiesHome, dataUser, joinedCommunities } from '@mocks'
+import { communitiesHome, dataUser, joinedCommunities } from '@mocks'
 import { Coin, FacebookLogo, Right, Speaker, TwitterLogo } from '@svg'
 import { HEIGHT, WIDTH } from '@utils'
 import React from 'react'
-import { FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 const DATA = joinedCommunities.data
 const DATA2 = communitiesHome.data
 
 export function Home({ navigation }: any) {
-    const moveToCommunityDetail = () => { navigation.navigate('CommunitiesDetail') }
 
-    const Item = ({ title, uri }: any) => (
-
-        <TouchableOpacity style={styles.item} onPress={moveToCommunityDetail}>
-            <Image source={{ uri: uri }} style={{ flex: 1, borderRadius: 16 }}></Image>
-            <Text style={styles.title2}>{title}</Text>
-        </TouchableOpacity>
-    );
     const moveToPurchase = () => { navigation.navigate('Purchase') }
 
     const renderItem = ({ item }: any) => (
-        <Item title={item.title} uri={item.uri} />
+
+        <TouchableOpacity style={styles.item} onPress={() => moveToDetail(item.title, item.member, item.uri)}>
+            <Image source={{ uri: item.uri }} style={{ flex: 1, borderRadius: 16 }}></Image>
+            <Text style={styles.title2}>{item.title}</Text>
+        </TouchableOpacity>
     );
 
     const seeAll = () => { navigation.navigate('Communities') }
-    const moveToDetail = () => { navigation.navigate('CommunitiesDetail') }
 
     const renderItem2 = ({ item }: any) => (
-        <TouchableOpacity onPress={moveToDetail}>
+        <TouchableOpacity onPress={() => moveToDetail(item.name, item.member, item.uri)}>
             <Community name={item.name} members={item.member} uri={item.uri}></Community>
         </TouchableOpacity>
     );
+    const moveToDetail = (name: any, members: any, uri: any) => { navigation.navigate('CommunitiesDetail', { name, members, uri }) }
 
     const ListFooterComponent = () => (
         <View>
@@ -91,7 +87,6 @@ export function Home({ navigation }: any) {
                 </View>
             </View>
 
-            {/* BODY */}
             <View style={{ marginTop: 30 }}>
                 <Text style={styles.title}>Joined communities</Text>
                 <View style={{ height: 20 }}></View>
@@ -115,7 +110,6 @@ export function Home({ navigation }: any) {
             </View>
             <Text style={styles.title}>Others</Text>
         </View>
-
     )
 
     return (

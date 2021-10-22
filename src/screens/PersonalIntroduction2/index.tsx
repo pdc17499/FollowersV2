@@ -10,7 +10,8 @@ import ImagePicker, { ImageOrVideo } from 'react-native-image-crop-picker';
 import { HEIGHT, WIDTH } from '@utils'
 import { ArrowRight, Logo, Three, Two } from '@svg'
 import { dataUser } from '@mocks';
-import { setUserInfo, setToken, useDispatch } from '@redux';
+import { setUserInfo, setToken } from '@redux';
+import { useDispatch } from 'react-redux';
 
 export function PersonalIntroduction2({ navigation }: any) {
     const [filePath, setFilePath] = useState('');
