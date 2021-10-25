@@ -14,12 +14,36 @@ export const forumPost: any = {
         'https://i.pinimg.com/564x/be/99/6a/be996a73b8029a03cb4f3b09f00d2c85.jpg',
       like: '1.2k',
       reply: '2.4k',
+      isLike: true,
+      isReply: true,
+      replyList: [
+        {
+          id: '1',
+          status: 0,
+          avatar:
+            'https://i.pinimg.com/236x/6b/30/ee/6b30eed8a959548804926e5ef7d224e3.jpg',
+          name: 'Theresa Webb',
+          time: '4h',
+          content:
+            'If cutting Pokémon was always planned then what were these. Lies to string us along. We can never cut Pokemon. Buy Pokémon bank and you’ll have transfers for generations to come we don’t want a gen 2 to gen 3 situation again. Fans care about their Pokémon',
+        },
+        {
+          id: '2',
+          status: 1,
+          avatar:
+            'https://i.pinimg.com/236x/87/f2/d9/87f2d906ba968dc8fd71e8804f9c2309.jpg',
+          name: 'Cameron Williamson',
+          time: '4h',
+          content:
+            "I'm looking for the people who invite me to Azelf and Mesprit .I'll invite you to Uxie as much as possible .Let's all work together !  My trainer cord ↓ 9612 9109 8415",
+        },
+      ],
     },
     {
       id: '2',
       name: 'Lil Nas x',
       time: '12h',
-      status: 0,
+      status: 1,
       avatar:
         'https://i.pinimg.com/236x/2a/98/e5/2a98e52025eca195717746b21619ea26.jpg',
       title: 'New universal is coming',
@@ -29,12 +53,36 @@ export const forumPost: any = {
         'https://i.pinimg.com/236x/b4/d7/a3/b4d7a34bca288415322ec3b23f8807ef.jpg',
       like: '1.9k',
       reply: '5.4k',
+      islike: false,
+      isReply: false,
+      replyList: [
+        {
+          id: '1',
+          status: 2,
+          avatar:
+            'https://i.pinimg.com/564x/12/bd/f1/12bdf115faafa54d8eb4bd5bf5034192.jpg',
+          name: 'Theresa Webb',
+          time: '4h',
+          content:
+            'If cutting Pokémon was always planned then what were these. Lies to string us along. We can never cut Pokemon. Buy Pokémon bank and you’ll have transfers for generations to come we don’t want a gen 2 to gen 3 situation again. Fans care about their Pokémon',
+        },
+        {
+          id: '2',
+          status: 0,
+          avatar:
+            'https://i.pinimg.com/236x/5d/14/12/5d14122429346d946fae7a2ecd68869f.jpg',
+          name: 'Cameron Williamson',
+          time: '4h',
+          content:
+            "I'm looking for the people who invite me to Azelf and Mesprit .I'll invite you to Uxie as much as possible .Let's all work together !  My trainer cord ↓ 9612 9109 8415",
+        },
+      ],
     },
     {
       id: '3',
       name: 'James Bond',
       time: '12h',
-      status: 0,
+      status: 2,
       avatar:
         'https://i.pinimg.com/236x/1d/74/af/1d74af154b32a6e308287212264321fa.jpg',
       title: 'End of a legend journey ',
@@ -44,6 +92,30 @@ export const forumPost: any = {
         'https://i.pinimg.com/236x/db/c5/b3/dbc5b306fe798a09e49a171ae653768e.jpg',
       like: '3.9k',
       reply: '8.4k',
+      islike: false,
+      isReply: false,
+      replyList: [
+        {
+          id: '1',
+          status: 1,
+          avatar:
+            'https://i.pinimg.com/236x/f1/77/04/f17704ba2e66dbc19f23de38a2a3a755.jpg',
+          name: 'Theresa Webb',
+          time: '4h',
+          content:
+            'If cutting Pokémon was always planned then what were these. Lies to string us along. We can never cut Pokemon. Buy Pokémon bank and you’ll have transfers for generations to come we don’t want a gen 2 to gen 3 situation again. Fans care about their Pokémon',
+        },
+        {
+          id: '2',
+          status: 2,
+          avatar:
+            'https://i.pinimg.com/236x/12/e5/f6/12e5f66e4bec45a91c9b036faf01e2c0.jpg',
+          name: 'Cameron Williamson',
+          time: '4h',
+          content:
+            "I'm looking for the people who invite me to Azelf and Mesprit .I'll invite you to Uxie as much as possible .Let's all work together !  My trainer cord ↓ 9612 9109 8415",
+        },
+      ],
     },
   ],
 };

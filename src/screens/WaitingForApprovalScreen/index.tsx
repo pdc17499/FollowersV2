@@ -34,7 +34,7 @@ export function WaitingForApprovalScreen({ navigation }: any) {
 
   const renderItem = ({ item }: any) => (
     <View style={styles.item}>
-      <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate('InvitaitionSenderProfile')}>
+      <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate('InvitationSenderProfile', { name: item.name, avatar: item.avatar, friend: item.friend })}>
         <View style={styles.borderAvatar}>
           <Image source={{ uri: item.avatar }} style={styles.avatar}></Image>
         </View >

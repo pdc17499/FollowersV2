@@ -1,14 +1,25 @@
-import { forumPost } from '@mocks'
+import { Replies } from '@components'
+import { ReduxState } from '@interfaces'
+import { setLiked, setShowReply } from '@redux'
 import { Back, EditForum, RedHeart, Reply, WhiteHeart } from '@svg'
 import { WIDTH } from '@utils'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 
-const DATA = forumPost.data
+export function Forum({ navigation }: any) {
 
-export function Forum() {
+    const FORUM = useSelector((state: ReduxState) => state.forum.forumInfo);
 
-    const [isLike, setIsLike] = useState(false)
+    const dispatch = useDispatch()
+
+    const changeLiked = (id: any) => {
+        dispatch(setLiked(id))
+
+    }
+    const showReply = (id: any) => {
+        dispatch(setShowReply(id))
+    }
 
     const renderItem = ({ item }: any) => {
 
@@ -23,7 +34,7 @@ export function Forum() {
         }
 
         return (
-            <View style={{ marginBottom: 20 }}>
+            <View>
                 <View style={{ borderBottomColor: '#E8EEF1', borderBottomWidth: 1, marginBottom: 20 }} />
                 <View style={{ flexDirection: 'row', marginHorizontal: WIDTH * 25 / 414 }}>
                     <View style={{
@@ -52,15 +63,21 @@ export function Forum() {
                         </View>
                         <View style={{ flexDirection: 'row', marginTop: 10, alignItems: 'center' }}>
 
-                            {isLike ? <TouchableOpacity onPress={() => setIsLike(!isLike)}><RedHeart /></TouchableOpacity>
-                                : <TouchableOpacity onPress={() => setIsLike(!isLike)}><WhiteHeart /></TouchableOpacity>}
+                            {item.isLike === true ? <TouchableOpacity onPress={() => changeLiked(item.id)}><RedHeart /></TouchableOpacity>
+                                : <TouchableOpacity onPress={() => changeLiked(item.id)}><WhiteHeart /></TouchableOpacity>}
                             <Text style={styles.text}>{item.like} likes</Text>
                             <View style={{ width: 20 }}></View>
-                            <Reply />
+                            <TouchableOpacity onPress={() => showReply(item.id)}>
+                                <Reply />
+                            </TouchableOpacity>
                             <Text style={styles.text}>{item.reply} replies</Text>
                         </View>
                     </View>
                 </View >
+                {(item.isReply === true)
+                    ? <Replies data={item.replyList} />
+                    : <View style={{ height: 25 }}></View>
+                }
             </View>
         )
     }
@@ -69,7 +86,9 @@ export function Forum() {
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <View>
                 <View style={styles.header}>
-                    <Back />
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Back />
+                    </TouchableOpacity>
                     <Text style={styles.headerTxt}>Forum</Text>
                     <EditForum />
                 </View>
@@ -78,7 +97,7 @@ export function Forum() {
             <FlatList
                 showsVerticalScrollIndicator={false}
                 style={{ marginTop: 15 }}
-                data={DATA}
+                data={FORUM}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
@@ -91,7 +110,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginLeft: 20,
-        marginTop: 60
+        marginTop: 35
     },
     headerTxt: {
         fontFamily: 'NotoSans-Bold',
@@ -111,6 +130,7 @@ const styles = StyleSheet.create({
         height: 48,
         borderRadius: 24,
     },
+
     content: {
         color: '#2B3641',
         fontFamily: 'NotoSans',
@@ -133,5 +153,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginLeft: 5
     },
+
 
 })

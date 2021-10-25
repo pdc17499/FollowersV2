@@ -32,7 +32,8 @@ const ACCOUNTS = [
     },
 ]
 
-export function InvitaitionSenderProfile({ navigation }: any) {
+export function InvitationSenderProfile({ route, navigation }: any) {
+    const { name, avatar, friend } = route.params
     const USER = invitationSender.data.user
     const [isFriend, setIsFriend] = useState(false)
     const [modalVisible, setModalVisible] = useState(false);
@@ -86,16 +87,16 @@ export function InvitaitionSenderProfile({ navigation }: any) {
                         <CaretLeft />
                     </TouchableOpacity>
                 </View>
-                <Image source={{ uri: USER.avatar }} style={styles.avatar}></Image>
+                <Image source={{ uri: avatar }} style={styles.avatar}></Image>
 
                 <View style={styles.name}>
-                    <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24, color: '#2B8093' }}>{USER.nick_name}</Text>
+                    <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24, color: '#2B8093' }}>{name}</Text>
                 </View>
 
                 <View style={{ marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
                     <View style={styles.miniblock} >
                         <Users />
-                        <Text style={{ color: '#7CAE12', fontSize: 15, fontFamily: 'NotoSan-Bold', marginLeft: 5 }}>9666</Text>
+                        <Text style={{ color: '#7CAE12', fontSize: 15, fontFamily: 'NotoSan-Bold', marginLeft: 5 }}>{friend}</Text>
                     </View>
                 </View>
             </View>

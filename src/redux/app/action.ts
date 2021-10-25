@@ -19,15 +19,15 @@ export const setFilterParams = (filter: any): AppActionTypes => {
   };
 };
 
-export const setForum = (forum: any, isLoadMore: boolean): any => {
-  return {
-    type: SET_LIST_FORUM,
-    payload: {
-      forum,
-      isLoadMore,
-    },
-  };
-};
+// export const setForum = (forum: any, isLoadMore: boolean): any => {
+//   return {
+//     type: SET_LIST_FORUM,
+//     payload: {
+//       forum,
+//       isLoadMore,
+//     },
+//   };
+// };
 
 export const addForum = (forum: any): any => {
   return {

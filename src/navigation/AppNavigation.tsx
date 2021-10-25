@@ -11,7 +11,7 @@ import {
     Forum,
     FriendRequestSent,
     Home,
-    InvitaitionSenderProfile,
+    InvitationSenderProfile,
     Login,
     PersonalIntroduction,
     PersonalIntroduction2,
@@ -189,6 +189,13 @@ export function AppNavigation() {
                 <Stack.Screen
                     name="StrangerProfile"
                     component={StrangerProfile}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="InvitationSenderProfile"
+                    component={InvitationSenderProfile}
                     options={{
                         headerShown: false,
                     }}

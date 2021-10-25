@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Modal, Text, View, SafeAreaView, Image, TouchableOpacity, TextInput, FlatList, ScrollView, Alert } from 'react-native'
-import { communitiesDetail } from '@mocks'
+import { communitiesDetail, forumPost } from '@mocks'
 import { HEIGHT, WIDTH } from '@utils'
 import { Back, CaretRight, Chat, Check, Filter, Line, Out, Ping, Rectangle, RectangleChecked, Search, User } from '@svg'
+import { useDispatch } from 'react-redux';
+import { setForumInfo } from '@redux';
+
 
 const DATA = communitiesDetail
 const DATA_LIST = DATA.community.member;
 
 export function CommunitiesDetail({ route, navigation }: any) {
+    const dispatch = useDispatch()
 
     const { name, members, uri } = route.params
 
@@ -20,6 +24,11 @@ export function CommunitiesDetail({ route, navigation }: any) {
     const [textModal1, setTextModal1] = useState("");
     const [textModal2, setTextModal2] = useState("");
     const [filteredDataSource, setFilteredDataSource] = useState(DATA_LIST);
+
+    const goForum = () => {
+        navigation.navigate('Forum')
+        dispatch(setForumInfo(forumPost.data))
+    }
 
     const Checked = () => {
         return (
@@ -107,7 +116,6 @@ export function CommunitiesDetail({ route, navigation }: any) {
         )
     }
 
-    const goForum = () => { navigation.navigate('Forum') }
 
     const renderItem = ({ item }: any) => {
         const check = () => {
