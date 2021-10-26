@@ -39,6 +39,7 @@ export const forumReducer: Reducer<ForumState, ForumActionTypes> = (
       const showReply = state.forumInfo[found2].isReply;
       state.forumInfo[found2].isReply = !showReply;
       return { ...state, forumInfo: [...state.forumInfo] };
+
     default:
       return state;
   }

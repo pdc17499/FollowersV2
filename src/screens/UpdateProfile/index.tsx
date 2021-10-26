@@ -9,8 +9,7 @@ import { ReduxState } from 'src/mocks/interfaces';
 import { setAvatar } from '@redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { SNSAccounts } from '@components';
-import { dataUser } from '@mocks';
-// const USER = dataUser.data.user;
+
 
 export function UpdateProfile({ navigation }: any) {
     const USER = useSelector((state: ReduxState) => state.user.userInfo);

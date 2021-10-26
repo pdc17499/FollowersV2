@@ -57,5 +57,6 @@ export * from './MinusCircle';
 export * from './EditForum';
 export * from './WhiteHeart';
 export * from './Reply';
-
 export * from './RedHeart';
+export * from './ImagePost';
+export * from './DeleteImage';

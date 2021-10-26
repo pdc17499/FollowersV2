@@ -7,6 +7,7 @@ import {
     ChangePassword,
     Communities,
     CommunitiesDetail,
+    CreatePost,
     ForgotPassword,
     Forum,
     FriendRequestSent,
@@ -203,6 +204,13 @@ export function AppNavigation() {
                 <Stack.Screen
                     name="Forum"
                     component={Forum}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="CreatePost"
+                    component={CreatePost}
                     options={{
                         headerShown: false,
                     }}

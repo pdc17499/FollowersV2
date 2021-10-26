@@ -201,6 +201,7 @@ export function CommunitiesDetail({ route, navigation }: any) {
                     <TouchableOpacity onPress={() => searchFilterFunction(text)}>
                         <Search />
                     </TouchableOpacity>
+
                     <TextInput style={styles.input}
                         placeholder={"Search by Name"}
                         onChangeText={(text) => searchFilterFunction(text)}

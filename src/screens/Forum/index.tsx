@@ -3,14 +3,20 @@ import { ReduxState } from '@interfaces'
 import { setLiked, setShowReply } from '@redux'
 import { Back, EditForum, RedHeart, Reply, WhiteHeart } from '@svg'
 import { WIDTH } from '@utils'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { FlatList, SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
+import Modal from "react-native-modal";
+import { likedUser } from '@mocks'
 
 export function Forum({ navigation }: any) {
 
     const FORUM = useSelector((state: ReduxState) => state.forum.forumInfo);
 
+    const [like, setLike] = useState('1.2K')
+    const [isLike, setIsLike] = useState(true)
+
+    const [modalVisible, setModalVisible] = useState(false);
     const dispatch = useDispatch()
 
     const changeLiked = (id: any) => {
@@ -20,6 +26,65 @@ export function Forum({ navigation }: any) {
     const showReply = (id: any) => {
         dispatch(setShowReply(id))
     }
+
+    const renderLikedUser = ({ item }: any) => {
+        const check = () => {
+            if (item.status == 1) {
+                return '#FF4C41'
+            }
+            if (item.status == 2) {
+                return '#406FF1'
+            }
+            else return '#FEA827'
+        }
+        return (
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 25, marginBottom: 24 }}>
+                <View style={{
+                    borderWidth: 2,
+                    borderColor: `${check()}`,
+                    height: 54,
+                    width: 54,
+                    borderRadius: 27,
+                    backgroundColor: `${check()}`,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <Image source={{ uri: item.avatar }} style={styles.avatar}></Image>
+                </View>
+                <Text style={styles.likedUsername}>{item.name}</Text>
+            </View>
+        )
+    }
+
+    const openModal = (like: any, isLike: any) => {
+        setModalVisible(true)
+        setLike(like)
+        setIsLike(isLike)
+    }
+
+    const RenderModal = () => (
+        <Modal isVisible={modalVisible} style={{ margin: 0, }} >
+            <TouchableOpacity onPressOut={() => setModalVisible(false)} >
+                <View style={{ height: 90 }}></View>
+            </TouchableOpacity>
+            <View style={styles.minitask}></View>
+            <View style={styles.modal} >
+                <View style={styles.headerModal}>
+                    {isLike === true ? <RedHeart /> : <WhiteHeart />}
+                    <Text style={styles.text2}>{like} likes</Text>
+                </View>
+                <View style={{ borderBottomColor: '#E8EEF1', borderBottomWidth: 1, marginBottom: 10 }} />
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    style={{ marginTop: 15 }}
+                    data={likedUser}
+                    renderItem={renderLikedUser}
+                    keyExtractor={item => item.id}
+                />
+            </View>
+        </Modal>
+    )
+
 
     const renderItem = ({ item }: any) => {
 
@@ -65,7 +130,9 @@ export function Forum({ navigation }: any) {
 
                             {item.isLike === true ? <TouchableOpacity onPress={() => changeLiked(item.id)}><RedHeart /></TouchableOpacity>
                                 : <TouchableOpacity onPress={() => changeLiked(item.id)}><WhiteHeart /></TouchableOpacity>}
-                            <Text style={styles.text}>{item.like} likes</Text>
+                            <TouchableOpacity onPress={() => openModal(item.like, item.isLike)}>
+                                <Text style={styles.text}>{item.like} likes</Text>
+                            </TouchableOpacity>
                             <View style={{ width: 20 }}></View>
                             <TouchableOpacity onPress={() => showReply(item.id)}>
                                 <Reply />
@@ -90,7 +157,8 @@ export function Forum({ navigation }: any) {
                         <Back />
                     </TouchableOpacity>
                     <Text style={styles.headerTxt}>Forum</Text>
-                    <EditForum />
+                    <TouchableOpacity onPress={() => navigation.navigate('CreatePost')}><EditForum /></TouchableOpacity>
+
                 </View>
             </View>
 
@@ -101,6 +169,7 @@ export function Forum({ navigation }: any) {
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
+            {RenderModal()}
         </SafeAreaView>
     )
 }
@@ -130,7 +199,6 @@ const styles = StyleSheet.create({
         height: 48,
         borderRadius: 24,
     },
-
     content: {
         color: '#2B3641',
         fontFamily: 'NotoSans',
@@ -153,6 +221,38 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginLeft: 5
     },
+    text2: {
+        color: '#2B3641',
+        fontFamily: 'NotoSans',
+        fontSize: 18,
+        marginLeft: 10
+    },
+    modal: {
+        flex: 1,
+        backgroundColor: 'white',
+        borderTopRightRadius: 12,
+        borderTopLeftRadius: 12,
+        width: '100%'
+    },
+    minitask: {
 
+        height: 5,
+        width: 129,
+        borderRadius: 10,
+        backgroundColor: 'white',
+        marginBottom: 7,
+        alignSelf: 'center'
+    },
+    headerModal: {
+        marginVertical: 20,
+        marginLeft: 30,
+        flexDirection: 'row',
+        alignItems: 'center'
 
+    },
+    likedUsername: {
+        fontFamily: 'NotoSans-Bold',
+        fontSize: 18,
+        marginLeft: 23
+    }
 })

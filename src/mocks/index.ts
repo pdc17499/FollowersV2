@@ -11,3 +11,4 @@ export * from './blockList';
 export * from './strangerData';
 export * from './invitationSender';
 export * from './forumPost';
+export * from './likedUser';

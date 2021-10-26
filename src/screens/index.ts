@@ -21,3 +21,4 @@ export * from './ChangePassword';
 export * from './StrangerProfile';
 export * from './InvitationSenderProfile';
 export * from './Forum';
+export * from './CreatePost';

@@ -79,7 +79,6 @@ export function Account({ navigation }: any) {
                         <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans-Bold' }}>
                             Do you want to Log out
                         </Text>
-
                         <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 40 }}>
                             <TouchableOpacity onPress={() => logOut()}>
                                 <ButtonLeft name={'Log out'} />
