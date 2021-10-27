@@ -73,13 +73,13 @@ export const appReducer: Reducer<IAppState, AppActionTypes> = (
         forum: [...state.forum],
       };
 
-    case DELETE_POST:
-      const id = [...state.forum].findIndex(forum => forum?.id === payload.id);
-      state.forum.splice(id, 1);
-      return {
-        ...state,
-        forum: [...state.forum],
-      };
+    // case DELETE_POST:
+    //   const id = [...state.forum].findIndex(forum => forum?.id === payload.id);
+    //   state.forum.splice(id, 1);
+    //   return {
+    //     ...state,
+    //     forum: [...state.forum],
+    //   };
 
     case SET_LANGUAGE:
       return Object.assign({}, state, payload);

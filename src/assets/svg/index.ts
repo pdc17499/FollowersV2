@@ -60,3 +60,5 @@ export * from './Reply';
 export * from './RedHeart';
 export * from './ImagePost';
 export * from './DeleteImage';
+export * from './ThreeDots';
+export * from './Trash';

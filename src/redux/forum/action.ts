@@ -1,4 +1,6 @@
 import {
+  CREATE_POST,
+  DELETE_POST,
   ForumActionTypes,
   SET_FORUM_INFO,
   SET_LIKED,
@@ -26,6 +28,24 @@ export const setLiked = (id: number): ForumActionTypes => {
 export const setShowReply = (id: number): ForumActionTypes => {
   return {
     type: SET_SHOW_REPLY,
+    payload: {
+      id,
+    },
+  };
+};
+
+export const createPost = (newPost: {}): ForumActionTypes => {
+  return {
+    type: CREATE_POST,
+    payload: {
+      newPost,
+    },
+  };
+};
+
+export const deletePost = (id: any): ForumActionTypes => {
+  return {
+    type: DELETE_POST,
     payload: {
       id,
     },

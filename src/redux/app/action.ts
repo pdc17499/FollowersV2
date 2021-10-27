@@ -47,14 +47,14 @@ export const likeOrUnLike = (forum: any): any => {
   };
 };
 
-export const deletePost = (id: number): any => {
-  return {
-    type: DELETE_POST,
-    payload: {
-      id,
-    },
-  };
-};
+// export const deletePost = (id: number): any => {
+//   return {
+//     type: DELETE_POST,
+//     payload: {
+//       id,
+//     },
+//   };
+// };
 
 export const setLanguage = (language: string): any => {
   return {

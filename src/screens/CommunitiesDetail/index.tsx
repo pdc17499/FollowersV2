@@ -267,9 +267,9 @@ export function CommunitiesDetail({ route, navigation }: any) {
                     </View >
                 </TouchableOpacity >
             </Modal >
-
         )
     }
+
     return (
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }} >
             <View style={styles.container}>

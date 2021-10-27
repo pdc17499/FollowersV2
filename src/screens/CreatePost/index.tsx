@@ -1,17 +1,44 @@
 import { ReduxState } from '@interfaces';
 import { Back, DeleteImage, ImagePost } from '@svg'
 import React, { useState } from 'react'
-import { Alert, FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { useSelector } from 'react-redux';
+import { Alert, FlatList, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
+import { WIDTH } from '@utils';
+import { createPost } from '@redux';
 
 export function CreatePost({ navigation }: any) {
+    const dispatch = useDispatch()
 
-    const [filePath, setFilePath] = useState({});
+    const [filePath, setFilePath] = useState({ images: [{ uri: '' }] });
 
     const USER = useSelector((state: ReduxState) => state.user.userInfo);
+
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
+
+    const createPostToForum = () => {
+        const uri = filePath.images[0].uri
+        const newPost = {
+            id: (Date.now() + Math.random()).toString(),
+            name: USER.username,
+            time: '5h',
+            timeDetail: '8:58 AM',
+            dateTime: '27 Oct 2021',
+            status: 3,
+            avatar: USER.avatar,
+            title: title,
+            content: content,
+            image: uri,
+            like: '0 like',
+            reply: '0 reply',
+            isLike: false,
+            isReply: false,
+            replyList: [],
+        }
+        dispatch(createPost(newPost))
+        navigation.navigate('Forum')
+    }
 
     const pickMultiple = () => {
         ImagePicker.openPicker({
@@ -27,7 +54,6 @@ export function CreatePost({ navigation }: any) {
             .then((images) => {
                 setFilePath({
                     images: images.map((i) => {
-                        // console.log('received image', i);
                         return {
                             uri: i.path,
                             width: i.width,
@@ -43,7 +69,8 @@ export function CreatePost({ navigation }: any) {
     const deleteImage = (uri: any) => {
         const found = filePath.images.findIndex((element: any) => element.uri === uri);
         filePath.images.splice(found, 1)
-        setFilePath({ ...filePath })
+        if (filePath.images.length === 0) setFilePath({ images: [{ uri: '' }] })
+        else setFilePath({ ...filePath })
     }
 
     const renderItem = ({ item }: any) => {
@@ -57,19 +84,17 @@ export function CreatePost({ navigation }: any) {
             </View>
         );
     }
-    console.log("path", filePath);
 
     return (
-
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Back />
                 </TouchableOpacity>
                 <Text style={styles.headerTxt}>New Post</Text>
-                <View style={styles.post}>
+                <TouchableOpacity style={styles.post} onPress={() => createPostToForum()}>
                     <Text style={styles.postTxt}>Post</Text>
-                </View>
+                </TouchableOpacity>
             </View>
             <View style={{ borderBottomColor: '#E8EEF1', borderBottomWidth: 1, marginVertical: 15 }} />
 
@@ -91,9 +116,9 @@ export function CreatePost({ navigation }: any) {
                             multiline={true}
                             value={content} />
 
-                        {(filePath.images)
+                        {(filePath.images && filePath.images[0].uri !== '')
                             ? <FlatList
-                                style={{ marginBottom: 20, marginTop: 15 }}
+                                style={{ marginBottom: 20, marginTop: 15, width: WIDTH - 100, height: 'auto', }}
                                 horizontal
                                 pagingEnabled={true}
                                 showsHorizontalScrollIndicator={false}
@@ -107,7 +132,6 @@ export function CreatePost({ navigation }: any) {
                         <TouchableOpacity onPress={() => pickMultiple()}>
                             <ImagePost />
                         </TouchableOpacity>
-
                     </View>
                 </View>
             </View>
@@ -163,5 +187,3 @@ const styles = StyleSheet.create({
         fontFamily: 'NotoSans'
     }
 })
-
-

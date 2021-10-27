@@ -27,10 +27,10 @@ interface likeOrUnLike {
   payload: any;
 }
 
-interface DeletePost {
-  type: typeof DELETE_POST;
-  payload: any;
-}
+// interface DeletePost {
+//   type: typeof DELETE_POST;
+//   payload: any;
+// }
 
 interface SetLangague {
   type: typeof SET_LANGUAGE;
@@ -52,7 +52,6 @@ export type AppActionTypes =
   | SetListForum
   | AddForum
   | likeOrUnLike
-  | DeletePost
   | SetLangague
   | SetListUser
   | BlockUser;

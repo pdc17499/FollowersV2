@@ -1,5 +1,7 @@
 import { Reducer } from 'redux';
 import {
+  CREATE_POST,
+  DELETE_POST,
   ForumActionTypes,
   SET_FORUM_INFO,
   SET_LIKED,
@@ -38,6 +40,17 @@ export const forumReducer: Reducer<ForumState, ForumActionTypes> = (
 
       const showReply = state.forumInfo[found2].isReply;
       state.forumInfo[found2].isReply = !showReply;
+      return { ...state, forumInfo: [...state.forumInfo] };
+
+    case CREATE_POST:
+      state.forumInfo.push(payload.newPost);
+      return { ...state, forumInfo: [...state.forumInfo] };
+
+    case DELETE_POST:
+      const index = state.forumInfo.findIndex(
+        (element: any) => element.id === payload.id,
+      );
+      state.forumInfo.splice(index, 1);
       return { ...state, forumInfo: [...state.forumInfo] };
 
     default:

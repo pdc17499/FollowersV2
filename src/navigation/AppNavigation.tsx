@@ -16,6 +16,7 @@ import {
     Login,
     PersonalIntroduction,
     PersonalIntroduction2,
+    PostDetail,
     Profile,
     PurchaseCoin,
     Register,
@@ -211,6 +212,13 @@ export function AppNavigation() {
                 <Stack.Screen
                     name="CreatePost"
                     component={CreatePost}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="PostDetail"
+                    component={PostDetail}
                     options={{
                         headerShown: false,
                     }}

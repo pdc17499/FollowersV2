@@ -34,7 +34,7 @@ export function Home({ navigation }: any) {
             <TouchableOpacity onPress={seeAll}>
                 <View style={{ flexDirection: 'row', marginTop: 30, alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={{ color: '#3FAEC7', fontSize: 20, fontFamily: 'NotoSans-Bold', marginRight: 12 }}>See all</Text>
-                    <Right></Right>
+                    <Right />
                 </View>
             </TouchableOpacity>
 
