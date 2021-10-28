@@ -192,7 +192,7 @@ export function PostDetail({ route, navigation }: any) {
 
                 </View >
 
-                <Replies data={item.replyList} />
+                <Replies data={item.replyList} id={item.id} />
 
             </View >
         )

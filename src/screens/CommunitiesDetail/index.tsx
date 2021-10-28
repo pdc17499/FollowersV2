@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     header: {
-        marginTop: HEIGHT * 60 / 896,
+        marginTop: HEIGHT * 50 / 896,
         marginBottom: 15
     },
     search: {

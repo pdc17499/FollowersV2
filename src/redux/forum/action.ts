@@ -2,6 +2,7 @@ import {
   CREATE_POST,
   DELETE_POST,
   ForumActionTypes,
+  REPLY_POST,
   SET_FORUM_INFO,
   SET_LIKED,
   SET_SHOW_REPLY,
@@ -47,6 +48,16 @@ export const deletePost = (id: any): ForumActionTypes => {
   return {
     type: DELETE_POST,
     payload: {
+      id,
+    },
+  };
+};
+
+export const replyPost = (id: any, reply: {}): ForumActionTypes => {
+  return {
+    type: REPLY_POST,
+    payload: {
+      reply,
       id,
     },
   };

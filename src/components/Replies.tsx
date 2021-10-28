@@ -1,21 +1,42 @@
+import { ReduxState } from '@interfaces';
 import { dataUser } from '@mocks';
+import { replyPost } from '@redux';
 import { WIDTH } from '@utils';
 import React, { useState } from 'react'
-import { FlatList, Image, StyleSheet, Text, TextInput, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux';
 
 export function Replies(data: any) {
+    const USER = useSelector((state: ReduxState) => state.user.userInfo);
+    const dispatch = useDispatch()
+
+    const [text, setText] = useState('')
 
     const DATA2 = data.data
 
-    const renderReplyItem = (item: any) => {
-        console.log('miniReply', item);
+    const createNewReply = () => {
+        const newReply = {
+            id: (Date.now() + Math.random()).toString(),
+            status: 3,
+            avatar: USER.avatar,
+            name: USER.username,
+            time: '1m',
+            content: text,
+        }
+        dispatch(replyPost(data.id, newReply))
+        setText('')
+    }
 
+    const renderReplyItem = (item: any) => {
         const check = () => {
             if (item.item.status == 1) {
                 return '#FF4C41'
             }
             if (item.item.status == 2) {
                 return '#406FF1'
+            }
+            if (item.item.status == 3) {
+                return 'white'
             }
             else return '#FEA827'
         }
@@ -35,10 +56,10 @@ export function Replies(data: any) {
                         <Image source={{ uri: item.item.avatar }} style={styles.avatarMini}></Image>
                     </View>
                     <View style={{ marginLeft: 15 }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, marginRight: 15, lineHeight: 22 }}>{item.item.name}</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, marginRight: 12, lineHeight: 22 }}>{item.item.name}</Text>
                             <View style={styles.dot}></View>
-                            <Text style={{ fontFamily: 'NotoSans', fontSize: 16, marginLeft: 5, color: '#A8ACAE' }}>{item.item.time}</Text>
+                            <Text style={{ fontFamily: 'NotoSans', fontSize: 16, marginLeft: 5, lineHeight: 22, color: '#A8ACAE' }}>{item.item.time}</Text>
                         </View>
                     </View>
                 </View >
@@ -58,13 +79,14 @@ export function Replies(data: any) {
                 <View style={styles.header}>
                     <Image source={{ uri: dataUser.data.user.avatar }} style={styles.avatarUser} ></Image>
                     <TextInput style={styles.input}
-                        // onChangeText={onChangeText}
+                        value={text}
+                        onChangeText={setText}
                         placeholder={'Your reply'}
                     >
                     </TextInput>
-                    <View style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={() => createNewReply()}>
                         <Text style={{ color: 'white', fontFamily: 'NotoSans-Bold', fontSize: 16 }}>Reply</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
             <FlatList
@@ -83,10 +105,10 @@ const styles = StyleSheet.create({
         fontFamily: 'NotoSans',
         lineHeight: 22,
         marginLeft: 22,
-        fontSize: 16
+        fontSize: 16,
+        width: '50%'
     },
     header: {
-
         flexDirection: 'row'
     },
     avatar: {
@@ -100,6 +122,7 @@ const styles = StyleSheet.create({
         borderRadius: 16,
     },
     dot: {
+        marginTop: 2,
         backgroundColor: '#A8ACAE',
         height: 4,
         width: 4,
@@ -138,7 +161,7 @@ const styles = StyleSheet.create({
         height: 48,
         width: 75,
         borderRadius: 10,
-        marginLeft: '30%',
+        marginLeft: 5,
         alignItems: 'center',
         justifyContent: 'center'
     }

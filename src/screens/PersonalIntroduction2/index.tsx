@@ -1,8 +1,7 @@
 import { DOWN, PROFILE } from '@assets'
 import React, { useState } from 'react'
 import {
-    ScrollView, StyleSheet, Text, View, Picker, TextInput, TouchableOpacity, Alert, Image,
-    Platform, PermissionsAndroid
+    ScrollView, StyleSheet, Text, View, Picker, TextInput, TouchableOpacity, Image
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import SelectDropdown from "react-native-select-dropdown";
@@ -21,7 +20,6 @@ export function PersonalIntroduction2({ navigation }: any) {
     const jobs = ["Singer", "Developer", "Actor", "Other"];
 
     const openGallery = (callback: (arg0: ImageOrVideo) => void) => {
-        // console.tron.warn('open gallery')
         ImagePicker.openPicker({
             width: 1024,
             height: 1024,
@@ -38,7 +36,6 @@ export function PersonalIntroduction2({ navigation }: any) {
     const dispatch = useDispatch()
 
     const onStart = () => {
-
         dispatch(setUserInfo(dataUser.data.user)),
             dispatch(setToken(dataUser.data.token)),
             navigation.navigate('MyHome')
@@ -48,9 +45,7 @@ export function PersonalIntroduction2({ navigation }: any) {
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <ScrollView>
 
-                <View style={styles.logo}>
-                    <Logo />
-                </View>
+                <View style={styles.logo}><Logo /></View>
 
                 <View>
                     <Text style={styles.title}>Getting started</Text>
@@ -59,7 +54,6 @@ export function PersonalIntroduction2({ navigation }: any) {
                 <View>
                     <Text style={styles.intro}>Personal Introduction</Text>
                 </View>
-
 
                 <View style={{ marginLeft: WIDTH * 24 / 414, marginTop: HEIGHT * 40 / 896 }}>
                     <Two />
@@ -103,7 +97,6 @@ export function PersonalIntroduction2({ navigation }: any) {
                         renderDropdownIcon={() => {
                             return (
                                 <Image source={DOWN} style={{ marginLeft: 10 }} />
-
                             );
                         }}
                         dropdownIconPosition={"right"}
@@ -117,7 +110,6 @@ export function PersonalIntroduction2({ navigation }: any) {
                     <Text style={styles.minitext}>Gender</Text>
                     <View style={{ marginLeft: WIDTH * 134 / 414 }}></View>
                     <Text style={styles.minitext}>Birth year</Text>
-
                 </View>
 
                 <View style={{ flexDirection: 'row' }}>
@@ -195,16 +187,8 @@ const styles = StyleSheet.create({
     logo: {
         marginLeft: WIDTH * 24 / 414,
         marginTop: HEIGHT * 86 / 896
+    },
 
-    },
-    sns: {
-        marginLeft: WIDTH * 24 / 414,
-        color: '#191B1D',
-        fontSize: 18,
-        lineHeight: 25,
-        fontWeight: '600',
-        fontFamily: 'NotoSans',
-    },
     title: {
         marginTop: HEIGHT * 32 / 896,
         marginLeft: WIDTH * 24 / 414,
@@ -248,11 +232,7 @@ const styles = StyleSheet.create({
         lineHeight: 22,
         borderRadius: 8
     },
-    number1: {
-        position: 'absolute',
-        top: 10,
-        left: 13
-    },
+
     add: {
         borderColor: '#A8ACAE',
         borderStyle: 'dashed',
@@ -289,7 +269,6 @@ const styles = StyleSheet.create({
         marginLeft: WIDTH * 25 / 414,
         marginTop: HEIGHT * 16 / 896,
         marginBottom: 5,
-
     },
     dropdown1BtnStyle: {
         width: "88%",

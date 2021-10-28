@@ -152,7 +152,7 @@ export function Forum({ navigation }: any) {
                     </View>
                 </View >
                 {(item.isReply === true)
-                    ? <Replies data={item.replyList} />
+                    ? <Replies data={item.replyList} id={item.id} />
                     : <View style={{ height: 25 }}></View>
                 }
             </View>
@@ -198,6 +198,7 @@ const styles = StyleSheet.create({
         marginRight: 80
     },
     dot: {
+        marginTop: 2,
         backgroundColor: '#A8ACAE',
         height: 4,
         width: 4,

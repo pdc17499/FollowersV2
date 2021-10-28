@@ -3,6 +3,7 @@ import {
   CREATE_POST,
   DELETE_POST,
   ForumActionTypes,
+  REPLY_POST,
   SET_FORUM_INFO,
   SET_LIKED,
   SET_SHOW_REPLY,
@@ -27,9 +28,7 @@ export const forumReducer: Reducer<ForumState, ForumActionTypes> = (
       const found = state.forumInfo.findIndex(
         (element: any) => element.id === payload.id,
       );
-      console.log('index', found);
       const like = state.forumInfo[found].isLike;
-      console.log('like', like);
       state.forumInfo[found].isLike = !like;
       return { ...state, forumInfo: [...state.forumInfo] };
 
@@ -51,6 +50,13 @@ export const forumReducer: Reducer<ForumState, ForumActionTypes> = (
         (element: any) => element.id === payload.id,
       );
       state.forumInfo.splice(index, 1);
+      return { ...state, forumInfo: [...state.forumInfo] };
+
+    case REPLY_POST:
+      const index2 = state.forumInfo.findIndex(
+        (element: any) => element.id === payload.id,
+      );
+      state.forumInfo[index2].replyList.push(payload.reply);
       return { ...state, forumInfo: [...state.forumInfo] };
 
     default:

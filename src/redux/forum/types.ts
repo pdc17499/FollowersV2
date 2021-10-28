@@ -3,6 +3,7 @@ export const SET_LIKED = 'FORUM/SET_LIKED';
 export const SET_SHOW_REPLY = 'FORUM/SET_SHOW_REPLY';
 export const CREATE_POST = 'FORUM/CREATE_POST';
 export const DELETE_POST = 'FORUM/DELETE_POST';
+export const REPLY_POST = 'FORUM/REPLY_POST';
 
 DELETE_POST;
 
@@ -26,6 +27,11 @@ interface CreatePost {
   payload: any;
 }
 
+interface ReplyPost {
+  type: typeof REPLY_POST;
+  payload: any;
+}
+
 interface DeletePost {
   type: typeof DELETE_POST;
   payload: any;
@@ -38,6 +44,7 @@ interface DeletePost {
 
 export type ForumActionTypes =
   | SetForumInfo
+  | ReplyPost
   | SetLiked
   | SetShowReply
   | DeletePost
