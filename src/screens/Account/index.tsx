@@ -74,7 +74,7 @@ export function Account({ navigation }: any) {
     const RenderModal = () => {
         return (
             <Modal isVisible={modalVisible}  >
-                <TouchableOpacity onPressOut={() => setModalVisible(false)} style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
                     <View style={styles.modal}>
                         <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans-Bold' }}>
                             Do you want to Log out
@@ -83,13 +83,12 @@ export function Account({ navigation }: any) {
                             <TouchableOpacity onPress={() => logOut()}>
                                 <ButtonLeft name={'Log out'} />
                             </TouchableOpacity>
-
                             <TouchableOpacity onPress={() => setModalVisible(false)}>
                                 <ButtonRight name={'Cancel'} />
                             </TouchableOpacity>
                         </View>
                     </View>
-                </TouchableOpacity>
+                </View>
             </Modal >
         )
     }
@@ -97,7 +96,7 @@ export function Account({ navigation }: any) {
     const RenderModal2 = () => {
         return (
             <Modal isVisible={modalVisible2}  >
-                <TouchableOpacity onPressOut={() => setModalVisible2(false)} style={{ flex: 1 }} >
+                <View style={{ flex: 1 }} >
                     <View style={styles.modal2}>
                         <BigWarning />
                         <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans-Bold', marginTop: 15, marginHorizontal: 15, textAlign: 'center' }}>Are you sure you want to delete this account</Text>
@@ -116,7 +115,7 @@ export function Account({ navigation }: any) {
                             </TouchableOpacity>
                         </View>
                     </View>
-                </TouchableOpacity>
+                </View>
             </Modal >
         )
     }

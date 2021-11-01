@@ -314,7 +314,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row'
-
     },
     modal2: {
         width: '95%',

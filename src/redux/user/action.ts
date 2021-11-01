@@ -80,7 +80,7 @@ export const loginThunk = ({
           password,
         },
       );
-      console.log('call api 3');
+      // console.log('call api 3');
       if (result) {
         console.log('call login', result);
         dispatch(setToken(result.token));

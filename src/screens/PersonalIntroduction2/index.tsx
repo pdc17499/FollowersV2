@@ -14,7 +14,6 @@ import { useDispatch } from 'react-redux';
 
 export function PersonalIntroduction2({ navigation }: any) {
     const [filePath, setFilePath] = useState('');
-    const [selectedJob, setSelectedJob] = useState("Singer");
     const [selectedGender, setSelectedGender] = useState("Male");
     const [selectedYear, setSelectedYear] = useState("2000");
     const jobs = ["Singer", "Developer", "Actor", "Other"];
@@ -40,7 +39,6 @@ export function PersonalIntroduction2({ navigation }: any) {
             dispatch(setToken(dataUser.data.token)),
             navigation.navigate('MyHome')
     }
-
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <ScrollView>
@@ -161,20 +159,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 15,
         width: WIDTH * 170 / 414,
-        height: HEIGHT * 60 / 896,
-        backgroundColor: '#F6F5E8',
-        borderWidth: 1,
-        borderColor: '#F6F5E8',
-        fontFamily: 'NotoSans',
-        fontSize: 16,
-        marginLeft: WIDTH * 25 / 414,
-        borderRadius: 8
-    },
-    picker2: {
-        justifyContent: 'center',
-        alignItems: 'stretch',
-        padding: 15,
-        width: WIDTH * 366 / 414,
         height: HEIGHT * 60 / 896,
         backgroundColor: '#F6F5E8',
         borderWidth: 1,

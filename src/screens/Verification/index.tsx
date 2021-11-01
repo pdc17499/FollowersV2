@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView, ScrollView, Dimensions, Alert } from 'react-native'
-import { HEADER_LEFT, ARROW_VECTOR, VERIFY } from '@assets';
+import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView, ScrollView, Alert } from 'react-native'
+import { VERIFY } from '@assets';
 import {
     CodeField,
     Cursor,
@@ -37,22 +37,9 @@ export function Verification({ navigation }: any) {
                     </TouchableOpacity>
                 </View>
 
-                <View style={{
-                    marginTop: HEIGHT * 130 / 896,
-
-                }}>
+                <View style={{ marginTop: HEIGHT * 130 / 896 }}>
                     <Text style={styles.text} >{I18n.trans('verification.verification')}</Text>
-                    <Text style={{
-                        marginTop: 5,
-                        textAlign: 'center',
-                        marginHorizontal: 70,
-                        fontSize: 16,
-                        fontWeight: '500',
-                        alignSelf: 'center',
-                        fontFamily: 'NotoSans',
-                        color: '#C6CBCC',
-                        lineHeight: 22.5,
-                    }}>
+                    <Text style={styles.titleTxt}>
                         {I18n.trans('verification.title')}</Text>
                 </View>
 
@@ -155,6 +142,17 @@ const styles = StyleSheet.create({
     focusCell: {
         borderBottomColor: '#007AFF',
         borderBottomWidth: 2,
+    },
+    titleTxt: {
+        marginTop: 5,
+        textAlign: 'center',
+        marginHorizontal: 70,
+        fontSize: 16,
+        fontWeight: '500',
+        alignSelf: 'center',
+        fontFamily: 'NotoSans',
+        color: '#C6CBCC',
+        lineHeight: 22.5,
     }
 })
 

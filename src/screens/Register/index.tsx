@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Picker, Text, View, Dimensions, TouchableOpacity, Alert, TextInput, Image, ScrollView } from 'react-native'
+import { StyleSheet, Picker, Text, View, TouchableOpacity, Alert, TextInput, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -30,24 +30,18 @@ export function Register({ navigation }: any) {
             .email('Invalid email'),
         password: yup
             .string()
-            // .min(6)
-            // .max(32)
             .required('Please enter your password')
             .matches(
                 /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
                 "Password must have 6-32 characters including numbers and letters"
             ),
-
-
         username: yup
             .string()
             .max(50, 'Usename is not over 50 characters')
             .required('Please enter your name'),
-
         code: yup
             .string()
             .max(9, 'Introduction code is not over 9 characters')
-
     });
 
     return (
@@ -58,16 +52,7 @@ export function Register({ navigation }: any) {
                         <Back></Back>
                     </View>
                 </TouchableOpacity>
-                <Text style={{
-                    fontSize: 24,
-                    lineHeight: 33,
-                    fontWeight: '600',
-                    fontFamily: 'NotoSans-Bold',
-                    color: '#191B1D',
-
-                    marginLeft: 75,
-                    marginTop: HEIGHT * 10 / 896
-                }}>
+                <Text style={styles.headerTXt}>
                     Register</Text>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -96,11 +81,9 @@ export function Register({ navigation }: any) {
                     validationSchema={validationSchema}
                     validateOnChange={false}
                     onSubmit={values => {
-
                         (values.email === dataUser.data.user.email) == true
                             ? Alert.alert('Email already registered !')
                             : navigation.navigate('PersonalIntroduction')
-
                     }}
                 >
                     {props => (
@@ -110,7 +93,6 @@ export function Register({ navigation }: any) {
                             <TextInput
                                 style={styles.input} placeholder={'Your email'}
                                 onChangeText={props.handleChange('email')}
-
                                 value={props.values.email}
                             />
                             {props.errors.email && (
@@ -125,7 +107,6 @@ export function Register({ navigation }: any) {
                                 <TextInput style={styles.input2}
                                     onChangeText={props.handleChange('password')}
                                     placeholder={'Your password'}
-
                                     value={props.values.password} secureTextEntry={!showPassword} ></TextInput>
 
                                 {props.errors.password && (
@@ -133,13 +114,11 @@ export function Register({ navigation }: any) {
                                         {props.errors.password}
                                     </AppText>
                                 )}
-                                {(showPassword == true) ?
-                                    <TouchableOpacity onPress={() => setShowPassword(false)} style={styles.eye}>
+                                {(showPassword == true)
+                                    ? <TouchableOpacity onPress={() => setShowPassword(false)} style={styles.eye}>
                                         <Eye></Eye>
                                     </TouchableOpacity>
-
-                                    :
-                                    <TouchableOpacity onPress={() => setShowPassword(true)} style={styles.eye}>
+                                    : <TouchableOpacity onPress={() => setShowPassword(true)} style={styles.eye}>
                                         <EyeSlash></EyeSlash>
                                     </TouchableOpacity>
                                 }
@@ -149,7 +128,6 @@ export function Register({ navigation }: any) {
                             <TextInput
                                 style={styles.input}
                                 onChangeText={props.handleChange('username')}
-
                                 value={props.values.username}
                             />
                             {props.errors.username && (
@@ -195,7 +173,6 @@ export function Register({ navigation }: any) {
                             <TextInput
                                 style={styles.input}
                                 onChangeText={props.handleChange('code')}
-
                                 value={props.values.code}
                             />
                             {props.errors.code && (
@@ -321,5 +298,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: HEIGHT * 30 / 896
+    },
+    headerTXt: {
+        fontSize: 24,
+        lineHeight: 33,
+        fontWeight: '600',
+        fontFamily: 'NotoSans-Bold',
+        color: '#191B1D',
+        marginLeft: 75,
+        marginTop: HEIGHT * 10 / 896
     }
 })

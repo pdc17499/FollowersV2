@@ -1,5 +1,5 @@
 
-import { Back, Coin, OneCoin, Yen, ThreeCoin, FiveCoin, Rule } from '@svg'
+import { Back, OneCoin, Yen, ThreeCoin, FiveCoin, Rule } from '@svg'
 import { WIDTH, HEIGHT } from '@utils'
 import React from 'react'
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
@@ -138,7 +138,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
     }
 })
-function render(arg0: JSX.Element) {
-    throw new Error('Function not implemented.')
-}
+
 

@@ -9,12 +9,10 @@ import Modal from "react-native-modal";
 import { useDispatch } from 'react-redux'
 import { setBlockUserInfo } from '@redux';
 
-const JOINED = joinedCommunities.data
 
 export function StrangerProfile({ route, navigation }: any) {
 
     const { name, avatar, friend, id } = route.params
-    const USER = strangerData.data.user
     const [send, setSend] = useState(false)
     const [modalVisible, setModalVisible] = useState(false);
     const dispatch = useDispatch()
@@ -28,12 +26,11 @@ export function StrangerProfile({ route, navigation }: any) {
     const RenderModal = () => {
         return (
             <Modal isVisible={modalVisible}   >
-                <TouchableOpacity onPressOut={() => setModalVisible(false)} style={{ flex: 1, backgroundColor: 'transparent' }}>
+                <View style={{ flex: 1, backgroundColor: 'transparent' }}>
                     <View style={styles.modal}>
                         <BigWarning />
                         <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans', marginTop: 15 }}>Are you sure you want to block</Text>
                         <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans-Bold' }}>{name}</Text>
-
                         <View style={{ marginTop: 20, borderBottomColor: '#C6CBCC', borderWidth: 0.5, height: 1, width: '100%' }}></View>
 
                         <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 40 }}>
@@ -49,7 +46,7 @@ export function StrangerProfile({ route, navigation }: any) {
                         </View>
 
                     </View>
-                </TouchableOpacity>
+                </View>
             </Modal >
         )
     }
@@ -136,7 +133,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 32
     },
-
     name: {
         marginTop: 15,
         justifyContent: 'center',
@@ -221,5 +217,4 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center'
     },
-
 })

@@ -92,9 +92,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row'
     },
-    number1: {
-        position: 'absolute',
-        top: 10,
-        left: 13
-    },
 })

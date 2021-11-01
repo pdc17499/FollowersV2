@@ -125,40 +125,4 @@ const styles = StyleSheet.create({
         height: 24,
         width: 24, borderRadius: 12
     },
-    accept: {
-        width: 100,
-        height: 45,
-        borderRadius: 8,
-        backgroundColor: '#3FAEC7',
-        alignItems: 'center',
-        justifyContent: 'center'
-
-    },
-    reject: {
-        width: 100,
-        height: 45,
-        borderRadius: 8,
-        backgroundColor: 'white',
-        borderWidth: 1,
-        borderColor: '#A8ACAE',
-        marginLeft: 15,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    flashMessage: {
-        height: 84,
-        borderRadius: 8,
-        backgroundColor: '#F6F5E8',
-        borderWidth: 1,
-        borderColor: '#F6F5E8',
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingLeft: 15,
-        marginTop: 35
-    },
-    message: {
-        fontSize: 15,
-        color: '#5A636D',
-        marginLeft: 10
-    }
 });

@@ -53,12 +53,13 @@ export const forumReducer: Reducer<ForumState, ForumActionTypes> = (
       return { ...state, forumInfo: [...state.forumInfo] };
 
     case REPLY_POST:
-      const index2 = state.forumInfo.findIndex(
-        (element: any) => element.id === payload.id,
-      );
-      state.forumInfo[index2].replyList.push(payload.reply);
-      return { ...state, forumInfo: [...state.forumInfo] };
-
+      if (payload.reply.content.trim() !== '') {
+        const index2 = state.forumInfo.findIndex(
+          (element: any) => element.id === payload.id,
+        );
+        state.forumInfo[index2].replyList.push(payload.reply);
+        return { ...state, forumInfo: [...state.forumInfo] };
+      } else return { ...state };
     default:
       return state;
   }

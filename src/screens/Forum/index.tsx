@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginLeft: 20,
-        marginTop: 35
+        marginTop: 30
     },
     headerTxt: {
         fontFamily: 'NotoSans-Bold',

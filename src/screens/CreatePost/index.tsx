@@ -63,7 +63,7 @@ export function CreatePost({ navigation }: any) {
                     }),
                 });
             })
-            .catch((e) => Alert.alert(e));
+            .catch((e) => Alert.alert(e.message));
     }
 
     const deleteImage = (uri: any) => {

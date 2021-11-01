@@ -41,7 +41,6 @@ export function Communities({ navigation }: any) {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={styles.header}>
-
                 <Text style={styles.headerTitle}>Communities</Text>
                 <View style={styles.search}>
                     <TouchableOpacity onPress={() => searchFilterFunction(text)}>

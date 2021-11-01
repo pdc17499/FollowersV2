@@ -11,7 +11,7 @@ import {
 import { HEIGHT, WIDTH } from '@utils';
 import React, { useState } from 'react';
 import { Back, Search, User } from '@svg';
-import { approval, friendList } from '@mocks';
+import { friendList } from '@mocks';
 
 export function RuiTomoList({ navigation }: any) {
     const DATA = friendList.data
@@ -32,7 +32,6 @@ export function RuiTomoList({ navigation }: any) {
             setFilteredDataSource(newData);
             onChangeText(text);
         } else {
-            // Inserted text is blank           
             setFilteredDataSource(DATA);
             onChangeText(text);
         }
@@ -55,7 +54,6 @@ export function RuiTomoList({ navigation }: any) {
                     </View>
                     <Text style={{ color: '#5A636D', fontFamily: 'NotoSans', fontSize: 14 }}>{item.description}</Text>
                 </View>
-
             </View>
 
             <View style={{ marginLeft: 73 }}>
@@ -116,7 +114,6 @@ const styles = StyleSheet.create({
         fontFamily: 'NotoSans-Bold',
         fontSize: 16
     },
-
     header: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -149,7 +146,6 @@ const styles = StyleSheet.create({
         height: 24,
         width: 24, borderRadius: 12
     },
-
     message: {
         fontSize: 15,
         color: '#5A636D',

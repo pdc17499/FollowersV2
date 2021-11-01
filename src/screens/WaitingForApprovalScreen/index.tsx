@@ -51,17 +51,17 @@ export function WaitingForApprovalScreen({ navigation }: any) {
             </TouchableOpacity>
 
             <View style={{ marginLeft: 73 }}>
-                <View style={{ flexDirection: 'row', marginBottom: 5 }} >
+                <View style={styles.communitiesRow} >
                     <Image source={{ uri: item.communities[0].uri }} style={styles.miniImage}></Image>
-                    <Text style={{ color: '#2B3641', lineHeight: 23, fontFamily: 'NotoSans-Bold', fontSize: 14, marginLeft: 8 }}>{item.communities[0].name}</Text>
+                    <Text style={styles.communitiesName}>{item.communities[0].name}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', marginBottom: 5 }} >
+                <View style={styles.communitiesRow} >
                     <Image source={{ uri: item.communities[1].uri }} style={styles.miniImage}></Image>
-                    <Text style={{ color: '#2B3641', lineHeight: 23, fontFamily: 'NotoSans-Bold', fontSize: 14, marginLeft: 8 }}>{item.communities[1].name}</Text>
+                    <Text style={styles.communitiesName}>{item.communities[1].name}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', marginBottom: 5 }} >
+                <View style={styles.communitiesRow}>
                     <Image source={{ uri: item.communities[2].uri }} style={styles.miniImage}></Image>
-                    <Text style={{ color: '#2B3641', lineHeight: 23, fontFamily: 'NotoSans-Bold', fontSize: 14, marginLeft: 8 }}>{item.communities[2].name}</Text>
+                    <Text style={styles.communitiesName}>{item.communities[2].name}</Text>
                 </View>
 
                 {item.status !== 1
@@ -82,7 +82,6 @@ export function WaitingForApprovalScreen({ navigation }: any) {
                         </TouchableOpacity>
                     </View>
                     : null}
-
             </View>
         </View>
     )
@@ -191,6 +190,12 @@ const styles = StyleSheet.create({
         color: '#5A636D',
         fontFamily: 'NotoSans',
         marginLeft: 10
+    },
+    communitiesName: {
+        color: '#2B3641', lineHeight: 23, fontFamily: 'NotoSans-Bold', fontSize: 14, marginLeft: 8
+    },
+    communitiesRow: {
+        flexDirection: 'row', marginBottom: 5
     }
 });
 

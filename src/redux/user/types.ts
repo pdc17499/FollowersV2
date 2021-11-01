@@ -28,7 +28,7 @@ interface SetRole {
 // interface CONG {
 //   type: string;
 //   payload: number;
-// }
+// };;;;;
 
 export type AuthActionTypes =
   | Logout

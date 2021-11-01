@@ -1,24 +1,16 @@
-import { PROFILE } from '@assets';
-import { Back, CaretLeft, Check, Facebook, Instagram, PencilLine, Twitter, UpdateCheck, Youtube } from '@svg'
+import { Back, UpdateCheck } from '@svg'
 import { HEIGHT, WIDTH } from '@utils'
 import React, { useState } from 'react'
-import { Alert, FlatList, Image, ImageProps, PermissionsAndroid, Picker, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { FlatList, Image, Picker, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import ImagePicker, { ImageOrVideo } from 'react-native-image-crop-picker';
 import { ReduxState } from 'src/mocks/interfaces';
-import { setAvatar } from '@redux';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { SNSAccounts } from '@components';
 
 export function UpdateProfile({ navigation }: any) {
     const USER = useSelector((state: ReduxState) => state.user.userInfo);
 
-    const DATA = [
-        {
-            id: '1',
-            value: 'Matsuura.Yki@gmail.com'
-        },
-    ]
+    const DATA = [{ id: '1', value: 'Matsuura.Yki@gmail.com' },]
     console.log('user', USER);
 
     const [text1, setText1] = useState(USER.username)
@@ -27,10 +19,7 @@ export function UpdateProfile({ navigation }: any) {
     const [selectedYear, setSelectedYear] = useState("2000");
     const [filePath, setFilePath] = useState(USER.avatar);
 
-    const dispatch = useDispatch()
-
     const openGallery = (callback: (arg0: ImageOrVideo) => void) => {
-        // console.tron.warn('open gallery')
         ImagePicker.openPicker({
             width: 1024,
             height: 1024,
@@ -45,10 +34,8 @@ export function UpdateProfile({ navigation }: any) {
         })
     }
 
-    const renderItem = ({ item }: any) => (
-        <View>
-            {/* <Text style={{ fontSize: 18 }}>{item.value}</Text> */}
-        </View>
+    const renderItem = () => (
+        <View />
     )
 
     const ListHeaderComponent = () =>
@@ -95,7 +82,7 @@ export function UpdateProfile({ navigation }: any) {
                     <Picker
                         selectedValue={selectedGender}
                         style={{ height: 50, width: 150 }}
-                        onValueChange={(itemValue, itemIndex) => setSelectedGender(itemValue)}
+                        onValueChange={(itemValue) => setSelectedGender(itemValue)}
                     >
                         <Picker.Item label="Male" value="Male" />
                         <Picker.Item label="Female" value="Female" />
@@ -107,7 +94,7 @@ export function UpdateProfile({ navigation }: any) {
                     <Picker
                         selectedValue={selectedYear}
                         style={{ height: 50, width: 150 }}
-                        onValueChange={(itemValue, itemIndex) => setSelectedYear(itemValue)}
+                        onValueChange={(itemValue) => setSelectedYear(itemValue)}
                     >
                         <Picker.Item label="2000" value="2000" />
                         <Picker.Item label="1999" value="1999" />
@@ -165,7 +152,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: HEIGHT * 90 / 896,
-
     },
     choose: {
         alignSelf: 'center',
@@ -246,7 +232,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#3FAEC7',
         borderRadius: 18,
-        // marginTop: 30,
         width: '100%',
         height: 58,
         position: 'absolute',

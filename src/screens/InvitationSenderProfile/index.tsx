@@ -4,10 +4,9 @@ import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image
 import { BigWarning, CaretLeft, Facebook, Instagram, Twitter, Users, Warning, Youtube } from '@svg'
 import { PROFILE_BACKGROUND } from '@assets'
 import { ButtonRight, JoinedCommunitiesBlock } from '@components'
-import { invitationSender, joinedCommunities } from '@mocks'
 import Modal from "react-native-modal";
-
-const JOINED = joinedCommunities.data
+import { setBlockUserInfo } from '@redux'
+import { useDispatch } from 'react-redux'
 
 const ACCOUNTS = [
     {
@@ -33,24 +32,25 @@ const ACCOUNTS = [
 ]
 
 export function InvitationSenderProfile({ route, navigation }: any) {
-    const { name, avatar, friend } = route.params
-    const USER = invitationSender.data.user
+    const { name, avatar, friend, id } = route.params
     const [isFriend, setIsFriend] = useState(false)
     const [modalVisible, setModalVisible] = useState(false);
+    const dispatch = useDispatch()
 
     const block = () => {
         setModalVisible(false)
         navigation.navigate('BlockList')
+        dispatch(setBlockUserInfo(id, name, avatar))
     }
 
     const RenderModal = () => {
         return (
             <Modal isVisible={modalVisible}   >
-                <TouchableOpacity onPressOut={() => setModalVisible(false)} style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
                     <View style={styles.modal}>
                         <BigWarning />
                         <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans', marginTop: 15 }}>Are you sure you want to block</Text>
-                        <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans-Bold' }}>{USER.username}</Text>
+                        <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans-Bold' }}>{name}</Text>
 
                         <View style={{ marginTop: 20, borderBottomColor: '#C6CBCC', borderWidth: 0.5, height: 1, width: '100%' }}></View>
 
@@ -66,7 +66,7 @@ export function InvitationSenderProfile({ route, navigation }: any) {
                             </TouchableOpacity>
                         </View>
                     </View>
-                </TouchableOpacity>
+                </View>
             </Modal >
         )
     }
@@ -138,7 +138,6 @@ export function InvitationSenderProfile({ route, navigation }: any) {
                 <Text style={{ fontSize: 16, fontFamily: 'NotoSans-Bold', fontWeight: '600', color: "#FF4C41", lineHeight: 22, marginRight: 5 }}>Block user</Text>
                 <Warning />
             </TouchableOpacity>
-
             {RenderModal()}
         </View>
     )
@@ -182,7 +181,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 30
     },
-
     name: {
         marginTop: 15,
         justifyContent: 'center',

@@ -25,7 +25,6 @@ export function ResetPassword({ navigation }: any) {
             .string()
             .required('Please enter your password')
             .matches(
-                // /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
                 /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
                 "Password must have 6-32 characters including numbers and letters"
             ),
@@ -33,7 +32,6 @@ export function ResetPassword({ navigation }: any) {
             .string()
             .required('Please enter your password')
             .matches(
-                // /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
                 /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
                 "Password must have 6-32 characters including numbers and letters"
             ),
@@ -64,7 +62,6 @@ export function ResetPassword({ navigation }: any) {
                                     style={styles.input} placeholder={'Enter new password'}
                                     secureTextEntry={!showPassword}
                                     onChangeText={props.handleChange('new_password')}
-
                                     value={props.values.new_password}
                                 />
                                 {props.errors.new_password && (
@@ -73,11 +70,10 @@ export function ResetPassword({ navigation }: any) {
                                     </AppText>
                                 )}
 
-                                {(showPassword == true) ?
-                                    <TouchableOpacity onPress={() => setShowPassword(false)} style={styles.eye}>
+                                {(showPassword == true)
+                                    ? <TouchableOpacity onPress={() => setShowPassword(false)} style={styles.eye}>
                                         <Eye />
                                     </TouchableOpacity>
-
                                     :
                                     <TouchableOpacity onPress={() => setShowPassword(true)} style={styles.eye}>
                                         <EyeSlash />
@@ -90,9 +86,7 @@ export function ResetPassword({ navigation }: any) {
                             <View >
                                 <TextInput style={styles.input2} placeholder={'Enter your password again'}
                                     onChangeText={props.handleChange('confirm_password')}
-
                                     value={props.values.confirm_password} secureTextEntry={!showPassword2} ></TextInput>
-
                                 {props.errors.confirm_password && (
                                     <AppText style={styles.error}>
                                         {props.errors.confirm_password}
@@ -156,7 +150,6 @@ const styles = StyleSheet.create({
         marginLeft: WIDTH * 25 / 414,
         borderRadius: 8
     },
-
     input2: {
         paddingLeft: 15,
         paddingRight: 15,

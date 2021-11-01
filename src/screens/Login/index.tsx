@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, TextInput, TextBase, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { Formik } from 'formik';
 import { dataUser } from '@mocks';
 import * as yup from 'yup';
 import { AppText } from '@components'
 import { ArrowRight, Eye, EyeSlash, LoginLogo } from '@svg';
 import { HEIGHT, WIDTH } from '@utils'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUserInfo, setToken } from '@redux';
 import { I18n } from '@utils';
 
@@ -133,7 +133,6 @@ export function Login({ navigation }: any) {
 };
 
 const styles = StyleSheet.create({
-
     logo: {
         alignItems: 'center',
         marginTop: HEIGHT * 121 / 896
@@ -211,20 +210,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderColor: '#3FAEC7',
         backgroundColor: '#3FAEC7',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
-
-    login2: {
-        width: WIDTH * 367 / 414,
-        height: HEIGHT * 56 / 896,
-        marginTop: HEIGHT * 20 / 896,
-        marginLeft: WIDTH * 24 / 414,
-        borderWidth: 1,
-        borderRadius: 8,
-        borderColor: 'black',
-        backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row'

@@ -26,6 +26,7 @@ export const forumPost: any = {
             'https://i.pinimg.com/236x/6b/30/ee/6b30eed8a959548804926e5ef7d224e3.jpg',
           name: 'Theresa Webb',
           time: '4h',
+          commentImage: '',
           content:
             'If cutting Pokémon was always planned then what were these. Lies to string us along. We can never cut Pokemon. Buy Pokémon bank and you’ll have transfers for generations to come we don’t want a gen 2 to gen 3 situation again. Fans care about their Pokémon',
         },
@@ -36,6 +37,8 @@ export const forumPost: any = {
             'https://i.pinimg.com/236x/87/f2/d9/87f2d906ba968dc8fd71e8804f9c2309.jpg',
           name: 'Cameron Williamson',
           time: '4h',
+          commentImage:
+            'https://i.pinimg.com/236x/96/23/af/9623af8b3f4e8aad8891bd6fd06f5af3.jpg',
           content:
             "A fantastic series!! I guess it's fire dragon. We have a big season coming in the July :<",
         },
@@ -67,6 +70,7 @@ export const forumPost: any = {
             'https://i.pinimg.com/564x/12/bd/f1/12bdf115faafa54d8eb4bd5bf5034192.jpg',
           name: 'Novac Djokovick',
           time: '4h',
+          commentImage: '',
           content:
             "I'm a big fan of series Spider-Man !! Can't wait to see the Movie at 12 Dec :<3 ",
         },
@@ -77,6 +81,7 @@ export const forumPost: any = {
             'https://i.pinimg.com/236x/5d/14/12/5d14122429346d946fae7a2ecd68869f.jpg',
           name: 'PhD. Chi Nguyen',
           time: '4h',
+          commentImage: '',
           content:
             "I'm looking for the people who invite me to Azelf and Mesprit .I'll invite you to Uxie as much as possible .Let's all work together !  My trainer cord ↓ 9612 9109 8415",
         },
@@ -108,6 +113,7 @@ export const forumPost: any = {
             'https://i.pinimg.com/236x/f1/77/04/f17704ba2e66dbc19f23de38a2a3a755.jpg',
           name: 'Jackie Chan',
           time: '4h',
+          commentImage: '',
           content:
             'If cutting Pokémon was always planned then what were these. Lies to string us along. We can never cut Pokemon. Buy Pokémon bank and you’ll have transfers for generations to come we don’t want a gen 2 to gen 3 situation again. Fans care about their Pokémon',
         },
@@ -118,6 +124,7 @@ export const forumPost: any = {
             'https://i.pinimg.com/236x/12/e5/f6/12e5f66e4bec45a91c9b036faf01e2c0.jpg',
           name: 'Barack Obama',
           time: '4h',
+          commentImage: '',
           content:
             "I'm looking for the people who invite me to Disney Land.Let's all work together !  My trainer cord ↓ 9612 9109 8415",
         },

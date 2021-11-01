@@ -29,7 +29,7 @@ export function ChangePassword({ navigation }: any) {
             .string()
             .required(`${I18n.trans('login.requiredPassword')}`)
             .matches(
-                // /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
+                // mk co 6-32 ki tu voi it nhat 1 chu cai va 1 so
                 /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
                 `${I18n.trans('login.invalidPassword')}`
             ),

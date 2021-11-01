@@ -35,9 +35,7 @@ const JOINED = joinedCommunities.data
 export function Profile({ navigation }: any) {
     const USER = dataUser.data.user
 
-    const moveToListFriend = () => {
-        navigation.navigate('RuiTomoList')
-    }
+    const moveToListFriend = () => { navigation.navigate('RuiTomoList') }
 
     const Notification = () => (
         <View style={{ marginTop: 60 }}>
@@ -68,7 +66,6 @@ export function Profile({ navigation }: any) {
                     <Text style={{ fontSize: 14, fontFamily: 'NotoSans-Bold', color: 'white', alignSelf: 'center', marginTop: 3 }}>33</Text>
                 </View>
             </TouchableOpacity>
-
         </View>
     )
 
@@ -121,11 +118,6 @@ export function Profile({ navigation }: any) {
         </View>
     );
 
-    // const renderBlock = () => {
-    //     return JOINED.map((item: any) => {
-    //         return <JoinedCommunitiesBlock name={item.title} uri={item.uri}></JoinedCommunitiesBlock>
-    //     })
-    // }
     const ListFooterComponent = () => (
         <View>
             <View style={{ marginHorizontal: WIDTH * 24 / 414 }}>
@@ -253,7 +245,6 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         paddingVertical: 15
-
     },
     notificationDown: {
         paddingVertical: 15,
@@ -271,7 +262,6 @@ const styles = StyleSheet.create({
         borderRadius: 14,
         backgroundColor: '#2B8093',
         alignItems: 'center',
-
     },
     bottomRequest: {
         flexDirection: 'row',
@@ -282,5 +272,4 @@ const styles = StyleSheet.create({
         marginTop: 12,
         borderRadius: 10,
     }
-
 })

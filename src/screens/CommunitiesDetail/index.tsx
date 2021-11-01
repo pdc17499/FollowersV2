@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Modal, Text, View, SafeAreaView, Image, TouchableOpacity, TextInput, FlatList, ScrollView, Alert } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, Modal, Text, View, SafeAreaView, Image, TouchableOpacity, TextInput, FlatList } from 'react-native'
 import { communitiesDetail, forumPost } from '@mocks'
-import { HEIGHT, WIDTH } from '@utils'
+import { WIDTH } from '@utils'
 import { Back, CaretRight, Chat, Check, Filter, Line, Out, Ping, Rectangle, RectangleChecked, Search, User } from '@svg'
 import { useDispatch } from 'react-redux';
 import { setForumInfo } from '@redux';
-
 
 const DATA = communitiesDetail
 const DATA_LIST = DATA.community.member;
@@ -152,7 +151,6 @@ export function CommunitiesDetail({ route, navigation }: any) {
                     </View>
                     <Text style={{ color: '#5A636D', fontFamily: 'NotoSans', fontSize: 14 }}>{item.description}</Text>
                 </View>
-
             </TouchableOpacity >
         )
     };
@@ -218,7 +216,7 @@ export function CommunitiesDetail({ route, navigation }: any) {
     const RenderModal = () => {
         return (
             <Modal animationType="slide" transparent={true} visible={modalVisible}  >
-                <TouchableOpacity onPressOut={() => setModalVisible(false)} style={styles.centeredView}>
+                <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalMenu}>Age</Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
@@ -226,7 +224,6 @@ export function CommunitiesDetail({ route, navigation }: any) {
                             <Line style={{ marginHorizontal: 10 }} />
                             <TextInput style={styles.inputModal2} onChangeText={(text) => setTextModal2(text)} value={textModal2} keyboardType="numeric" ></TextInput>
                         </View>
-
                         <View >
                             <Text style={styles.modalMenu}>Gender</Text>
                             <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 25, marginTop: 15 }}>
@@ -242,8 +239,8 @@ export function CommunitiesDetail({ route, navigation }: any) {
                                 <TouchableOpacity onPress={() => { setCheck2(!check2); setCheck1(false); setCheck3(false) }} >
                                     {(check2) == true
                                         ? <Checked></Checked>
-                                        : <Rectangle />}
-
+                                        : <Rectangle />
+                                    }
                                 </TouchableOpacity>
                                 <Text style={styles.text}>Female</Text>
                             </View>
@@ -265,8 +262,8 @@ export function CommunitiesDetail({ route, navigation }: any) {
                             </TouchableOpacity>
                         </View>
                     </View >
-                </TouchableOpacity >
-            </Modal >
+                </View >
+            </Modal>
         )
     }
 
@@ -336,7 +333,6 @@ const styles = StyleSheet.create({
         marginTop: 20,
         paddingHorizontal: 20,
         paddingVertical: 25,
-        // height: 200,
         borderColor: '#F6F5E8',
         borderWidth: 1,
         borderRadius: 10
@@ -348,7 +344,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     header: {
-        marginTop: HEIGHT * 50 / 896,
+        marginTop: 30,
         marginBottom: 15
     },
     search: {
@@ -372,7 +368,6 @@ const styles = StyleSheet.create({
         padding: 10,
         fontFamily: 'NotoSans',
         fontSize: 16,
-
     },
     Item: {
         backgroundColor: '#F6F7F9',
@@ -397,8 +392,8 @@ const styles = StyleSheet.create({
     },
     centeredView: {
         flex: 1,
-        paddingTop: 187,
-        paddingHorizontal: WIDTH * 24 / 414, // justifyContent: "center",
+        paddingTop: 168,
+        paddingHorizontal: WIDTH * 24 / 414,
     },
     modalView: {
         shadowOffset: {
@@ -451,7 +446,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#3FAEC7',
         height: 60,
         width: 130,
-
         marginLeft: 25,
         borderRadius: 10,
         justifyContent: 'center'
