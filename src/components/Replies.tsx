@@ -108,7 +108,7 @@ export function Replies(data: any) {
                 <View style={{ borderBottomColor: '#E8EEF1', borderBottomWidth: 1, marginVertical: 20 }} />
 
                 <View style={styles.header}>
-                    <Image source={{ uri: dataUser.data.user.avatar }} style={styles.avatarUser} ></Image>
+                    <Image source={{ uri: USER.avatar }} style={styles.avatarUser} ></Image>
                     <TextInput
                         multiline={true}
                         textAlignVertical='top'

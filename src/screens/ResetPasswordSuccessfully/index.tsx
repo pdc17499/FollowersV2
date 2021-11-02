@@ -8,6 +8,7 @@ export function ResetPasswordSuccessfully({ navigation }: any) {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <ScrollView>
+
                 <View>
                     <Image source={CHECK_CIRCLE} style={styles.circle}></Image>
                 </View>
@@ -26,8 +27,8 @@ export function ResetPasswordSuccessfully({ navigation }: any) {
                             Back to login</Text>
                     </View>
                 </TouchableOpacity>
-            </ScrollView>
 
+            </ScrollView>
         </SafeAreaView>
     )
 }
@@ -42,10 +43,9 @@ const styles = StyleSheet.create({
         fontFamily: 'NotoSans',
         fontWeight: '500',
     },
-
     login2: {
         width: WIDTH * 367 / 414,
-        height: HEIGHT * 60 / 896,
+        height: HEIGHT * 62 / 896,
         marginTop: HEIGHT * 65 / 896,
         marginLeft: WIDTH * 24 / 414,
         borderWidth: 1,

@@ -17,6 +17,7 @@ module.exports = {
           '@utils': './src/utils',
           '@interfaces': './src/interfaces',
           '@mocks': './src/mocks',
+          '@services': './src/services',
         },
       },
     ],

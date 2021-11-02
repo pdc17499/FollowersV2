@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { Formik } from 'formik';
-import { dataUser } from '@mocks';
 import * as yup from 'yup';
 import { AppText } from '@components'
 import { ArrowRight, Eye, EyeSlash, LoginLogo } from '@svg';
@@ -9,6 +8,8 @@ import { HEIGHT, WIDTH } from '@utils'
 import { useDispatch } from 'react-redux';
 import { setUserInfo, setToken } from '@redux';
 import { I18n } from '@utils';
+import { INSTANCE, SIGN_IN } from '@services';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function Login({ navigation }: any) {
 
@@ -18,7 +19,34 @@ export function Login({ navigation }: any) {
         password: '',
         error: '',
     };
+
+    const storeToken = async (value: string) => {
+        try {
+            await AsyncStorage.setItem('TOKEN', value);
+        } catch (error) {
+            // Error saving data
+        }
+    };
     const dispatch = useDispatch()
+
+    const loginApi = async (email: string, password: string) => {
+        try {
+            console.log('hello', email);
+            const response: any = await INSTANCE.post(SIGN_IN, { "email": email, "password": password, "device_token": "uulq84ejbkPeWTzIgZcDGqUAhbsY6ZPdbLyr61Y2sSLtXx-DtSS3XLqnuyWHNu1n6DbH0cURQeqc4FT5asddasdaNuulq84ejbkPeWTzIgZcDGqUAhbsY6ZPdbLyr61Y2sSLtXx-DtSS3XLqnuyWHNu1n6DbH0cURQeqc4FT5asddasdaN" });
+            console.log('rs', response.data.data);
+            if (response.data.data.message === 'Logged in successfully!') {
+                dispatch(setUserInfo(response.data.data.user)),
+                    dispatch(setToken(response.data.data.token)),
+                    storeToken(response.data.data.token)
+                navigation.navigate('MyHome')
+            }
+            else {
+                Alert.alert('Not found user')
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const validationSchema = yup.object().shape({
         email: yup
@@ -29,12 +57,13 @@ export function Login({ navigation }: any) {
         password: yup
             .string()
             .required(`${I18n.trans('login.requiredPassword')}`)
-            .matches(
-                // /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
-                /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
-                `${I18n.trans('login.invalidPassword')}`
-            ),
+        // .matches(
+        //     // /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
+        //     /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
+        //     `${I18n.trans('login.invalidPassword')}`
+        // ),
     });
+
     return (
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
             <ScrollView>
@@ -48,15 +77,9 @@ export function Login({ navigation }: any) {
                     validationSchema={validationSchema}
                     validateOnChange={false}
                     onSubmit={values => {
-                        if ((values.email === dataUser.data.user.email && values.password === dataUser.data.user.password) == true) {
-                            dispatch(setUserInfo(dataUser.data.user)),
-                                dispatch(setToken(dataUser.data.token)),
-                                navigation.navigate('MyHome')
-                        }
-                        else {
-                            Alert.alert(`${I18n.trans('login.userNotFound')}`)
-                        }
+                        loginApi(values.email, values.password)
                     }}
+
                 >
                     {props => (
                         <View>

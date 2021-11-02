@@ -1,11 +1,18 @@
 import { HEIGHT, WIDTH } from '@utils'
 import React from 'react'
-import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
+import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image, Alert } from 'react-native'
 import { Bell, BigCoin, CaretLeft, Copy, Crown, Facebook, Instagram, PencilLine, Right, Twitter, Users, Youtube } from '@svg'
 import { PROFILE_BACKGROUND } from '@assets'
 import { ActivitiesLog, JoinedCommunitiesBlock } from '@components'
 import { dataUser, joinedCommunities } from '@mocks'
 import StyledText from 'react-native-styled-text'
+import { useSelector } from 'react-redux'
+import { ReduxState } from '@interfaces'
+import { GET_LIST_FRIENDS, INSTANCE, RESET_PASSWORD } from '@services'
+import { values } from 'lodash'
+import axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 const ACCOUNTS = [
     {
@@ -33,9 +40,22 @@ const ACCOUNTS = [
 const JOINED = joinedCommunities.data
 
 export function Profile({ navigation }: any) {
-    const USER = dataUser.data.user
+    const USER = useSelector((state: ReduxState) => state.user.userInfo);
+    const token = useSelector((state: ReduxState) => state.user.token);
 
-    const moveToListFriend = () => { navigation.navigate('RuiTomoList') }
+    const moveToListFriend = async () => {
+        try {
+            const value = await AsyncStorage.getItem('TOKEN');
+            console.log('token', value);
+            const response: any = await INSTANCE.get(GET_LIST_FRIENDS);
+            // const response: any = await API.default 
+
+            console.log('rs', response);
+        } catch (error) {
+            console.log(error);
+        }
+        navigation.navigate('RuiTomoList')
+    }
 
     const Notification = () => (
         <View style={{ marginTop: 60 }}>
@@ -86,7 +106,7 @@ export function Profile({ navigation }: any) {
                 <Image source={{ uri: USER.avatar }} style={styles.avatar}></Image>
 
                 <View style={styles.name}>
-                    <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24, color: '#2B8093' }}>{USER.nick_name}</Text>
+                    <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24, color: '#2B8093' }}>{USER.username}</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{ fontFamily: 'NotoSans', fontSize: 16, color: '#5A636D', marginRight: 10 }} >ID: {USER.id}</Text>
                         <Copy />

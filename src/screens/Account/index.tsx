@@ -5,8 +5,9 @@ import { WIDTH } from '@utils'
 import React, { useState } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native'
 import { logout } from '@redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from "react-native-modal";
+import { ReduxState } from '@interfaces';
 
 const FLATLIST = [
     {
@@ -34,7 +35,7 @@ export function Account({ navigation }: any) {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
-    const DATA = dataUser.data.user
+    const DATA = useSelector((state: ReduxState) => state.user.userInfo);
 
     const actionMove = (title: any) => {
         switch (title) {
@@ -128,7 +129,7 @@ export function Account({ navigation }: any) {
                     <Image source={{ uri: DATA.avatar }} style={styles.avatar} ></Image>
                 </View>
                 <View style={styles.nickname}>
-                    <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16 }}>{DATA.nick_name}</Text>
+                    <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16 }}>{DATA.username}</Text>
                     <View style={{ flexDirection: 'row', marginTop: 5, alignItems: 'center' }}>
                         <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: '#5A636D', marginRight: 10 }} >ID: {DATA.id}</Text>
                         <Copy />

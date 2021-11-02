@@ -12,7 +12,6 @@ import { likedUser } from '@mocks'
 export function Forum({ navigation }: any) {
 
     const FORUM = useSelector((state: ReduxState) => state.forum.forumInfo);
-
     const [like, setLike] = useState('1.2K')
     const [isLike, setIsLike] = useState(true)
     const [modalVisible, setModalVisible] = useState(false);

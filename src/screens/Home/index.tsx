@@ -1,15 +1,18 @@
 import { Community } from '@components'
+import { ReduxState } from '@interfaces'
 import { communitiesHome, dataUser, joinedCommunities } from '@mocks'
 import { Coin, FacebookLogo, Right, Speaker, TwitterLogo } from '@svg'
 import { HEIGHT, WIDTH } from '@utils'
 import React from 'react'
 import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useSelector } from 'react-redux'
 
 const DATA = joinedCommunities.data
 const DATA2 = communitiesHome.data
 
 export function Home({ navigation }: any) {
 
+    const USER = useSelector((state: ReduxState) => state.user.userInfo);
     const moveToPurchase = () => { navigation.navigate('Purchase') }
 
     const renderItem = ({ item }: any) => (
@@ -65,11 +68,11 @@ export function Home({ navigation }: any) {
         <View>
             <View style={{ flexDirection: 'row', marginTop: HEIGHT * 56 / 896, alignItems: 'center', }}>
                 <View>
-                    <Image source={{ uri: dataUser.data.user.avatar }} style={styles.ava} ></Image>
+                    <Image source={{ uri: USER.avatar }} style={styles.ava} ></Image>
                 </View>
                 <View style={{ marginLeft: 20, paddingTop: 10, paddingBottom: 5, }}>
                     <Text style={{ color: '#5A636D', fontFamily: 'NotoSans', fontSize: 18, lineHeight: 25 }}>Hello</Text>
-                    <Text style={{ color: '#191B1D', fontFamily: 'NotoSans-Bold', fontSize: 24 }}>Matsuura Yuki</Text>
+                    <Text style={{ color: '#191B1D', fontFamily: 'NotoSans-Bold', fontSize: 24 }}>{USER.username}</Text>
                 </View>
             </View>
 

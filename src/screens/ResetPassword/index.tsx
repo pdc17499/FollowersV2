@@ -1,15 +1,16 @@
 
 import { AppText } from '@components'
-import { dataUser } from '@mocks'
 import { Formik } from 'formik'
 import React, { useState } from 'react'
-import { Alert, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as yup from 'yup';
 import { Eye, EyeSlash } from '@svg';
-import { HEIGHT, WIDTH } from '@utils'
+import { HEIGHT, I18n, WIDTH } from '@utils'
+import { INSTANCE, RESET_PASSWORD, VERIFY_CODE } from '@services'
 
-export function ResetPassword({ navigation }: any) {
+export function ResetPassword({ route, navigation }: any) {
+    const { email } = route.params
     const [showPassword, setShowPassword] = useState(false)
     const [showPassword2, setShowPassword2] = useState(false)
 
@@ -19,22 +20,23 @@ export function ResetPassword({ navigation }: any) {
         error: '',
     };
 
+
     const validationSchema = yup.object().shape({
 
         new_password: yup
             .string()
-            .required('Please enter your password')
-            .matches(
-                /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
-                "Password must have 6-32 characters including numbers and letters"
-            ),
+            .required('Please enter your password'),
+        // .matches(
+        //     /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
+        //     "Password must have 6-32 characters including numbers and letters"
+        // ),
         confirm_password: yup
             .string()
             .required('Please enter your password')
-            .matches(
-                /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
-                "Password must have 6-32 characters including numbers and letters"
-            ),
+        // .matches(
+        //     /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
+        //     "Password must have 6-32 characters including numbers and letters"
+        // ),
     });
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -48,10 +50,17 @@ export function ResetPassword({ navigation }: any) {
                     initialValues={formInitialValues}
                     validationSchema={validationSchema}
                     validateOnChange={false}
-                    onSubmit={values => {
-                        (values.new_password === values.confirm_password) == true
-                            ? navigation.navigate('ResetPasswordSuccessfully')
-                            : Alert.alert('New password and Confirm password must be the same ')
+                    onSubmit={async values => {
+                        try {
+                            const response: any = await INSTANCE.post(RESET_PASSWORD, { "email": email, "password": values.new_password, "password_confirmation": values.confirm_password });
+                            console.log('rs', response);
+                            if (response.data.success) {
+                                navigation.navigate('ResetPasswordSuccessfully')
+                            }
+                        } catch (error) {
+                            console.log(error);
+                            Alert.alert('New password and Confirm password must be the same')
+                        }
                     }}
                 >
                     {props => (
@@ -92,6 +101,15 @@ export function ResetPassword({ navigation }: any) {
                                         {props.errors.confirm_password}
                                     </AppText>
                                 )}
+                                {(showPassword2 == true)
+                                    ? <TouchableOpacity onPress={() => setShowPassword2(false)} style={styles.eye}>
+                                        <Eye />
+                                    </TouchableOpacity>
+                                    :
+                                    <TouchableOpacity onPress={() => setShowPassword2(true)} style={styles.eye}>
+                                        <EyeSlash />
+                                    </TouchableOpacity>
+                                }
 
                             </View>
                             <View style={{ marginTop: 20 }}>
@@ -123,7 +141,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         alignSelf: 'center',
         fontFamily: 'NotoSans-Bold',
-        marginTop: HEIGHT * 233 / 896,
+        marginTop: HEIGHT * 175 / 896,
         color: '#191B1D',
         lineHeight: 38.14
     },
@@ -198,9 +216,10 @@ const styles = StyleSheet.create({
     },
     login2: {
         width: WIDTH * 367 / 414,
-        height: HEIGHT * 56 / 896,
+        height: HEIGHT * 60 / 896,
         marginTop: HEIGHT * 20 / 896,
         marginLeft: WIDTH * 24 / 414,
+        marginBottom: 40,
         borderWidth: 1,
         borderRadius: 8,
         borderColor: 'black',

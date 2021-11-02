@@ -12,18 +12,18 @@ import _ from 'lodash';
 
 const INITIAL: UserState = {
   userInfo: {
-    id: 0,
-    nick_name: '',
-    username: '',
-    email: '',
-    password: '',
-    code: '',
-    phone: '',
-    avatar: '',
-    summary: '',
-    gender: '',
-    age: '',
-    introduce_code: '',
+    // id: 0,
+    // nick_name: '',
+    // username: '',
+    // email: '',
+    // password: '',
+    // code: '',
+    // phone: '',
+    // avatar: '',
+    // summary: '',
+    // gender: '',
+    // age: '',
+    // introduce_code: '',
   },
   token: '',
 };
@@ -37,9 +37,9 @@ export const userReducer: Reducer<UserState, AuthActionTypes> = (
     case SET_TOKEN:
       return { ...state, token: payload.token };
     case SET_AVATAR:
-      return _.assign({}, state, {
-        userInfo: _.assign({}, state.userInfo.avatar, payload.avatar),
-      });
+      state.userInfo.avatar = payload.avatar;
+
+      return { ...state, userInfo: { ...state.userInfo } };
     case SET_ROLE:
       return Object.assign({}, state, payload);
     case SET_USER_INFO:

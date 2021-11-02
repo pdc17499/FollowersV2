@@ -10,11 +10,15 @@ import {
 import { HEIGHT, I18n, WIDTH } from '@utils'
 import { verificationCode } from '@mocks';
 import { Back } from '@svg';
+import { INSTANCE, FORGOT_PASSWORD, VERIFY_CODE } from '@services';
 
-export function Verification({ navigation }: any) {
+export function Verification({ route, navigation }: any) {
+
+    const { email } = route.params
+    console.log('emailll', email);
+
 
     const CELL_COUNT = 4;
-
     const [value, setValue] = useState('');
     const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -22,9 +26,20 @@ export function Verification({ navigation }: any) {
         setValue,
     });
 
-    const onVerify = () => {
-        (value === verificationCode.data) ? navigation.navigate('ResetPassword')
-            : Alert.alert(`${I18n.trans('verification.wrongCode')}`)
+    const onVerify = async () => {
+
+        try {
+            const response: any = await INSTANCE.post(VERIFY_CODE, { "email": email, "code": value, "type": 1, "device_token": "uulq84ejbkPeWTzIgZcDGqUAhbsY6ZPdbLyr61Y2sSLtXx-DtSS3XLqnuyWHNu1n6DbH0cURQeqc4FT5asddasdaN" });
+            console.log('rs', response);
+            if (response.data.success) {
+                navigation.navigate('ResetPassword', { email: email })
+            }
+        } catch (error) {
+            console.log(error);
+            Alert.alert(`${I18n.trans('verification.wrongCode')}`)
+        }
+
+
     }
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -71,7 +86,6 @@ export function Verification({ navigation }: any) {
                     <View style={styles.login} >
                         <Text style={{ fontSize: 16, fontFamily: 'NotoSans-Bold', fontWeight: '600', color: "white", lineHeight: 22, marginRight: 5 }}>{I18n.trans('verification.verify')}</Text>
                         <Image source={VERIFY}></Image>
-
                     </View>
                 </TouchableOpacity>
 

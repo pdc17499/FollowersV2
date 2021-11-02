@@ -1,0 +1,11 @@
+export const baseURL = 'https://follower-matching-api.adamo.tech/api';
+export const SIGN_IN = '/auth/login';
+export const SIGN_UP = '/auth/signup';
+export const VERIFY_CODE = '/auth/verify-account';
+export const FORGOT_PASSWORD = '/auth/forgot-password';
+export const RESET_PASSWORD = '/auth/reset-password';
+export const CHANGE_PASSWORD = '/user/passwords';
+export const LOG_OUT = '/user/logout';
+export const UPDATE_PROFILE = '/user/profiles';
+export const SEND_INVITE_FRIEND = '/user/invite';
+export const GET_LIST_FRIENDS = '/user/friends';

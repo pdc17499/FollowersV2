@@ -49,10 +49,10 @@
       "@fonts": ["src/assets/fonts"],
       "@svg": ["src/assets/svg"],
       "@utils": ["src/utils"],
-
       "@hooks": ["src/hooks"],
       "@navigation": ["src/navigation"],
-      "@redux": ["src/redux"]
+      "@redux": ["src/redux"],
+      "@services": ["src/services"]
 
       // "@interfaces": ["./src/Interfaces"],
     },

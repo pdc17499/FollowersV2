@@ -4,11 +4,13 @@ import React, { useState } from 'react'
 import { FlatList, Image, Picker, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import ImagePicker, { ImageOrVideo } from 'react-native-image-crop-picker';
 import { ReduxState } from 'src/mocks/interfaces';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SNSAccounts } from '@components';
+import { setAvatar } from '@redux';
 
 export function UpdateProfile({ navigation }: any) {
     const USER = useSelector((state: ReduxState) => state.user.userInfo);
+    const dispatch = useDispatch()
 
     const DATA = [{ id: '1', value: 'Matsuura.Yki@gmail.com' },]
     console.log('user', USER);
@@ -32,6 +34,11 @@ export function UpdateProfile({ navigation }: any) {
             setFilePath(image.path)
             console.log(image);
         })
+    }
+
+    const updateProfile = () => {
+        dispatch(setAvatar(filePath))
+        navigation.goBack()
     }
 
     const renderItem = () => (
@@ -114,10 +121,10 @@ export function UpdateProfile({ navigation }: any) {
             <View><Text style={styles.title}>SNS accounts</Text></View>
             <SNSAccounts />
             <View style={{ height: 160 }}></View>
-            <View style={styles.update}>
+            <TouchableOpacity style={styles.update} onPress={() => updateProfile()}>
                 <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: 'white', marginRight: 10 }}>Update</Text>
                 <UpdateCheck />
-            </View>
+            </TouchableOpacity>
         </View>
     )
 

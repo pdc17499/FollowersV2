@@ -3,10 +3,10 @@ import { StyleSheet, Alert, Text, View, TextInput, TouchableOpacity, ScrollView 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { dataUser } from '@mocks';
 import { AppText } from '@components'
 import { HEIGHT, I18n, WIDTH } from '@utils'
 import { ArrowRight } from '@svg';
+import { FORGOT_PASSWORD, INSTANCE } from '@services';
 
 export function ForgotPassword({ navigation }: any) {
 
@@ -22,6 +22,19 @@ export function ForgotPassword({ navigation }: any) {
             .max(100, `${I18n.trans('forgot.maxEmail')}`)
             .email(`${I18n.trans('forgot.invalidEmail')}`),
     });
+
+    const forgot = async (email: string) => {
+        try {
+            const response: any = await INSTANCE.post(FORGOT_PASSWORD, { "email": email });
+            console.log('rs', response);
+            if (response.data.success) {
+                navigation.navigate('Verification', { email: email })
+            }
+        } catch (error) {
+            console.log(error);
+            Alert.alert('Email is incorrect!')
+        }
+    };
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -39,8 +52,7 @@ export function ForgotPassword({ navigation }: any) {
                     validationSchema={validationSchema}
                     validateOnChange={false}
                     onSubmit={values => {
-                        if (values.email === dataUser.data.user.email) navigation.navigate('Verification')
-                        else Alert.alert(`${I18n.trans('forgot.emailNotFound')}`)
+                        forgot(values.email)
                     }}
                 >
                     {props => (
@@ -96,7 +108,6 @@ const styles = StyleSheet.create({
         color: '#191B1D',
         lineHeight: 38.14
     },
-    // 1@gmail.com
     textUnder: {
         fontFamily: 'NotoSans',
         fontWeight: '400',
