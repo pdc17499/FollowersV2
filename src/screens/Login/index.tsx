@@ -8,7 +8,7 @@ import { HEIGHT, WIDTH } from '@utils'
 import { useDispatch } from 'react-redux';
 import { setUserInfo, setToken } from '@redux';
 import { I18n } from '@utils';
-import { INSTANCE, SIGN_IN } from '@services';
+import { loginAPI } from '@services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function Login({ navigation }: any) {
@@ -20,33 +20,28 @@ export function Login({ navigation }: any) {
         error: '',
     };
 
+    const login = async (email: string, password: string) => {
+
+        const response: any = await loginAPI({ email: email, password: password, device_token: "uulq84ejbkPeWTzIgZcDGqUAhbsY6ZPdbLyr61Y2sSLtXx-DtSS3XLqnuyWHNu1n6DbH0cURQeqc4FT5asddasdaNuulq84ejbkPeWTzIgZcDGqUAhbsY6ZPdbLyr61Y2sSLtXx-DtSS3XLqnuyWHNu1n6DbH0cURQeqc4FT5asddasdaN" })
+        if (response.data.message === "Logged in successfully!") {
+            dispatch(setUserInfo(response.data.user)),
+                dispatch(setToken(response.data.token)),
+                storeToken(response.data.token)
+            navigation.navigate('MyHome')
+        }
+        else {
+            Alert.alert('Not found user')
+        }
+    }
     const storeToken = async (value: string) => {
         try {
             await AsyncStorage.setItem('TOKEN', value);
         } catch (error) {
-            // Error saving data
+            console.log(error)
         }
     };
     const dispatch = useDispatch()
 
-    const loginApi = async (email: string, password: string) => {
-        try {
-            console.log('hello', email);
-            const response: any = await INSTANCE.post(SIGN_IN, { "email": email, "password": password, "device_token": "uulq84ejbkPeWTzIgZcDGqUAhbsY6ZPdbLyr61Y2sSLtXx-DtSS3XLqnuyWHNu1n6DbH0cURQeqc4FT5asddasdaNuulq84ejbkPeWTzIgZcDGqUAhbsY6ZPdbLyr61Y2sSLtXx-DtSS3XLqnuyWHNu1n6DbH0cURQeqc4FT5asddasdaN" });
-            console.log('rs', response.data.data);
-            if (response.data.data.message === 'Logged in successfully!') {
-                dispatch(setUserInfo(response.data.data.user)),
-                    dispatch(setToken(response.data.data.token)),
-                    storeToken(response.data.data.token)
-                navigation.navigate('MyHome')
-            }
-            else {
-                Alert.alert('Not found user')
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
 
     const validationSchema = yup.object().shape({
         email: yup
@@ -77,8 +72,9 @@ export function Login({ navigation }: any) {
                     validationSchema={validationSchema}
                     validateOnChange={false}
                     onSubmit={values => {
-                        loginApi(values.email, values.password)
-                    }}
+                        login(values.email, values.password)
+                    }
+                    }
 
                 >
                     {props => (

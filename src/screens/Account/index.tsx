@@ -3,11 +3,13 @@ import { dataUser, joinedCommunities } from '@mocks';
 import { BigWarning, Copy, LockKeyOpen, Prohibit, SignOut, UserCircle, Warning } from '@svg';
 import { WIDTH } from '@utils'
 import React, { useState } from 'react'
-import { View, Text, SafeAreaView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, Image, FlatList, TouchableOpacity, Alert } from 'react-native'
 import { logout } from '@redux';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from "react-native-modal";
 import { ReduxState } from '@interfaces';
+import { logOutApi } from '@services';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FLATLIST = [
     {
@@ -55,13 +57,29 @@ export function Account({ navigation }: any) {
                 break;
         }
     }
-    const logOut = () => {
-        dispatch(logout())
-        setModalVisible(false)
-        navigation.navigate('Login')
+    const logOut = async () => {
+        const response: any = await logOutApi()
+        if (response.data.message === "Logged out successfully!") {
+            dispatch(logout())
+            setModalVisible(false)
+            storeToken()
+            navigation.navigate('Login')
+        }
+        else {
+            setModalVisible(false)
+            Alert.alert('Something wrong!!')
+        }
     }
+    const storeToken = async () => {
+        try {
+            await AsyncStorage.setItem('TOKEN', '');
+        } catch (error) {
+            console.error(error)
+        }
+    };
     const deleteAccount = () => {
         setModalVisible(false)
+        storeToken()
         navigation.navigate('Login')
     }
 

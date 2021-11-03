@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import * as yup from 'yup';
 import { Eye, EyeSlash } from '@svg';
 import { HEIGHT, I18n, WIDTH } from '@utils'
-import { INSTANCE, RESET_PASSWORD, VERIFY_CODE } from '@services'
+import { resetPasswordApi } from '@services'
 
 export function ResetPassword({ route, navigation }: any) {
     const { email } = route.params
@@ -52,9 +52,9 @@ export function ResetPassword({ route, navigation }: any) {
                     validateOnChange={false}
                     onSubmit={async values => {
                         try {
-                            const response: any = await INSTANCE.post(RESET_PASSWORD, { "email": email, "password": values.new_password, "password_confirmation": values.confirm_password });
+                            const response: any = await resetPasswordApi({ "email": email, "password": values.new_password, "password_confirmation": values.confirm_password });
                             console.log('rs', response);
-                            if (response.data.success) {
+                            if (response.success) {
                                 navigation.navigate('ResetPasswordSuccessfully')
                             }
                         } catch (error) {

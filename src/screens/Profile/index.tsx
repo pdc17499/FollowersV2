@@ -4,15 +4,9 @@ import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image
 import { Bell, BigCoin, CaretLeft, Copy, Crown, Facebook, Instagram, PencilLine, Right, Twitter, Users, Youtube } from '@svg'
 import { PROFILE_BACKGROUND } from '@assets'
 import { ActivitiesLog, JoinedCommunitiesBlock } from '@components'
-import { dataUser, joinedCommunities } from '@mocks'
 import StyledText from 'react-native-styled-text'
 import { useSelector } from 'react-redux'
 import { ReduxState } from '@interfaces'
-import { GET_LIST_FRIENDS, INSTANCE, RESET_PASSWORD } from '@services'
-import { values } from 'lodash'
-import axios from 'axios'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
 
 const ACCOUNTS = [
     {
@@ -37,24 +31,14 @@ const ACCOUNTS = [
     },
 ]
 
-const JOINED = joinedCommunities.data
-
 export function Profile({ navigation }: any) {
     const USER = useSelector((state: ReduxState) => state.user.userInfo);
-    const token = useSelector((state: ReduxState) => state.user.token);
+    console.log('useeee', USER);
 
-    const moveToListFriend = async () => {
-        try {
-            const value = await AsyncStorage.getItem('TOKEN');
-            console.log('token', value);
-            const response: any = await INSTANCE.get(GET_LIST_FRIENDS);
-            // const response: any = await API.default 
 
-            console.log('rs', response);
-        } catch (error) {
-            console.log(error);
-        }
+    const moveToListFriend = () => {
         navigation.navigate('RuiTomoList')
+
     }
 
     const Notification = () => (

@@ -9,14 +9,24 @@ import {
     View,
 } from 'react-native';
 import { HEIGHT, WIDTH } from '@utils';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Back, Search, User } from '@svg';
 import { friendList } from '@mocks';
+import { getListFriend } from '@services';
 
 export function RuiTomoList({ navigation }: any) {
     const DATA = friendList.data
     const [text, onChangeText] = useState("");
-    const [filteredDataSource, setFilteredDataSource] = useState(DATA);
+    const [filteredDataSource, setFilteredDataSource] = useState();
+
+    useEffect(() => {
+        const getData = async () => {
+            const list: any = await getListFriend()
+            console.log('list', list.data.list_friend.data);
+            setFilteredDataSource(list.data.list_friend.data)
+        };
+        getData();
+    }, [])
 
     const searchFilterFunction = (text: any) => {
         const text1 = text.trim()
@@ -38,18 +48,17 @@ export function RuiTomoList({ navigation }: any) {
     }
 
     const renderItem = ({ item }: any) => (
-
         <View style={styles.item}>
             <View style={{ flexDirection: 'row' }}>
                 <View style={styles.borderAvatar}>
                     <Image source={{ uri: item.avatar }} style={styles.avatar}></Image>
                 </View >
                 <View style={{ marginLeft: 20, width: '48%' }}>
-                    <Text style={styles.userName}>{item.name}</Text>
+                    <Text style={styles.userName}>{item.username}</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{
                             color: '#5A636D', fontFamily: 'NotoSans', fontSize: 14, marginRight: 5
-                        }}>{item.friend}</Text>
+                        }}>{item.total_friends}</Text>
                         <User />
                     </View>
                     <Text style={{ color: '#5A636D', fontFamily: 'NotoSans', fontSize: 14 }}>{item.description}</Text>
@@ -57,18 +66,29 @@ export function RuiTomoList({ navigation }: any) {
             </View>
 
             <View style={{ marginLeft: 73 }}>
-                <View style={{ flexDirection: 'row', marginBottom: 5 }} >
-                    <Image source={{ uri: item.communities[0].uri }} style={styles.miniImage}></Image>
-                    <Text style={{ color: '#2B3641', lineHeight: 23, fontFamily: 'NotoSans-Bold', fontSize: 14, marginLeft: 8 }}>{item.communities[0].name}</Text>
+                {(item.communities[0]) ? <View style={{ flexDirection: 'row', marginBottom: 5 }} >
+                    <Image source={{ uri: item.communities[0].image }} style={styles.miniImage}></Image>
+                    <Text style={{ color: '#2B3641', lineHeight: 23, fontFamily: 'NotoSans-Bold', fontSize: 14, marginLeft: 8 }}>{item.communities[0].title}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', marginBottom: 5 }} >
-                    <Image source={{ uri: item.communities[1].uri }} style={styles.miniImage}></Image>
-                    <Text style={{ color: '#2B3641', lineHeight: 23, fontFamily: 'NotoSans-Bold', fontSize: 14, marginLeft: 8 }}>{item.communities[1].name}</Text>
+                    : null
+                }
+                {(item.communities[1]) ? <View style={{ flexDirection: 'row', marginBottom: 5 }} >
+                    <Image source={{ uri: item.communities[1].image }} style={styles.miniImage}></Image>
+                    <Text style={{ color: '#2B3641', lineHeight: 23, fontFamily: 'NotoSans-Bold', fontSize: 14, marginLeft: 8 }}>{item.communities[1].title}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', marginBottom: 5 }} >
-                    <Image source={{ uri: item.communities[2].uri }} style={styles.miniImage}></Image>
-                    <Text style={{ color: '#2B3641', lineHeight: 23, fontFamily: 'NotoSans-Bold', fontSize: 14, marginLeft: 8 }}>{item.communities[2].name}</Text>
+                    : null
+                }
+                {(item.communities[2]) ? <View style={{ flexDirection: 'row', marginBottom: 5 }} >
+                    <Image source={{ uri: item.communities[2].image }} style={styles.miniImage}></Image>
+                    <Text style={{ color: '#2B3641', lineHeight: 23, fontFamily: 'NotoSans-Bold', fontSize: 14, marginLeft: 8 }}>{item.communities[2].title}</Text>
                 </View>
+                    : null
+                }
+
+
+
+
+
             </View>
         </View>
 
@@ -77,6 +97,7 @@ export function RuiTomoList({ navigation }: any) {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={styles.container}>
+
                 <View style={styles.header}>
                     <TouchableOpacity onPress={() => navigation.navigate('Profile')}><Back /></TouchableOpacity>
                     <Text style={{ fontSize: 24, lineHeight: 33, fontWeight: '600', fontFamily: 'NotoSans-Bold', color: '#191B1D', marginLeft: 62, }}>

@@ -1,5 +1,6 @@
 import { AppText } from '@components'
 import { dataUser } from '@mocks'
+import { changePasswordApi } from '@services'
 import { Back, Eye, EyeSlash } from '@svg'
 import { HEIGHT, I18n, WIDTH } from '@utils'
 import { Formik } from 'formik'
@@ -27,12 +28,12 @@ export function ChangePassword({ navigation }: any) {
             .required('Please enter your current password'),
         newPassword: yup
             .string()
-            .required(`${I18n.trans('login.requiredPassword')}`)
-            .matches(
-                // mk co 6-32 ki tu voi it nhat 1 chu cai va 1 so
-                /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
-                `${I18n.trans('login.invalidPassword')}`
-            ),
+            .required(`${I18n.trans('login.requiredPassword')}`),
+        // .matches(
+        //     // mk co 6-32 ki tu voi it nhat 1 chu cai va 1 so
+        //     /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d@$!%*#?&;,]{6,32}$/,
+        //     `${I18n.trans('login.invalidPassword')}`
+        // ),
         confirmPassword: yup
             .string()
             .required(`${I18n.trans('login.requiredPassword')}`)
@@ -51,11 +52,15 @@ export function ChangePassword({ navigation }: any) {
                     initialValues={formInitialValues}
                     validationSchema={validationSchema}
                     validateOnChange={false}
-                    onSubmit={values => {
-                        if ((values.currentPassword === dataUser.data.user.password && values.newPassword === values.confirmPassword) == true) {
-                            navigation.navigate('MyHome')
-                        }
-                        else {
+                    onSubmit={async values => {
+                        try {
+                            const response: any = await changePasswordApi({ current_password: values.currentPassword, password: values.newPassword, password_confirmation: values.confirmPassword });
+                            console.log('rs', response);
+                            if (response.success) {
+                                navigation.navigate('MyHome')
+                            }
+                        } catch (error) {
+                            console.log(error);
                             Alert.alert('Your current password is incorrect')
                         }
                     }}

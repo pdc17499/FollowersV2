@@ -10,7 +10,7 @@ import {
 import { HEIGHT, I18n, WIDTH } from '@utils'
 import { verificationCode } from '@mocks';
 import { Back } from '@svg';
-import { INSTANCE, FORGOT_PASSWORD, VERIFY_CODE } from '@services';
+import { verifyCodeApi } from '@services';
 
 export function Verification({ route, navigation }: any) {
 
@@ -27,19 +27,16 @@ export function Verification({ route, navigation }: any) {
     });
 
     const onVerify = async () => {
-
         try {
-            const response: any = await INSTANCE.post(VERIFY_CODE, { "email": email, "code": value, "type": 1, "device_token": "uulq84ejbkPeWTzIgZcDGqUAhbsY6ZPdbLyr61Y2sSLtXx-DtSS3XLqnuyWHNu1n6DbH0cURQeqc4FT5asddasdaN" });
+            const response: any = await verifyCodeApi({ "email": email, "code": value, "type": 1, "device_token": "uulq84ejbkPeWTzIgZcDGqUAhbsY6ZPdbLyr61Y2sSLtXx-DtSS3XLqnuyWHNu1n6DbH0cURQeqc4FT5asddasdaN" });
             console.log('rs', response);
-            if (response.data.success) {
+            if (response.success) {
                 navigation.navigate('ResetPassword', { email: email })
             }
         } catch (error) {
             console.log(error);
             Alert.alert(`${I18n.trans('verification.wrongCode')}`)
         }
-
-
     }
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>

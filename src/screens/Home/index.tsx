@@ -1,33 +1,42 @@
 import { Community } from '@components'
 import { ReduxState } from '@interfaces'
 import { communitiesHome, dataUser, joinedCommunities } from '@mocks'
+import { getHomeInfo, getListCategories } from '@services'
 import { Coin, FacebookLogo, Right, Speaker, TwitterLogo } from '@svg'
 import { HEIGHT, WIDTH } from '@utils'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
-
-const DATA = joinedCommunities.data
-const DATA2 = communitiesHome.data
 
 export function Home({ navigation }: any) {
 
     const USER = useSelector((state: ReduxState) => state.user.userInfo);
     const moveToPurchase = () => { navigation.navigate('Purchase') }
+    const [data, setData] = useState()
+    const [joinedCommunities, setJoinedCommunities] = useState()
+
+    useEffect(() => {
+        const getData = async () => {
+            const Home: any = await getHomeInfo()
+            console.log('homeee', Home.data.data.user.communities);
+            setJoinedCommunities(Home.data.data.user.communities)
+            setData(Home.data.data.listCategories)
+        };
+        getData();
+    }, [])
 
     const renderItem = ({ item }: any) => (
-
         <TouchableOpacity style={styles.item} onPress={() => moveToDetail(item.title, item.member, item.uri)}>
-            <Image source={{ uri: item.uri }} style={{ flex: 1, borderRadius: 16 }}></Image>
-            <Text style={styles.title2}>{item.title}</Text>
+            <Image source={{ uri: item.image }} style={{ flex: 1, borderRadius: 16 }}></Image>
+            <Text style={styles.title2}>{item.name}</Text>
         </TouchableOpacity>
     );
 
     const seeAll = () => { navigation.navigate('Communities') }
 
     const renderItem2 = ({ item }: any) => (
-        <TouchableOpacity onPress={() => moveToDetail(item.name, item.member, item.uri)}>
-            <Community name={item.name} members={item.member} uri={item.uri}></Community>
+        <TouchableOpacity onPress={() => moveToDetail(item.title, item.total_members, item.image)}>
+            <Community name={item.title} members={item.total_members} uri={item.image}></Community>
         </TouchableOpacity>
     );
     const moveToDetail = (name: any, members: any, uri: any) => { navigation.navigate('CommunitiesDetail', { name, members, uri }) }
@@ -105,9 +114,10 @@ export function Home({ navigation }: any) {
                         pagingEnabled={true}
                         showsHorizontalScrollIndicator={false}
                         legacyImplementation={false}
-                        data={DATA}
+                        data={joinedCommunities}
                         renderItem={renderItem}
                         keyExtractor={item => item.id}
+
                     />
                 </View>
             </View>
@@ -119,7 +129,8 @@ export function Home({ navigation }: any) {
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={{ marginLeft: WIDTH * 24 / 414, flex: 1 }} >
                 <FlatList
-                    data={DATA2}
+                    data={data}
+
                     renderItem={renderItem2}
                     keyExtractor={item => item.id}
                     ListHeaderComponent={ListHeaderComponent}
@@ -151,7 +162,6 @@ const styles = StyleSheet.create({
         fontFamily: 'NotoSans',
         fontSize: 14,
         color: '#A8ACAE'
-
     },
     title: {
         color: '#191B1D',

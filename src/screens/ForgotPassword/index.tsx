@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { AppText } from '@components'
 import { HEIGHT, I18n, WIDTH } from '@utils'
 import { ArrowRight } from '@svg';
-import { FORGOT_PASSWORD, INSTANCE } from '@services';
+import { forgotPasswordApi } from '@services';
 
 export function ForgotPassword({ navigation }: any) {
 
@@ -25,9 +25,9 @@ export function ForgotPassword({ navigation }: any) {
 
     const forgot = async (email: string) => {
         try {
-            const response: any = await INSTANCE.post(FORGOT_PASSWORD, { "email": email });
+            const response: any = await forgotPasswordApi({ "email": email })
             console.log('rs', response);
-            if (response.data.success) {
+            if (response.success) {
                 navigation.navigate('Verification', { email: email })
             }
         } catch (error) {

@@ -1,24 +1,33 @@
 import { Community } from '@components'
 import { communities } from '@mocks'
+import { getListCategories } from '@services'
 import { Search } from '@svg'
 import { HEIGHT, WIDTH } from '@utils'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, TextInput, FlatList } from 'react-native'
-
-const DATA = communities.data
 
 export function Communities({ navigation }: any) {
     const moveToDetail = (name: any, members: any, uri: any) => { navigation.navigate('CommunitiesDetail', { name, members, uri }) }
     const [text, onChangeText] = useState("");
-    const [filteredDataSource, setFilteredDataSource] = useState(DATA);
+    const [data, setData] = useState([])
+    const [filteredDataSource, setFilteredDataSource] = useState([]);
+
+    useEffect(() => {
+        const getData = async () => {
+            const list: any = await getListCategories()
+            setData(list.data.categories.data)
+            setFilteredDataSource(list.data.categories.data)
+        };
+        getData();
+    }, [])
 
     const searchFilterFunction = (text: any) => {
         const text1 = text.trim()
         // Check if searched text is not blank
         if (text1) {
-            const newData = DATA.filter(function (item: any) {
-                const itemData = item.name
-                    ? item.name.toUpperCase()
+            const newData = data.filter(function (item: any) {
+                const itemData = item.title
+                    ? item.title.toUpperCase()
                     : ''.toUpperCase();
                 const textData = text1.toUpperCase();
                 return itemData.indexOf(textData) > -1;
@@ -27,14 +36,14 @@ export function Communities({ navigation }: any) {
             onChangeText(text);
         } else {
             // Inserted text is blank           
-            setFilteredDataSource(DATA);
+            setFilteredDataSource(data);
             onChangeText(text);
         }
     }
 
     const renderItem = ({ item }: any) => (
-        <TouchableOpacity onPress={() => moveToDetail(item.name, item.member, item.uri)}>
-            <Community name={item.name} members={item.member} uri={item.uri}></Community>
+        <TouchableOpacity onPress={() => moveToDetail(item.title, item.total_members, item.image)}>
+            <Community name={item.title} members={item.total_members} uri={item.image}></Community>
         </TouchableOpacity>
     );
 
@@ -58,7 +67,7 @@ export function Communities({ navigation }: any) {
                 style={{ marginHorizontal: WIDTH * 25 / 414, marginTop: 30 }}
                 data={filteredDataSource}
                 renderItem={renderItem}
-                keyExtractor={item => item.id}
+                keyExtractor={(item: any) => item.id}
             />
 
         </SafeAreaView>
