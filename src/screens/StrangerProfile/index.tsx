@@ -62,7 +62,7 @@ export function StrangerProfile({ route, navigation }: any) {
                                 <CaretLeft />
                             </TouchableOpacity>
                         </View>
-                        <Image source={{ uri: avatar }} style={styles.avatar}></Image>
+                        <Image source={{ uri: avatar ? avatar : 'https://api-private.atlassian.com/users/723b896d2798f7fa036ecd700531f3a7/avatar' }} style={styles.avatar}></Image>
 
                         <View style={styles.name}>
                             <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24, color: '#2B8093' }}>{name}</Text>

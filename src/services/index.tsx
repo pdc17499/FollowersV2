@@ -8,6 +8,16 @@ const RESET_PASSWORD = '/auth/reset-password'
 const CHANGE_PASSWORD = '/user/passwords'
 const GET_LIST_CATEGORIES = '/user/categories'
 const GET_HOME_INFO = '/user/home'
+const GET_CATEGORY_DETAIL = '/user/category/'
+const JOIN_COMMUNITY = '/user/communities/join'
+const LEAVE_COMMUNITY = '/user/communities/leave'
+const GET_LIST_POSTS = '/user/'
+const GET_POST_DETAIL = '/user/'
+const LIKE_POST = '/user/posts/like'
+
+
+
+
 
 
 export const loginAPI: any = async (data: any) => {
@@ -47,10 +57,44 @@ export const getListFriend: any = async () => {
   return response;
 };
 
-export const getListCategories: any = async () => {
-  const response: any = await api.get(GET_LIST_CATEGORIES);
+export const getListCategories: any = async (id: any) => {
+  const response: any = await api.get(GET_LIST_CATEGORIES, id);
   return response;
 };
+
+export const getCategoryDetail: any = async (id: string) => {
+  const response: any = await api.get(GET_CATEGORY_DETAIL + id);
+  return response;
+};
+export const joinCommunity: any = async (data: any) => {
+  const response: any = await api.post(JOIN_COMMUNITY, data);
+  return response;
+};
+
+export const leaveCommunity: any = async (data: any) => {
+  const response: any = await api.post(LEAVE_COMMUNITY, data);
+  return response;
+};
+
+export const likePost: any = async (data: any) => {
+  const response: any = await api.post(LIKE_POST, data);
+  return response;
+};
+
+
+
+
+export const getListOfPosts: any = async (id: string) => {
+  const response: any = await api.get(GET_LIST_POSTS + id + '/posts',);
+  return response;
+};
+
+export const getPostDetail: any = async (id1: string, id2: string) => {
+  const response: any = await api.get(GET_POST_DETAIL + id1 + '/posts/' + id2);
+  return response;
+};
+
+
 
 
 export const getHomeInfo: any = async () => {

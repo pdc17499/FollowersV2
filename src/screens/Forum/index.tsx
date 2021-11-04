@@ -1,105 +1,46 @@
 import { Replies } from '@components'
-import { ReduxState } from '@interfaces'
-import { setLiked, setShowReply } from '@redux'
 import { Back, EditForum, RedHeart, Reply, WhiteHeart } from '@svg'
 import { WIDTH } from '@utils'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
-import Modal from "react-native-modal";
-import { likedUser } from '@mocks'
+import { getListOfPosts, likePost } from '@services'
 
-export function Forum({ navigation }: any) {
+export function Forum({ route, navigation }: any) {
+    const { id } = route.params
+    const [posts, setPosts] = useState([])
 
-    const FORUM = useSelector((state: ReduxState) => state.forum.forumInfo);
-    const [like, setLike] = useState('1.2K')
-    const [isLike, setIsLike] = useState(true)
-    const [modalVisible, setModalVisible] = useState(false);
+    useEffect(() => {
+        getData();
+    }, [])
 
-    const dispatch = useDispatch()
-
-    const changeLiked = (id: any) => {
-        dispatch(setLiked(id))
-
-    }
-    const showReply = (id: any) => {
-        dispatch(setShowReply(id))
-    }
+    const getData = async () => {
+        const data: any = await getListOfPosts(id)
+        const post: never[] = data.data.data.data
+        console.log('fa', post);
+        setPosts([...post])
+    };
 
     const moveToPostDetail = (item: any) => {
-        navigation.navigate('PostDetail', { id: item.id })
+        navigation.navigate('PostDetail', { id1: id, id2: item.id })
     }
-
-    const renderLikedUser = ({ item }: any) => {
-        const check = () => {
-            if (item.status == 1) {
-                return '#FF4C41'
-            }
-            if (item.status == 2) {
-                return '#406FF1'
-            }
-            else return '#FEA827'
-        }
-        return (
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 25, marginBottom: 24 }}>
-                <View style={{
-                    borderWidth: 2,
-                    borderColor: `${check()}`,
-                    height: 54,
-                    width: 54,
-                    borderRadius: 27,
-                    backgroundColor: `${check()}`,
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-                    <Image source={{ uri: item.avatar }} style={styles.avatar}></Image>
-                </View>
-                <Text style={styles.likedUsername}>{item.name}</Text>
-            </View>
-        )
+    const sendLike = async (itemID: string) => {
+        await likePost({ "category_id": id, "id": itemID })
+        getData();
     }
-
-    const openModal = (like: any, isLike: any) => {
-        setModalVisible(true)
-        setLike(like)
-        setIsLike(isLike)
-    }
-
-    const RenderModal = () => (
-        <Modal isVisible={modalVisible} style={{ margin: 0, }} >
-            <TouchableOpacity onPressOut={() => setModalVisible(false)} >
-                <View style={{ height: 90 }}></View>
-            </TouchableOpacity>
-            <View style={styles.minitask}></View>
-            <View style={styles.modal} >
-                <View style={styles.headerModal}>
-                    {isLike === true ? <RedHeart /> : <WhiteHeart />}
-                    <Text style={styles.text2}>{like}</Text>
-                </View>
-                <View style={{ borderBottomColor: '#E8EEF1', borderBottomWidth: 1, marginBottom: 10 }} />
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    style={{ marginTop: 15 }}
-                    data={likedUser}
-                    renderItem={renderLikedUser}
-                    keyExtractor={item => item.id}
-                />
-            </View>
-        </Modal>
-    )
+    const sendDislike = () => { }
 
     const renderItem = ({ item }: any) => {
         const check = () => {
-            if (item.status == 1) {
+            if (item.user_status == 1) {
+                return '#FEA827'
+            }
+            if (item.user_status == 2) {
                 return '#FF4C41'
             }
-            if (item.status == 2) {
-                return '#406FF1'
-            }
-            if (item.status == 3) {
+            if (item.user_status == 3) {
                 return 'white'
             }
-            else return '#FEA827'
+            else return '#406FF1'
         }
         return (
             <View>
@@ -115,37 +56,36 @@ export function Forum({ navigation }: any) {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        <Image source={{ uri: item.avatar }} style={styles.avatar}></Image>
+                        <Image source={{ uri: item.author.avatar ? item.author.avatar : 'https://api-private.atlassian.com/users/723b896d2798f7fa036ecd700531f3a7/avatar' }} style={styles.avatar}></Image>
                     </View>
                     <View style={{ marginLeft: 15 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, marginRight: 15, lineHeight: 22 }}>{item.name}</Text>
+                            <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, marginRight: 15, lineHeight: 22 }}>{item.author.username}</Text>
                             <View style={styles.dot}></View>
-                            <Text style={{ fontFamily: 'NotoSans', fontSize: 16, marginLeft: 5, color: '#A8ACAE' }}>{item.time}</Text>
+                            <Text style={{ fontFamily: 'NotoSans', fontSize: 16, marginLeft: 5, color: '#A8ACAE' }}>{item.created_at.slice(0, 10)}</Text>
                         </View>
                         <View style={{ marginTop: 5, marginRight: 10, width: '90%' }}>
                             <TouchableOpacity onPress={() => moveToPostDetail(item)}>
                                 <Text numberOfLines={1} style={styles.title}>{item.title}</Text>
                             </TouchableOpacity>
                             <Text style={styles.content}>{item.content}</Text>
-                            {(item.image !== '')
-                                ? <Image resizeMode={'cover'} source={{ uri: item.image }} style={styles.image}></Image>
+                            {(item.file[0])
+                                ? <Image resizeMode={'cover'} source={{ uri: item.file[0] }} style={styles.image}></Image>
                                 : null
                             }
                         </View>
                         <View style={{ flexDirection: 'row', marginTop: 15, alignItems: 'center' }}>
 
-                            {item.isLike === true
-                                ? <TouchableOpacity onPress={() => changeLiked(item.id)}><RedHeart /></TouchableOpacity>
-                                : <TouchableOpacity onPress={() => changeLiked(item.id)}><WhiteHeart /></TouchableOpacity>}
+                            {item.check_like === true
+                                ? <TouchableOpacity onPress={() => sendDislike()}><RedHeart /></TouchableOpacity>
+                                : <TouchableOpacity onPress={() => sendLike(item.id)}><WhiteHeart /></TouchableOpacity>}
 
-                            <TouchableOpacity onPress={() => openModal(item.like, item.isLike)}>
-                                <Text style={styles.text}>{item.like}</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.text}>{item.total_like}</Text>
+
                             <View style={{ width: 20 }}></View>
-                            <TouchableOpacity onPress={() => showReply(item.id)} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={() => moveToPostDetail(item.id)} style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Reply />
-                                <Text style={styles.text}>{item.reply}</Text>
+                                <Text style={styles.text}>{item.total_comment}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -173,11 +113,11 @@ export function Forum({ navigation }: any) {
             <FlatList
                 showsVerticalScrollIndicator={false}
                 style={{ marginTop: 15 }}
-                data={FORUM}
+                data={posts}
                 renderItem={renderItem}
-                keyExtractor={item => item.id}
+                keyExtractor={(item: any) => item.id}
             />
-            {RenderModal()}
+
         </SafeAreaView>
     )
 }
@@ -231,36 +171,5 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginLeft: 7
     },
-    text2: {
-        color: '#2B3641',
-        fontFamily: 'NotoSans',
-        fontSize: 18,
-        marginLeft: 10
-    },
-    modal: {
-        flex: 1,
-        backgroundColor: 'white',
-        borderTopRightRadius: 12,
-        borderTopLeftRadius: 12,
-        width: '100%'
-    },
-    minitask: {
-        height: 5,
-        width: 129,
-        borderRadius: 10,
-        backgroundColor: 'white',
-        marginBottom: 7,
-        alignSelf: 'center'
-    },
-    headerModal: {
-        marginVertical: 20,
-        marginLeft: 30,
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    likedUsername: {
-        fontFamily: 'NotoSans-Bold',
-        fontSize: 18,
-        marginLeft: 23
-    }
+
 })

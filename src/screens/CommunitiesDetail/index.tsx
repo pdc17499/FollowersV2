@@ -1,19 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Modal, Text, View, SafeAreaView, Image, TouchableOpacity, TextInput, FlatList } from 'react-native'
-import { communitiesDetail, forumPost } from '@mocks'
+import { forumPost } from '@mocks'
 import { WIDTH } from '@utils'
 import { Back, CaretRight, Chat, Check, Filter, Line, Out, Ping, Rectangle, RectangleChecked, Search, User } from '@svg'
 import { useDispatch } from 'react-redux';
 import { setForumInfo } from '@redux';
-
-const DATA = communitiesDetail
-const DATA_LIST = DATA.community.member;
+import { getCategoryDetail, joinCommunity, leaveCommunity } from '@services'
 
 export function CommunitiesDetail({ route, navigation }: any) {
     const dispatch = useDispatch()
-
-    const { name, members, uri } = route.params
-
+    const { id } = route.params
     const [modalVisible, setModalVisible] = useState(false);
     const [text, onChangeText] = useState("");
     const [inGroup, setInGroup] = useState(false);
@@ -22,10 +18,31 @@ export function CommunitiesDetail({ route, navigation }: any) {
     const [check3, setCheck3] = useState(false);
     const [textModal1, setTextModal1] = useState("");
     const [textModal2, setTextModal2] = useState("");
-    const [filteredDataSource, setFilteredDataSource] = useState(DATA_LIST);
+    const [filteredDataSource, setFilteredDataSource] = useState([]);
+    const [listMember, setListMember] = useState([])
+    const [info, setInfo] = useState({ image: '', title: '', total_members: '', joined_status: 0 })
+
+    useEffect(() => {
+        getData();
+    }, [])
+
+    const getData = async () => {
+        const data: any = await getCategoryDetail(id)
+        const arr: any = data.data.communities.data
+        const info2 = data.data.category
+        console.log('mem', arr);
+        const newArr: never[] = []
+        arr.map((e: any) => {
+            return newArr.push(e.user)
+        })
+        setListMember([...newArr])
+        setInfo(info2)
+        setFilteredDataSource([...newArr]),
+            (data.data.category.joined_status === 1) ? setInGroup(true) : setInGroup(false)
+    };
 
     const goForum = () => {
-        navigation.navigate('Forum')
+        navigation.navigate('Forum', { id: id })
         dispatch(setForumInfo(forumPost.data))
     }
 
@@ -40,28 +57,28 @@ export function CommunitiesDetail({ route, navigation }: any) {
 
     const filterApply = (textModal1: string, textModal2: string, check1: boolean, check2: boolean, check3: boolean) => {
         if (textModal1 && textModal2) {
-            const newData = DATA_LIST.filter((item: any) => {
+            const newData = listMember.filter((item: any) => {
                 return ((item.age) >= textModal1 && item.age <= textModal2)
             })
             setFilteredDataSource(newData);
         } else {
-            setFilteredDataSource(DATA_LIST);
+            setFilteredDataSource(listMember);
         }
         if (check1) {
-            const newData = DATA_LIST.filter((item: any) => {
-                return (item.gender === 'Male')
+            const newData = listMember.filter((item: any) => {
+                return (item.gender === 1)
             })
             setFilteredDataSource(newData);
         }
         if (check2) {
-            const newData = DATA_LIST.filter((item: any) => {
-                return (item.gender === 'Female')
+            const newData = listMember.filter((item: any) => {
+                return (item.gender === 2)
             })
             setFilteredDataSource(newData);
         }
         if (check3) {
-            const newData = DATA_LIST.filter((item: any) => {
-                return (item.gender === 'Other')
+            const newData = listMember.filter((item: any) => {
+                return (item.gender === 3)
             })
             setFilteredDataSource(newData);
         }
@@ -79,9 +96,9 @@ export function CommunitiesDetail({ route, navigation }: any) {
     const searchFilterFunction = (text: any) => {
         // Check if searched text is not blank
         if (text) {
-            const newData = DATA_LIST.filter(function (item: any) {
-                const itemData = item.name
-                    ? item.name.toUpperCase()
+            const newData = listMember.filter(function (item: any) {
+                const itemData = item.username
+                    ? item.username.toUpperCase()
                     : ''.toUpperCase();
                 const textData = text.toUpperCase();
                 return itemData.indexOf(textData) > -1;
@@ -89,14 +106,25 @@ export function CommunitiesDetail({ route, navigation }: any) {
             setFilteredDataSource(newData);
             onChangeText(text);
         } else {
-            setFilteredDataSource(DATA_LIST);
+            setFilteredDataSource(listMember);
             onChangeText(text);
         }
     }
 
+    const joinGroup = async () => {
+        await joinCommunity({ "category_id": id })
+        setInGroup(!inGroup)
+        getData()
+    }
+    const leaveGroup = async () => {
+        await leaveCommunity({ "category_id": id })
+        setInGroup(!inGroup)
+        getData()
+    }
+
     const Leaving = () => {
         return (
-            <TouchableOpacity onPress={() => setInGroup(!inGroup)}>
+            <TouchableOpacity onPress={() => leaveGroup()}>
                 <View style={styles.button2}>
                     <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: 'white', alignSelf: 'center', marginRight: 12 }}>Leaving</Text>
                     <Out />
@@ -107,7 +135,7 @@ export function CommunitiesDetail({ route, navigation }: any) {
 
     const Participate = () => {
         return (
-            <TouchableOpacity onPress={() => setInGroup(!inGroup)}>
+            <TouchableOpacity onPress={() => joinGroup()}>
                 <View style={styles.button}>
                     <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: 'white', alignSelf: 'center' }}>Participate</Text>
                 </View>
@@ -115,41 +143,42 @@ export function CommunitiesDetail({ route, navigation }: any) {
         )
     }
 
-
     const renderItem = ({ item }: any) => {
         const check = () => {
-            if (item.status == 1) {
+            if (item.user_status == 1) {
+                return '#FEA827'
+            }
+            if (item.user_status == 2) {
                 return '#FF4C41'
             }
-            if (item.status == 2) {
-                return '#406FF1'
+            if (item.user_status == 3) {
+                return 'white'
             }
-            else return '#FEA827'
+            else return '#406FF1'
         }
         return (
-
-            <TouchableOpacity style={styles.Item} onPress={() => navigation.navigate('StrangerProfile', { name: item.name, avatar: item.avatar, friend: item.friend, id: item.id })} >
+            <TouchableOpacity style={styles.Item} onPress={() => navigation.navigate('StrangerProfile', { name: item.username, avatar: item.avatar, friend: item.total_friend, id: item.id })} >
                 <View style={{
                     borderWidth: 2,
                     borderColor: `${check()}`,
-                    height: 68,
-                    width: 68,
-                    borderRadius: 34,
+                    height: 54,
+                    width: 54,
+                    borderRadius: 27,
                     backgroundColor: `${check()}`,
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}>
-                    <Image source={{ uri: item.avatar }} style={styles.avatar}></Image>
+                    <Image source={{ uri: (item.avatar) ? item.avatar : 'https://api-private.atlassian.com/users/723b896d2798f7fa036ecd700531f3a7/avatar' }} style={styles.avatar}></Image>
                 </View>
                 <View style={{ marginLeft: 20, width: '74%' }}>
-                    <Text style={styles.userName}>{item.name}</Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={styles.userName}>{item.username}</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
                         <Text style={{
                             color: '#2B3641', fontFamily: 'NotoSans-Bold', fontSize: 14, marginRight: 5
-                        }}>{item.friend}</Text>
+                        }}>{item.total_friend}</Text>
                         <User />
                     </View>
-                    <Text style={{ color: '#5A636D', fontFamily: 'NotoSans', fontSize: 14 }}>{item.description}</Text>
+                    <Text style={{ color: '#5A636D', fontFamily: 'NotoSans', fontSize: 14 }}>{item.summary}</Text>
                 </View>
             </TouchableOpacity >
         )
@@ -159,11 +188,11 @@ export function CommunitiesDetail({ route, navigation }: any) {
         return (
             <View>
                 <View style={styles.image} >
-                    <Image source={{ uri: uri }} blurRadius={2} style={{ flex: 1, borderRadius: 10, }}></Image>
+                    <Image source={{ uri: info.image }} blurRadius={2} style={{ flex: 1, borderRadius: 10, }}></Image>
                     <View style={styles.inImage}>
                         <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24, color: 'white', alignSelf: 'center' }}>
-                            {name}</Text>
-                        <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 14, color: 'white', alignSelf: 'center' }}>{members} members</Text>
+                            {info.title}</Text>
+                        <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 14, color: 'white', alignSelf: 'center' }}>{info.total_members} members</Text>
                         {(inGroup) == true
                             ? <Leaving />
                             : <Participate />
@@ -171,7 +200,7 @@ export function CommunitiesDetail({ route, navigation }: any) {
                     </View>
                 </View>
 
-                <View style={styles.message}>
+                <View style={styles.message} >
                     <View style={{ flexDirection: 'row' }}>
                         <Chat />
                         <View style={{ marginLeft: 20, width: 200 }}>
@@ -181,17 +210,18 @@ export function CommunitiesDetail({ route, navigation }: any) {
                         </View>
                     </View>
 
-                    {(inGroup) == true
-                        ? <TouchableOpacity style={{ flexDirection: 'row', marginTop: 30, alignItems: 'center' }} onPress={() => goForum()}>
-                            <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: '#2B8093', marginLeft: 69, marginRight: 13 }}>Go to forum</Text>
-                            <CaretRight />
-                        </TouchableOpacity>
-                        : <View style={{ flexDirection: 'row', marginTop: 30, alignItems: 'center', marginBottom: 15 }}>
-                            <Ping />
-                            <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 15, color: '#3FAEC7', marginLeft: 10, }}>Join community to enter this forum</Text>
-                        </View>
+                    {
+                        (inGroup) == true
+                            ? <TouchableOpacity style={{ flexDirection: 'row', marginTop: 30, alignItems: 'center' }} onPress={() => goForum()}>
+                                <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16, color: '#2B8093', marginLeft: 69, marginRight: 13 }}>Go to forum</Text>
+                                <CaretRight />
+                            </TouchableOpacity>
+                            : <View style={{ flexDirection: 'row', marginTop: 30, alignItems: 'center', marginBottom: 15 }}>
+                                <Ping />
+                                <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 15, color: '#3FAEC7', marginLeft: 10, }}>Join community to enter this forum</Text>
+                            </View>
                     }
-                </View>
+                </View >
                 <View style={{ marginTop: 35, marginBottom: 5 }}>
                     <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24 }}>Members</Text>
                 </View>
@@ -209,7 +239,7 @@ export function CommunitiesDetail({ route, navigation }: any) {
                     </TouchableOpacity>
                     {RenderModal()}
                 </View>
-            </View>
+            </View >
         )
     }
 
@@ -271,7 +301,7 @@ export function CommunitiesDetail({ route, navigation }: any) {
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }} >
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Communities')}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Back></Back>
                     </TouchableOpacity>
                 </View>
@@ -280,7 +310,7 @@ export function CommunitiesDetail({ route, navigation }: any) {
                     showsVerticalScrollIndicator={false}
                     data={filteredDataSource}
                     renderItem={renderItem}
-                    keyExtractor={item => item.id}
+                    keyExtractor={(item: any) => item.id}
                     ListHeaderComponent={ContentThatGoesAboveTheFlatList()}
                 />
                 <View style={{ height: 30 }}></View>
@@ -381,9 +411,9 @@ const styles = StyleSheet.create({
     },
     avatar: {
         borderWidth: 1,
-        height: 60,
-        width: 60,
-        borderRadius: 30,
+        height: 50,
+        width: 50,
+        borderRadius: 25,
     },
     userName: {
         color: '#2B8093',

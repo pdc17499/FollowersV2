@@ -118,19 +118,19 @@ export function Account({ navigation }: any) {
                 <View style={{ flex: 1 }} >
                     <View style={styles.modal2}>
                         <BigWarning />
-                        <Text style={{ color: '#2B3641', fontSize: 18, fontFamily: 'NotoSans-Bold', marginTop: 15, marginHorizontal: 15, textAlign: 'center' }}>Are you sure you want to delete this account</Text>
+                        <Text style={{ color: '#2B3641', fontSize: 17, fontFamily: 'NotoSans-Bold', marginTop: 15, marginHorizontal: 15, textAlign: 'center' }}>Do you want to Cancel Account?</Text>
 
                         <View style={{ marginTop: 20, borderBottomColor: '#C6CBCC', borderWidth: 0.5, height: 1, width: '100%' }}></View>
 
                         <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 40 }}>
                             <TouchableOpacity onPress={() => deleteAccount()}>
                                 <View style={styles.button} >
-                                    <View><Text style={{ color: 'white', fontSize: 16, fontFamily: 'NotoSans-Bold', alignSelf: 'center' }}>OK</Text></View>
+                                    <View><Text style={{ color: 'white', fontSize: 16, fontFamily: 'NotoSans-Bold', alignSelf: 'center' }}>Yes</Text></View>
                                 </View>
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={() => setModalVisible2(false)}>
-                                <ButtonRight name={'Cancel'} />
+                                <ButtonRight name={'No'} />
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -144,7 +144,7 @@ export function Account({ navigation }: any) {
             <Text style={styles.title}>Account</Text>
             <View style={styles.id}>
                 <View>
-                    <Image source={{ uri: DATA.avatar }} style={styles.avatar} ></Image>
+                    <Image source={{ uri: DATA.avatar ? DATA.avatar : 'https://api-private.atlassian.com/users/723b896d2798f7fa036ecd700531f3a7/avatar' }} style={styles.avatar} ></Image>
                 </View>
                 <View style={styles.nickname}>
                     <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 16 }}>{DATA.username}</Text>
@@ -202,9 +202,9 @@ const styles = StyleSheet.create({
         fontSize: 24
     },
     avatar: {
-        height: 60,
-        width: 60,
-        borderRadius: 30,
+        height: 50,
+        width: 50,
+        borderRadius: 25,
     },
     item: {
         height: 68,
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     },
     modal2: {
         width: '95%',
-        height: 300,
+        height: 280,
         borderWidth: 1,
         borderColor: '#F6F5E8',
         justifyContent: 'center',

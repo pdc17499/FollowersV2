@@ -38,7 +38,6 @@ export function Profile({ navigation }: any) {
 
     const moveToListFriend = () => {
         navigation.navigate('RuiTomoList')
-
     }
 
     const Notification = () => (
@@ -87,7 +86,7 @@ export function Profile({ navigation }: any) {
                         <PencilLine />
                     </TouchableOpacity>
                 </View>
-                <Image source={{ uri: USER.avatar }} style={styles.avatar}></Image>
+                <Image source={{ uri: USER.avatar ? USER.avatar : 'https://api-private.atlassian.com/users/723b896d2798f7fa036ecd700531f3a7/avatar' }} style={styles.avatar}></Image>
 
                 <View style={styles.name}>
                     <Text style={{ fontFamily: 'NotoSans-Bold', fontSize: 24, color: '#2B8093' }}>{USER.username}</Text>

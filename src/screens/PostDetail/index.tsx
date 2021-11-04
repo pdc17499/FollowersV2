@@ -2,22 +2,35 @@ import { ButtonLeft, ButtonRight, Replies } from '@components'
 import { ReduxState } from '@interfaces'
 import { deletePost, setLiked } from '@redux'
 import { Back, RedHeart, Reply, ThreeDots, Trash, WhiteHeart } from '@svg'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Modal from "react-native-modal";
 import { likedUser } from '@mocks'
+import { getPostDetail } from '@services'
 
 export function PostDetail({ route, navigation }: any) {
-    const FORUM = useSelector((state: ReduxState) => state.forum.forumInfo);
-    const postId = route.params
-    const ITEM = FORUM.filter(((e: any) => e.id === postId.id))
+
+    const { id1, id2 } = route.params
+
     const [like, setLike] = useState('')
     const [isLike, setIsLike] = useState(true)
     const [showDelete, setShowDelete] = useState(false)
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        getData();
+    }, [])
+
+    const getData = async () => {
+        const data: any = await getPostDetail(id1, id2)
+
+        console.log('fa', data);
+
+    };
+
 
     const changeLiked = (id: any) => {
         dispatch(setLiked(id))

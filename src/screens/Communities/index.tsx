@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, TextInput, FlatList } from 'react-native'
 
 export function Communities({ navigation }: any) {
-    const moveToDetail = (name: any, members: any, uri: any) => { navigation.navigate('CommunitiesDetail', { name, members, uri }) }
+    const moveToDetail = (id: any, name: any, members: any, uri: any) => { navigation.navigate('CommunitiesDetail', { id, name, members, uri }) }
     const [text, onChangeText] = useState("");
     const [data, setData] = useState([])
     const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -15,6 +15,7 @@ export function Communities({ navigation }: any) {
     useEffect(() => {
         const getData = async () => {
             const list: any = await getListCategories()
+
             setData(list.data.categories.data)
             setFilteredDataSource(list.data.categories.data)
         };
@@ -42,7 +43,7 @@ export function Communities({ navigation }: any) {
     }
 
     const renderItem = ({ item }: any) => (
-        <TouchableOpacity onPress={() => moveToDetail(item.title, item.total_members, item.image)}>
+        <TouchableOpacity onPress={() => moveToDetail(item.id, item.title, item.total_members, item.image)}>
             <Community name={item.title} members={item.total_members} uri={item.image}></Community>
         </TouchableOpacity>
     );
